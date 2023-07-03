@@ -1,0 +1,262 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my alboms</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="stylesheet" href="/static/css/structure.css" />
+    <link rel="stylesheet" href="/static/fonts/inter/stylesheet.css" />
+    <link rel="stylesheet" href="/static/fonts/awesome/css/stylesheet.css" />
+
+</head>
+<body>
+    <div class="nav">
+        <div class="container">
+            <div class="row row_center row_sb h100">
+                <div class="logo upp hide-sm">
+                    <span class="bolder">Soft</span><span class="light">Dropbox</span>
+                </div>
+                <div class="menu row row_center">
+                    <a href="">
+                        <span class="hide-sm">Главная</span>
+                        <span class="hide-m"><i class="fa-solid fa-house"></i></span>
+                    </a>
+                    <a class="ml-2" href="">
+                        <span class="hide-sm">Тарифы</span>
+                        <span class="hide-m"><i class="fa-solid fa-crown"></i></span>
+                    </a>
+                    <a href="">
+                        <div class="addFile">
+                            <div class="button">
+                                <i class="fa-solid fa-plus fa-xl"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="ml-2" href="">
+                        <span class="hide-sm">Мои альбомы</span>
+                        <span class="hide-m"><i class="fa-solid fa-book-open"></i></span>
+                    </a>
+                    <div class="row ml-2">
+                        <a href="">
+                            <span class="hide-sm">Nick</span>
+                            <span class="hide-m"><i class="fa-solid fa-person"></i></span>
+                        </a>
+                        <a class="ml-1 grey hide-sm" href="">(выход)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- <div class="addFile">
+    <div class="button">
+        <i class="fa-solid fa-plus fa-xl"></i>
+    </div>
+</div> -->
+
+<section class="myAlboms">
+	<div class="container">
+		<div class="breadcrumb row mt-3">
+			<a href="">Мои альбомы</a>
+		</div>
+        <h1 class="bolder">Мои альбомы</h1>
+	
+
+        <div class="cards flex row-1@xs row-1-2@s row-1-4@m">
+            <div class="card-wrapper">
+                <div class="card card-body">
+                    <div class="row row_sb">
+                        <h5 class="hide-2-3">Длинное название альбома</h5>
+                        <div class="row row_center">
+                            <!-- <div class="row row_center ml-1">
+                                <i class="fa-solid fa-eye"></i>
+                                <div class="bold"> 7</div>
+                            </div> -->
+                            <div class="ml-1">
+                                <i class="fa-solid fa-lock-hashtag"></i>
+                            </div>
+                            <div class="remove">
+                                <i class="fa-solid fa-trash-xmark"></i>
+                            </div>
+                            <!-- <div class="menu-wrapper relative" x-data="{menu:false}" @click="menu=!menu" @click:away="menu=false">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                <div class="menu" x-show="menu">
+                                    <div>Удалить</div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="date sm mt-05">09.06.2023</div>
+                    <div class="storagePeriod sm">Просмотров <span class="days bold">7</span></div>
+
+                    <div class="storagePeriod sm">Срок хранения <span class="days bold">30 дней</span></div>
+                    <div class="share row row_center row_sb mt-05 sm">
+                        <div class="bold text-overflow">
+                            https://dropbox/iuchew7a6fwq87ydi8276
+                        </div>
+                        <a class="link bold ml-1" href=""><i class="fa-solid fa-clone"></i></a>
+                    </div>
+                    <div class="preview row row-1-3@xs pdd-xs-wrapper mt-1">
+                        <div class="pdd-xs">
+                            <div class="card-xs img-cover square">
+                                <img src="/static/img/img001.png" alt="">
+                            </div>
+                        </div>
+                        <div class="pdd-xs">
+                            <div class="card-xs img-cover square">
+                                <img src="/static/img/img002.png" alt="">
+                            </div>
+                        </div>
+                        <div class="pdd-xs">
+                            <div class="card-xs img-cover square">
+                                <img src="/static/img/img003.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn col-1@xs mt-1">Открыть</div>
+                </div>
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card card-body">
+                    <div class="row row_sb">
+                        <h5 class="hide-2-3">Название альбома</h5>
+                        <div class="row row_center">
+                            <div><i class="fa-solid fa-lock-keyhole"></i></div>
+                            <!-- <div><i class="fa-solid fa-lock-keyhole-open"></i></div> -->
+                            <div class="ml-1">
+                                <i class="fa-solid fa-eye"></i>
+                                <span class="bold">0</span>
+                            </div>
+                            <div class="ml-1">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="date sm">09.06.2023</div>
+                    <div class="storagePeriod sm">Срок хранения файлов <span class="days bold">до прочтения</span></div>
+                    <div class="share row row_center row_sb mt-1">
+                        <div class="bold text-overflow">
+                            https://dropbox/iuchew7a6fwq87ydi8276
+                        </div>
+                        <a class="link bold ml-1" href=""><i class="fa-solid fa-clone"></i></a>
+                    </div>
+                    <div class="preview row row-1-3@xs pdd-xs-wrapper">
+                        <div class="pdd-xs">
+                            <div class="card-xs img-cover square">
+                                <img src="/img/img001.png" alt="">
+                            </div>
+                        </div>
+                        <div class="pdd-xs">
+                            <div class="card-xs img-cover square">
+                                <img src="/img/img002.png" alt="">
+                            </div>
+                        </div>
+                        <div class="pdd-xs">
+                            <div class="card-xs img-cover square">
+                                <img src="/img/img003.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card card-body">
+                    <div class="row row_sb">
+                        <h5 class="hide-2-3">Название альбома</h5>
+                        <div class="row row_center">
+                            <div class="ml-1">
+                                <i class="fa-solid fa-eye"></i>
+                                <span class="bold">7</span>
+                            </div>
+                            <div class="ml-1">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="date sm">09.06.2023</div>
+                    <div class="storagePeriod sm">Срок хранения файлов <span class="days bold">120 дней</span></div>
+                    <div class="share row row_center row_sb mt-1">
+                        <div class="bold text-overflow">
+                            https://dropbox/iuchew7a6fwq87ydi8276
+                        </div>
+                        <a class="link bold ml-1" href=""><i class="fa-solid fa-clone"></i></a>
+                    </div>
+                    <div class="preview row row-1-3@xs pdd-xs-wrapper">
+                        <div class="pdd-xs">
+                            <div class="card-xs img-cover square">
+                                <img src="/img/img001.png" alt="">
+                            </div>
+                        </div>
+                        <div class="pdd-xs">
+                            <div class="card-xs img-cover square">
+                                <img src="/img/img002.png" alt="">
+                            </div>
+                        </div>
+                        <div class="pdd-xs">
+                            <div class="card-xs img-cover square">
+                                <img src="/img/img003.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card card-body">
+                    <div class="row row_sb">
+                        <h5 class="hide-2-3">Название альбома</h5>
+                        <div class="row row_center">
+                            <div><i class="fa-solid fa-lock-keyhole"></i></div>
+                            <!-- <div><i class="fa-solid fa-lock-keyhole-open"></i></div> -->
+                            <div class="ml-1">
+                                <i class="fa-solid fa-eye"></i>
+                                <span class="bold">7</span>
+                            </div>
+                            <div class="ml-1">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="date sm">09.06.2023</div>
+                    <div class="storagePeriod sm">Срок хранения файлов <span class="days bold">30 дней</span></div>
+                    <div class="share row row_center row_sb mt-1">
+                        <div class="bold text-overflow">
+                            https://dropbox/iuchew7a6fwq87ydi8276
+                        </div>
+                        <a class="link bold ml-1" href=""><i class="fa-solid fa-clone"></i></a>
+                    </div>
+                    <div class="preview row row-1-3@xs pdd-xs-wrapper">
+                        <div class="pdd-xs">
+                            <div class="card-xs img-cover square">
+                                <img src="/img/img001.png" alt="">
+                            </div>
+                        </div>
+                        <div class="pdd-xs">
+                            <div class="card-xs img-cover square">
+                                <img src="/img/img002.png" alt="">
+                            </div>
+                        </div>
+                        <div class="pdd-xs">
+                            <div class="card-xs img-cover square">
+                                <img src="/img/img003.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</section>
+
+<script src="/static/js/setSquare.js"></script>
+<script src="/static/js/alpine.min.js"></script>
+
+
+</body>
+</html>

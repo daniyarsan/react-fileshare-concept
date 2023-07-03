@@ -1,0 +1,182 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Альбом №4</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="stylesheet" href="/static/css/structure.css" />
+    <link rel="stylesheet" href="/static/fonts/inter/stylesheet.css" />
+    <link rel="stylesheet" href="/static/fonts/awesome/css/stylesheet.css" />
+
+</head>
+<body>
+    <div class="nav">
+        <div class="container">
+            <div class="row row_center row_sb h100">
+                <div class="logo upp hide-sm">
+                    <span class="bolder">Soft</span><span class="light">Dropbox</span>
+                </div>
+                <div class="menu row row_center">
+                    <a href="">
+                        <span class="hide-sm">Главная</span>
+                        <span class="hide-m"><i class="fa-solid fa-house"></i></span>
+                    </a>
+                    <a class="ml-2" href="">
+                        <span class="hide-sm">Тарифы</span>
+                        <span class="hide-m"><i class="fa-solid fa-crown"></i></span>
+                    </a>
+                    <a href="">
+                        <div class="addFile">
+                            <div class="button">
+                                <i class="fa-solid fa-plus fa-xl"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="ml-2" href="">
+                        <span class="hide-sm">Мои альбомы</span>
+                        <span class="hide-m"><i class="fa-solid fa-book-open"></i></span>
+                    </a>
+                    <div class="row ml-2">
+                        <a href="">
+                            <span class="hide-sm">Nick</span>
+                            <span class="hide-m"><i class="fa-solid fa-person"></i></span>
+                        </a>
+                        <a class="ml-1 grey hide-sm" href="">(выход)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="addFile">
+    <div class="button">
+        <i class="fa-solid fa-plus fa-xl"></i>
+    </div>
+</div>
+
+<section>
+	<div class="container">
+		<div class="breadcrumb row mt-3">
+			<a href="">Мои альбомы</a>
+			<a href="">/ Альбом №4</a>
+		</div>
+        <div class="row row_center row_sb">
+            <h1 class="bolder mt-2">Альбом №4</h1>
+            <div class="button delete bold sm link">Удалить альбом</div>
+        </div>
+        <div class="date">09.06.2023</div>
+        <div class="storagePeriod">Срок хранения файлов <span class="days bold">30 дней</span></div>
+        <div class="password mt-05"><span class=" mr-1">Пароль</span><span class="link bold">Показать</span></div>
+        <div class="share row row_center mt-05">
+            <span class=" mr-1">Ссылка на альбом</span>
+            <div class="bold text-overflow">
+                https://dropbox/iuchew7a6fwq87ydi8276
+            </div>
+            <a class="link bold ml-1" href=""><i class="fa-solid fa-clone"></i></a>
+        </div>
+        <div class="description mt-1">
+            <span class="bold">Описание</span>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam asperiores nostrum sint soluta magni, dolorem nisi commodi quo ea mollitia rerum, quos debitis, laboriosam minus esse odit sapiente iure a! Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia laboriosam rem quis, rerum ipsa ipsum praesentium deleniti odio asperiores aut perspiciatis modi assumenda quod sed labore quaerat vel. Eius, atque.</p>
+        </div>
+
+
+
+        
+
+        <div class="cards flex row-1-2@xs row-1-4@s row-1-6@m" x-data="Gallery" @click="showPhoto($el)">
+            <div class="card-wrapper">
+                <div class="card square" >
+                    <div class="img-cover">
+                        <img src="/static/img/img003.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="card-wrapper">
+                <div class="card square">
+                    <div class="img-cover">
+                        <img src="/static/img/img004.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="card-wrapper">
+                <div class="card square">
+                    <div class="img-cover">
+                        <img src="/static/img/img005.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="card-wrapper">
+                <div class="card square">
+                    <div class="img-cover">
+                        <img src="/static/img/img001.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row row_start mt-2">
+            <div class="btn" active>Скачать альбом архивом</div>
+        </div>
+
+
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('Gallery', () => ({
+            // smPhotoHeight : '',
+            photoArr: [],
+            currentPhoto : {},
+            // windowHeight : '',
+
+            async init() {
+                // this.windowHeight = window.innerHeight;
+                this.photoArr = document.querySelectorAll('.card:has(img)');
+            },
+
+            showPhoto(el) {
+                for (let i = 0; i < this.photoArr.length; i++) {
+                    const element = this.photoArr[i];
+                    if (this.photoArr[i] == this.currentPhoto) {
+                        
+                    }
+                }
+
+                if (this.photoArr[i] !== el) {
+
+                    // this.smPhotoHeight = el.offsetWidth;
+                    this.photoArr = el;
+
+                    // this.photoArr.style.height = 'fit-content';
+               
+                    // this.photoArr.classList.remove('square');
+                    this.photoArr.style.height = '-webkit-fill-available';
+
+                    this.photoArr.style.MaxHeight = this.windowHeight - 180 + 'px';
+                    this.photoArr.classList.add('show');
+
+
+                } else {
+                    // this.photoArr.classList.add('square');
+                    this.photoArr.classList.remove('show');
+
+                }
+            }
+
+        }))
+    });
+
+
+</script>
+
+<script src="/static/js/set-square.js"></script>
+
+<script src="/static/js/alpine.min.js"></script>
+
+
+</body>
+</html>
