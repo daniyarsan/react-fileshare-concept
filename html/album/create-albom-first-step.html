@@ -1,0 +1,254 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+    <link rel="stylesheet" href="../_assets/css/style.css" />
+    <link rel="stylesheet" href="../_assets/css/structure.css" />
+    <link rel="stylesheet" href="../_assets/fonts/inter/stylesheet.css" />
+    <link rel="stylesheet" href="../_assets/fonts/awesome/css/stylesheet.css" />
+
+</head>
+<body>
+    <div class="row row_col row_sb">
+        <div class="nav">
+            <div class="container">
+                <div class="row row_center row_sb h100">
+                    <div class="logo upp hide-sm">
+                        <span class="bolder">Soft</span><span class="light">Dropbox</span>
+                    </div>
+                    <div class="menu row row_center">
+                        <a href="">
+                            <span class="hide-sm ml-2">Главная</span>
+                            <span class="hide-m"><i class="fa-solid fa-house"></i></span>
+                        </a>
+                        <a href="">
+                            <span class="hide-sm ml-2">Тарифы</span>
+                            <span class="hide-m"><i class="fa-solid fa-crown"></i></span>
+                        </a>
+                        <a href="">
+                            <div class="addFile">
+                                <div class="button">
+                                    <i class="fa-solid fa-plus fa-xl"></i>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <span class="hide-sm ml-2">Мои альбомы</span>
+                            <span class="hide-m"><i class="fa-solid fa-book-open"></i></span>
+                        </a>
+                        <div class="row">
+                            <a href="">
+                                <span class="hide-sm ml-2">Nick</span>
+                                <span class="hide-m"><i class="fa-solid fa-person"></i></span>
+                            </a>
+                            <a class="ml-1 grey hide-sm" href="">(выход)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="create-albom" x-data="Create">
+            <div class="container">
+                <div class="flex pdd-md-wrapper">
+                    <div class="col-1@sx col-2-5@m pdd-md-hor mt-3">
+                        <div class="row row_center">
+                            <h1 class="bolder">Создание альбома</h1>
+                            <span class="cleo text-orange ml-1 link"><i class="fa-solid fa-circle-question"></i></span>
+                        </div>
+                        <div class="mt-1">
+                            <div class="row">
+                                <div><i class="fa-solid fa-pen-line"  style="width: 30px;"></i></div>
+                                <p>Придумайте название, добавьте описание и/или <span class="bold text-dark">прикрепите файлы</span> для создания альбома.</p>
+                            </div>
+                            <div class="row mt-1">
+                                <div><i class="fa-solid fa-lock-hashtag"  style="width: 30px;"></i></div>
+                                <p>При необходимости <span class="bold text-dark">добавьте описание и пароль</span> к каждому файлу, установите срок жизни ссылки.</p>
+                            </div>
+                            <div class="row mt-1">
+                                <div><i class="fa-solid fa-link"  style="width: 30px;"></i></div>
+                                <p><span class="bold text-dark">Делитесь ссылкой</span> для просмотра или скачивания архива.</p>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <div class="title">
+                                <input class="col-1@xs" type="text" placeholder="Заголовок (необязательно)">
+                            </div>
+                            <div class="mt-1">
+                                <textarea name="" id="" cols="30" rows="10" placeholder="Описание к альбому…"></textarea>
+                            </div>
+                            <div class="limit mt-1 relative">
+                                <input class="col-1@xs" type="text" x-model="inputLimit" placeholder="Срок хранения файлов" @click="openList=!openList" @click:away="openList=false" readonly >
+                                <div class="list" x-show="openList" @click="chooseLimit($event)">
+                                    <p class="link" data-id="1">1 день</p>
+                                    <p class="link" data-id="3">3 дня</p>
+                                    <p class="link" data-id="7">7 дней</p>
+                                    <p class="link" data-id="14">14 дней</p>
+                                    <p class="link" data-id="30">30 дней</p>
+                                    <p class="link" data-id="90">90 дней</p>
+                                </div>
+                            </div>
+                            <div class="password mt-1">
+                                <div class="relative" onclick="togglePassword(this, event)">
+                                    <input class="input-password col-1@xs" type="password" placeholder="Пароль (необязательно)">
+                                    <div class="input-icon">
+                                        <i class="eye fa-solid fa-eye-slash"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1@xs btn mt-2 hidden-xs hidden-sm" active>Создать</div>
+                        </div>
+                    </div>
+
+                    <!-- Вложенные в альбом файлы -->
+                
+
+                    <div class="col-1@sx col-3-5@m pdd-md-hor set-height mt-3">
+                        <h1 class="bolder">Вложенные в альбом файлы</h1>
+                        <p class="mt-1">Вы можете отправить каждый загруженный файл отдельно, не предоставляя доступ ко всему альбому. После создания перейдите в раздел мои альбомы, выберите необходимый файл и поделитесь им. (только для зарегистрированных пользователей)</p>
+                        <div class="cards">
+
+                            <div class="mt-2">
+                                <div class="card-wrapper">
+                                    <div class="row row_sb">
+                                        <p class="bold text-dark">1. IMG_3136.jpg</p>
+                                        <div class="text-grey link">Удалить</div>
+                                    </div>
+                                    <p class="small">1.32 МБ 22/2/23 01:29</p>
+                                    <div class="flex row-1@xs row-1-2@m">
+                                        <div class="img-wrapper mt-1">
+                                            <div class="card img-cover">
+                                                <img class="" src="/static/img/img005.png" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="mt-1">
+                                            <textarea class="col-1@xs" name="" id="" cols="30" rows="10" placeholder="Описание к фото"></textarea>
+                                            <div class="password mt-1">
+                                                <div class="relative" onclick="togglePassword(this, event)">
+                                                    <input class="input-password col-1@xs" type="password" placeholder="Пароль (необязательно)">
+                                                    <div class="input-icon">
+                                                        <i class="eye fa-solid fa-eye-slash"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="mt-2">
+                            <div class="mt-2 hidden">
+                                <div class="card-wrapper">
+                                    <div class="row row_sb">
+                                        <p class="bold text-dark">1. IMG_3136.jpg</p>
+                                        <div class="text-grey link">Удалить</div>
+                                    </div>
+                                    <p class="small">1.32 МБ 22/2/23 01:29</p>
+                                    <div class="flex row-1@xs row-1-2@m">
+                                        <div class="img-wrapper mt-1">
+                                            <div class="card img-cover">
+                                                <img class="" src="/static/img/img001.png" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="mt-1">
+                                            <textarea class="col-1@xs" name="" id="" cols="30" rows="10" placeholder="Описание к фото"></textarea>
+                                            <div class="password mt-1">
+                                                <div class="relative" onclick="togglePassword(this, event)">
+                                                    <input class="input-password col-1@xs" type="password" placeholder="Пароль (необязательно)">
+                                                    <div class="input-icon">
+                                                        <i class="eye fa-solid fa-eye-slash"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="mt-2 hidden">
+                            <div class="mt-2 hidden">
+                                <div class="card-wrapper">
+                                    <div class="row row_sb">
+                                        <p class="bold text-dark">1. IMG_3136.jpg</p>
+                                        <div class="text-grey link">Удалить</div>
+                                    </div>
+                                    <p class="small">1.32 МБ 22/2/23 01:29</p>
+                                    <div class="flex row-1@xs row-1-2@m">
+                                        <div class="img-wrapper mt-1">
+                                            <div class="card img-cover">
+                                                <img class="" src="/static/img/img004.png" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="mt-1">
+                                            <textarea class="col-1@xs" name="" id="" cols="30" rows="10" placeholder="Описание к фото"></textarea>
+                                            <div class="password mt-1">
+                                                <div class="relative" onclick="togglePassword(this, event)">
+                                                    <input class="input-password col-1@xs" type="password" placeholder="Пароль (необязательно)">
+                                                    <div class="input-icon">
+                                                        <i class="eye fa-solid fa-eye-slash"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row row_end mt-2">
+                            <div class="btn ml-2" active>Добавить</div>
+                        </div>
+                        <div class="col-1@xs btn mt-2 hidden-md hidden-lg">Создать</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="footer">
+            <div class="container mb-1">
+                <div class="flex row-1@xs">
+                    <div class="row row_center">
+                        <div class="bold small mr-1">Telegram</div> 
+                        <a href="" target="_blank">
+                            <span class="link f-400">@softbox</span>
+                            <i class="small link text-orange fa-solid fa-clone"></i>
+                        </a>
+                    </div>
+                    <div class="row row_center">
+                        <div class="bold small mr-1">Jabber</div> 
+                        <a href="" target="_blank">
+                            <span class="link f-400">softbox@jabber.ru</span>
+                            <i class="small link text-orange fa-solid fa-clone"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+
+<script>
+
+document.addEventListener('alpine:init', () => {
+    Alpine.data('Create', () => ({
+        inputLimit : '7 дней',
+        openList : false,
+
+        chooseLimit(event) {
+            this.inputLimit = event.target.innerText;
+            this.openList = false;
+        }
+    }))
+})
+
+
+</script>
+
+<script src="/static/js/toggle-password.js"></script>
+
+<script src="/static/js/alpine.min.js"></script>
+
+
+</body>
+</html>

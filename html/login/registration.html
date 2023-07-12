@@ -1,0 +1,136 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REG</title>
+    <link rel="stylesheet" href="../_assets/css/style.css" />
+    <link rel="stylesheet" href="../_assets/css/structure.css" />
+    <link rel="stylesheet" href="../_assets/fonts/inter/stylesheet.css" />
+    <link rel="stylesheet" href="../_assets/fonts/awesome/css/stylesheet.css" />
+
+</head>
+<body>
+
+    <section class="login">
+        <div class="container">
+            <div class="flex row-1@xs row-1-3@m">
+                <div></div>
+                <div>
+                    <div class="row center">
+                        <a href="" class="mr-1 text-dark bolder">Регистрация</a>
+                        <a href="" class="ml-1 text-grey">Вход</a>
+                    </div>
+                    <h3 class="bolder mt-6">Добро пожаловать!</h3>
+                    <p class="small bold text-grey">Создайте аккаунт для продолжения</p>
+
+                    <div class="form mt-2" x-data="Pass">
+                        <div>
+                            <div class="bold small">Логин</div>
+                            <div class="custom-alert-wrapper relative">
+                                <div class="custom-alert">
+                                    <div class="body row">
+                                        <div>
+                                            <p class="bolder">Логин занят</p>
+                                        </div>
+                                        <div class="img-contain ml-1">
+                                            <img src="" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input class="col-1@xs" type="text">
+                            <!-- При ошибке добавляем стиль text-error -->
+                            <small class="text-grey">Минимум 6 символов</small>
+                        </div>
+
+                        <div class="password mt-1">
+                            <div class="bold small">Пароль</div>
+                            <div class="relative" onclick="togglePassword(this, event)">
+                                <input class="input-password col-1@xs" type="password" x-model="passFirst" @input="inputFirst($el)">
+                                <div class="input-icon">
+                                    <i class="eye fa-solid fa-eye-slash"></i>
+                                </div>
+                            </div>
+                            <div class="row row_sb">
+                                <small class="text-grey">Минимум 6 символов, 1 заглавная</small>
+                            </div>
+                        </div>
+
+                        <div class="password mt-1">
+                            <div class="bold small mt-1">Подтвердите пароль</div>
+                            <div class="custom-alert-wrapper relative">
+                                <div class="custom-alert">
+                                    <div class="body row">
+                                        <div>
+                                            <p class="bolder">Ошибка! Пароли не совпадают</p>
+                                        </div>
+                                        <div class="img-contain ml-1">
+                                            <img src="" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative" onclick="togglePassword(this, event)">
+                                <input class="input-password col-1@xs" type="password" x-model="passSecond" @input="inputSecond($el)">
+                                <div class="input-icon">
+                                    <i class="eye fa-solid fa-eye-slash"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accept-rules mt-2">
+                            <label class="checkbox row">
+                                <input type="checkbox" name="checkbox-checked" checked />
+                                <p class="small ml-1">Я принимаю 
+                                    <a href="" class="link line">Условия обслуживания Softbox</a>. Из нашей 
+                                    <a href="" class="link line">Политики конфеденциальности</a> Вы узнаете о том, как мы используем и защищаем Ваши данные.
+                                </p>
+                            </label>
+                        </div>
+                        
+                        <div class="col-1@xs btn mt-2" id="btn-set-pass" active>Далее</div>
+                        <div class="row row_col row_center">
+                            <p class="small text-grey center mt-1">Уже есть аккаунт? 
+                                <a href="" class="link line text-dark ml-1">Войти</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="footer">
+        <div class="container">
+            <div class="flex row-1@xs row-1-3@m">
+                <div></div>
+                <div>
+                    <div class="row row_center">
+                        <div class="bold small mr-1">Telegram</div> 
+                        <a href="" target="_blank">
+                            <span class="link f-400">@softbox</span>
+                            <i class="small link text-orange fa-solid fa-clone"></i>
+                        </a>
+                    </div>
+                    <div class="row row_center">
+                        <div class="bold small mr-1">Jabber</div> 
+                        <a href="" target="_blank">
+                            <span class="link f-400">softbox@jabber.ru</span>
+                            <i class="small link text-orange fa-solid fa-clone"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <script src="/static/js/toggle-password.js"></script>
+    <script src="/static/js/password-validation.js.js"></script>
+    <script src="/static/js/alpine.min.js"></script>
+
+
+</body>
+</html>

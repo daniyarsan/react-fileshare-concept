@@ -1,0 +1,268 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rates</title>
+    <link rel="stylesheet" href="../_assets/css/style.css" />
+    <link rel="stylesheet" href="../_assets/css/structure.css" />
+    <link rel="stylesheet" href="../_assets/fonts/inter/stylesheet.css" />
+    <link rel="stylesheet" href="../_assets/fonts/awesome/css/stylesheet.css" />
+
+</head>
+<body class="bgPeach">
+    <div class="nav">
+        <div class="container">
+            <div class="row row_center row_sb h100">
+                <div class="logo upp hide-sm">
+                    <span class="bolder">Soft</span><span class="light">Dropbox</span>
+                </div>
+                <div class="menu row row_center">
+                    <a href="">
+                        <span class="hide-sm ml-2">Главная</span>
+                        <span class="hide-m"><i class="fa-solid fa-house"></i></span>
+                    </a>
+                    <a href="">
+                        <span class="hide-sm ml-2">Тарифы</span>
+                        <span class="hide-m"><i class="fa-solid fa-crown"></i></span>
+                    </a>
+                    <a href="">
+                        <div class="addFile">
+                            <div class="button">
+                                <i class="fa-solid fa-plus fa-xl"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="">
+                        <span class="hide-sm ml-2">Мои альбомы</span>
+                        <span class="hide-m"><i class="fa-solid fa-book-open"></i></span>
+                    </a>
+                    <div class="row">
+                        <a href="">
+                            <span class="hide-sm ml-2">Nick</span>
+                            <span class="hide-m"><i class="fa-solid fa-person"></i></span>
+                        </a>
+                        <a class="ml-1 grey hide-sm" href="">(выход)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="bolder center">Выберите подходящий тариф</h1>
+        
+        <h3 class="thin center">Активируйте тариф Бизнес 
+            <span class="bolder relative" x-data="{timer:true}">
+                    <div class="custom-alert timer" x-show="timer">
+                        <div class="row row_end">
+                            <div class="icon-close" @click="timer=false">
+                                <i class="fa-solid fa-xmark" ></i>
+                            </div>
+                        </div>
+                        <div class="body row">
+                            <div class="row row_center" style="line-height: 24px;">
+                                <div class="">
+                                    <h1>74</h1>
+                                    <p class="bolder">дн</p>
+                                </div>
+                                <div class="ml-1">
+                                    <h1 class="thin">05</h1>
+                                    <p>мин</p>
+                                </div>
+                                <div class="ml-1">
+                                    <h1 class="thin">12</h1>
+                                    <p>сек</p>
+                                </div>
+                            </div>
+                            <div class="img-contain ml-2" style="width: 40px;">
+                                <img src="/static/img/emoji/icon_001.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                бесплатно до 1 сентября
+            </span>
+        </h3>
+        <div class="flex row_center row-1@xs row-1-3@m mt-3">
+            <div></div>
+
+            <div class="toggleType row row_sb">
+                <div class="btn mr-1" active><i class="fa-solid fa-heart mr-1"></i> Личный</div>
+                <div class="btn corporative relative">
+                    <div class="custom-alert-wrapper hidden">
+                        <div class="custom-alert">
+                            <div class="body row">
+                                <div>
+                                    <p class="bolder">Скоро</p>
+                                </div>
+                                <div class="img-contain ml-1">
+                                    <img src="" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-people-group mr-1"></i> Корпоративный
+                </div>
+            </div>
+
+            <div class="row row_end">
+                <div class="togglePeriod row row_center">
+                    <p class="month">На месяц</p>
+                    <div class="ml-1">
+                        <input type="checkbox" id="switch" checked/>
+                        <label for="switch"></label>
+                    </div>
+                    <p class="year ml-1">На год</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cards flex row-1@xs row-1-3@m mt-2 pdd-md-wrapper">
+            
+            <div  class="pdd-md">
+                <div class="card pdd-lg">
+                    <div class="row row_sb">
+                        <p class="bold text-dark">Премиум</p>
+                        <p class="bold"></p>
+                    </div>
+                    <h1>10 ГБ</h1>
+                    <div class="list">
+                        <p>Стоимость 37$</p>
+                        <p>Загрузка файла до 10 ГБ</p>
+                        <p>Создание альбомов</p>
+                        <p>Срок хранения файлов до 12 месяцев</p>
+                        <p>Установка пароля к каждому файлу отдельно</p>
+                        <p>Отчет просмотра файлов</p>
+                    </div>
+                    <div class="btn btn-dark row row_col row_center col-1@xs mt-2" active>
+                        <p>Подключить за 37 $/мес.</p>
+                        <p class="thin small">При оплате за год + год бесплатно</p>
+                    </div>
+                    <!-- <p class="small center">Акция действует до 10 июля</p> -->
+                </div>
+            </div>
+
+            <div class="pdd-md">
+                <div class="card pdd-lg" active>
+                    <div class="row row_sb">
+                        <p class="bold text-dark">Бизнес</p>
+                        <p class="bold text-orange">Бесплатно</p>
+                    </div>
+                    <h1>50 ГБ</h1>
+                    <div class="list">
+                        <p>Стоимость 107$</p>
+                        <p>Загрузка файла до 50 ГБ</p>
+                        <p>Расширенная история изменений</p>
+                        <p>Создание альбомов</p>
+                        <p>Срок хранения файлов до 12 месяцев</p>
+                        <p>Установка пароля к каждому файлу отдельно</p>
+                        <p>Отчет просмотра файлов</p>
+                    </div>
+                    <div class="btn btn-dark row row_col row_center col-1@xs mt-2" active>
+                        <p>Подключить за 107 $/мес.</p>
+                        <p class="thin small">При оплате за год</p>
+                    </div>
+                    <p class="small center">Акция действует до 1 сентября</p>
+                </div>
+            </div>
+
+            <div  class="pdd-md">
+                <div class="card pdd-lg">
+                    <div class="row row_sb">
+                        <p class="bold text-dark">Бесплатно</p>
+                        <p class="bold"></p>
+                    </div>
+                    <h1>50 МБ</h1>
+                    <div class="list">
+                        <p>Загрузка файла до 50 МБ</p>
+                        <p>Срок хранения файлов до 30 дней</p>
+                        <p>Установка пароля к каждому файлу отдельно</p>
+                        <p>Отчет просмотра файлов</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex row_center row_col" style="margin-top: 80px;">
+            <div class="col-1@xs col-2-3@m">
+                <h2 class="bolder center">Остались вопросы?</h2>
+
+                <div class="mt-3" x-data="{open:false}">
+                    <div class="row row_sb row_center" @click="open=!open">
+                        <h3>Как оплатить подписку?</h3>
+                        <div class="icon link">
+                            <i x-show="!open" class="fa-duotone fa-arrow-down-to-line fa-lg"></i>
+                            <i x-show="open" class="fa-duotone fa-arrow-up-to-line fa-lg"></i>
+                        </div>
+                    </div>
+                    <div class="mt-1" x-show="open">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, labore rerum quis omnis quia quo nemo asperiores quidem vitae ex culpa facere, voluptate soluta id dicta, quae recusandae magnam optio.</p>
+                    </div>
+                    <hr>
+                </div>
+
+                <div x-data="{open:false}">
+                    <div class="row row_sb row_center" @click="open=!open">
+                        <h3>Как отключить подписку?</h3>
+                        <div class="icon link">
+                            <i x-show="!open" class="fa-duotone fa-arrow-down-to-line fa-lg"></i>
+                            <i x-show="open" class="fa-duotone fa-arrow-up-to-line fa-lg"></i>
+                        </div>
+                    </div>
+                    <div class="mt-1" x-show="open">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, labore rerum quis omnis quia quo nemo asperiores quidem vitae ex culpa facere, voluptate soluta id dicta, quae recusandae magnam optio.</p>
+                    </div>
+                    <hr>
+                </div>
+
+                <div x-data="{open:false}">
+                    <div class="row row_sb row_center" @click="open=!open">
+                        <h3>Что будет, если я перестану платить подписку?</h3>
+                        <div class="icon link">
+                            <i x-show="!open" class="fa-duotone fa-arrow-down-to-line fa-lg"></i>
+                            <i x-show="open" class="fa-duotone fa-arrow-up-to-line fa-lg"></i>
+                        </div>
+                    </div>
+                    <div class="mt-1" x-show="open">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, labore rerum quis omnis quia quo nemo asperiores quidem vitae ex culpa facere, voluptate soluta id dicta, quae recusandae magnam optio.</p>
+                    </div>
+                    <hr>
+                </div>
+
+            </div>
+        </div>
+
+
+        
+
+    </div>
+<script>
+
+    let togglePeriod = document.querySelector('.togglePeriod');
+    let checkbox = togglePeriod.querySelector('#switch');
+    let month = togglePeriod.querySelector('.month');
+    let year = togglePeriod.querySelector('.year');
+    year.classList.add('choosen');
+
+    checkbox.addEventListener("click", function() {
+
+        if (checkbox.checked == true) {
+            year.classList.add('choosen');
+            month.classList.remove('choosen');
+
+        }
+        else {
+            year.classList.remove('choosen');
+            month.classList.add('choosen');
+        }
+
+    });
+
+
+
+</script>
+
+<script src="/static/js/set-square.js"></script>
+<script src="/static/js/alpine.min.js"></script>
+
+
+</body>
+</html>

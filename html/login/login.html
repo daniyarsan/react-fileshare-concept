@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <link rel="stylesheet" href="../_assets/css/style.css" />
+    <link rel="stylesheet" href="../_assets/css/structure.css" />
+    <link rel="stylesheet" href="../_assets/fonts/inter/stylesheet.css" />
+    <link rel="stylesheet" href="../_assets/fonts/awesome/css/stylesheet.css" />
+
+</head>
+<body>
+
+    <section class="login">
+        <div class="container">
+            <div class="flex row-1@xs row-1-3@m">
+                <div></div>
+                <div>
+                    <div class="row center">
+                        <a href="" class="mr-1 text-grey">Регистрация</a>
+                        <a href="" class="ml-1 text-dark bolder">Вход</a>
+                    </div>
+                    <h3 class="bolder mt-6">С возвращением!</h3>
+                    <p class="small bold text-grey">Введите Ваши данные для входа</p>
+
+                    <div class="form mt-2">
+                        <div class="relative">
+                            <div class="bold small">Логин</div>
+                            <div class="custom-alert-wrapper relative hidden">
+                                <div class="custom-alert">
+                                    <div class="body row">
+                                        <div>
+                                            <p class="bolder">Ошибка! Неверный логин или пароль.</p>
+                                        </div>
+                                        <div class="img-contain ml-1">
+                                            <img src="" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input class="col-1@xs" type="text">
+                            <small class="text-grey">Минимум 6 символов</small>
+                        </div>
+
+                        <div class="password mt-1">
+                            <div class="bold small">Пароль</div>
+                            <div class="relative" onclick="togglePassword(this, event)">
+                                <input class="input-password col-1@xs" type="password">
+                                <div class="input-icon">
+                                    <i class="eye fa-solid fa-eye-slash"></i>
+                                </div>
+                            </div>
+                            <div class="row row_sb">
+                                <small class="text-grey">Минимум 6 символов, 1 заглавная</small>
+                                <p class="small line link">Забыл пароль?</p>
+                            </div>
+                        </div>
+
+                        <div class="col-1@xs btn mt-3" active>Войти</div>
+                        <div class="row row_col row_center">
+                            <p class="small text-grey center mt-1">Нет аккаунта?
+                                <a href="" class="link line text-dark ml-1">Регистрация</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer">
+        <div class="container">
+            <div class="flex row-1@xs row-1-3@m">
+                <div></div>
+                <div>
+                    <div class="row row_center">
+                        <div class="bold small mr-1">Telegram</div>
+                        <a href="" target="_blank">
+                            <span class="link f-400">@softbox</span>
+                            <i class="small link text-orange fa-solid fa-clone"></i>
+                        </a>
+                    </div>
+                    <div class="row row_center">
+                        <div class="bold small mr-1">Jabber</div>
+                        <a href="" target="_blank">
+                            <span class="link f-400">softbox@jabber.ru</span>
+                            <i class="small link text-orange fa-solid fa-clone"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/static/js/toggle-password.js"></script>
+
+
+
+</body>
+</html>
