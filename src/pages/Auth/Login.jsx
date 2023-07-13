@@ -40,41 +40,40 @@ function Login(props) {
               <Formik
                   initialValues={initialValues}
                   validationSchema={validation}
-                  onSubmit={(data, formikHelpers) => {
-                    console.log('submitting')
+                  onSubmit={onSubmit}>
 
-                  }}>
-
-                {({errors, isValid,handleSubmit, touched, dirty}) => (
+                {({errors, isValid, handleSubmit, touched, dirty}) => (
                     <Form onSubmit={handleSubmit}>
-                      <div className="relative">
-                        <div className="bold small">Логин</div>
-                        <Field name="username" className='col-1@xs' type="email" />
-                      </div>
-                      <ErrorMessage className="text-grey" name="username" component="small"/>
-
-                      <div className="password mt-1">
-                        <div className="bold small">Пароль</div>
+                      <div className="form mt-2">
                         <div className="relative">
-                          <Field className='input-password col-1@xs' type="password" name="password"/>
-                          <div className="input-icon">
-                            <i className="eye fa-solid fa-eye-slash"></i>
+                          <div className="bold small">Логин</div>
+                          <Field name="username" className='col-1@xs' type="email"/>
+                        </div>
+                        <ErrorMessage className="text-grey" name="username" component="small"/>
+
+                        <div className="password mt-1">
+                          <div className="bold small">Пароль</div>
+                          <div className="relative">
+                            <Field className='input-password col-1@xs' type="password" name="password"/>
+                            <div className="input-icon">
+                              <i className="eye fa-solid fa-eye-slash"></i>
+                            </div>
+                          </div>
+                          <ErrorMessage className="text-grey" name="password" component="small"/>
+
+                          <div className="row row_sb">
+                            <small className="text-grey"></small>
+                            <Link to='/forgot' className="small line link">Забыл пароль?</Link>
                           </div>
                         </div>
-                        <ErrorMessage className="text-grey" name="password" component="small"/>
 
-                        <div className="row row_sb">
-                          <small className="text-grey"></small>
-                          <Link to='/forgot' className="small line link">Забыл пароль?</Link>
+                        <button type="submit" className={`col-1@xs btn mt-3 ${(isValid && dirty) && 'active'}`}>Войти</button>
+
+                        <div className="row row_col row_center">
+                          <p className="small text-grey center mt-1">Нет аккаунта?
+                            <Link to='/registration' className="link line text-dark ml-1">Регистрация</Link>
+                          </p>
                         </div>
-                      </div>
-
-                      <button type="submit" className={`col-1@xs btn mt-3 ${(isValid && dirty) && 'active'}`}>Войти</button>
-
-                      <div className="row row_col row_center">
-                        <p className="small text-grey center mt-1">Нет аккаунта?
-                          <Link to='/registration' className="link line text-dark ml-1">Регистрация</Link>
-                        </p>
                       </div>
                     </Form>
                 )}
