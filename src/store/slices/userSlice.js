@@ -4,7 +4,7 @@ import requester from "../../api/axios.js";
 import {toast} from "react-toastify";
 
 const initialState = {
-  user: {},
+  userData: {},
   isAuth: false,
   token: null,
   isLoading: false
@@ -17,7 +17,6 @@ export const login = createAsyncThunk('user/login', async (data, thunkAPI) => {
         'Content-Type': 'application/json',
       },
     })
-
     return response?.data
 
   } catch (err) {
@@ -27,25 +26,24 @@ export const login = createAsyncThunk('user/login', async (data, thunkAPI) => {
 
 export const registration = createAsyncThunk('user/registration', async (data, thunkAPI) => {
   try {
-    const response = await fetch(REGISTER_URL, {
-      method: "POST",
+    const response = await requester.post(REGISTER_URL, JSON.stringify(data), {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
     })
 
-    const result = await response.json();
+    const result = response?.data
 
     if (response.status < 200 || response.status >= 300) {
       return thunkAPI.rejectWithValue(result)
     }
 
-    return result
+    return response?.data
 
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response?.data)
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.response?.data)
   }
+
 })
 
 const userSlice = createSlice({
@@ -65,22 +63,22 @@ const userSlice = createSlice({
           state.loading = true
         })
         .addCase(login.fulfilled, (state, action) => {
-          // state.loading = false
-          // state.isAuth = true
-          // const token = action.payload?.token
-          // state.token = token
-          // localStorage.setItem(AUTH_TOKEN, JSON.stringify(token))
+          state.loading = false
+          state.isAuth = true
+          const token = action.payload?.token
+          state.token = token
+          state.userData.name = 'test user'
+          localStorage.setItem(AUTH_TOKEN, JSON.stringify(token))
         })
 
         .addCase(login.rejected, (state, {payload}) => {
           state.loading = false
-          console.log(payload.msg)
-
           toast.error(payload?.msg, {
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 2000
-          });
+          })
         })
+
         /************/
         .addCase(registration.pending, (state) => {
           state.loading = true
@@ -90,9 +88,12 @@ const userSlice = createSlice({
           state.loading = false
         })
 
-        .addCase(registration.rejected, (state, action) => {
-          console.log(action.payload?.msg)
+        .addCase(registration.rejected, (state, {payload}) => {
           state.loading = false
+          toast.error(payload?.msg, {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 2000
+          })
         })
   }
 })

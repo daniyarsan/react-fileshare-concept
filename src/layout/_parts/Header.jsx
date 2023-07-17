@@ -6,7 +6,9 @@ import {logout} from "../../store/slices/userSlice.js";
 function Header() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const {userData} = useSelector(state => state.user)
 
+  console.log(userData)
 
   return (
       <div className="nav">
@@ -40,7 +42,7 @@ function Header() {
 
               <div className="row">
                 <Link to='/settings'>
-                  <span className="hide-sm ml-2">Nick</span>
+                  <span className="hide-sm ml-2">{userData?.name}</span>
                   <span className="hide-m"><i className="fa-solid fa-person"></i></span>
                 </Link>
 

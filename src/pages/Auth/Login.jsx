@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Link, useNavigate} from "react-router-dom";
 import {Formik, Form, ErrorMessage, Field} from "formik";
 import {VALIDATION_MIN_PASSWORD_LENGTH} from "../../api/const.js";
@@ -9,6 +9,7 @@ import {login} from "../../store/slices/userSlice.js";
 
 
 function Login(props) {
+  const [showPassword, setShowPassword] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   
@@ -25,10 +26,9 @@ function Login(props) {
 
   const onSubmit = (data, formikHelpers) => {
     dispatch(login(data)).then((response) => {
-      // navigate('/');
+      navigate('/');
     })
-    
-    // formikHelpers.resetForm()
+    formikHelpers.resetForm()
   }
 
   return (
@@ -60,10 +60,10 @@ function Login(props) {
                         <div className="password mt-1">
                           <div className="bold small">Пароль</div>
                           <div className="relative">
-                            <Field className='input-password col-1@xs' type="password" name="password"/>
-                            <div className="input-icon">
-                              <i className="eye fa-solid fa-eye-slash"></i>
-                            </div>
+                            <Field className='input-password col-1@xs' type={showPassword ? 'text' : 'password'} name="password"/>
+                            <a onClick={() => {setShowPassword(!showPassword)}} className="input-icon">
+                              <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
+                            </a>
                           </div>
                           <ErrorMessage className="text-grey" name="password" component="small"/>
 
@@ -85,8 +85,8 @@ function Login(props) {
                 )}
               </Formik>
 
-
             </div>
+
             <div></div>
           </div>
         </div>
