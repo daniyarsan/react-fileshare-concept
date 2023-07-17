@@ -20,26 +20,33 @@ body {
           box-sizing: border-box;
 }
 
-body.bgPeach {
+div.bgPeach {
   background: #FEEDDC;
 }
-body.bgPeach .nav {
-  background-color: rgba(0, 0, 0, 0);
+
+div.bgPeach .nav {
+  background-color: #FEEDDC;
 }
-body.bgPeach .menu a {
+
+div.bgPeach .footer {
+  background-color: #FEEDDC;
+}
+
+
+div.bgPeach .menu a {
   color: #222;
 }
-body.bgPeach h1 {
+div.bgPeach h1 {
   font-size: 48px;
 }
-body.bgPeach .card {
+div.bgPeach .card {
   border-radius: 26px;
   border: 3px solid #fff;
 }
-body.bgPeach .card[active] {
+div.bgPeach .card[active] {
   border: 3px solid #222;
 }
-body.bgPeach hr {
+div.bgPeach hr {
   color: #F4E3D4;
   background-color: #F4E3D4;
   margin: 20px 0px;
@@ -449,7 +456,7 @@ textarea {
   border-radius: 12px;
   padding: 16px 24px;
   position: absolute;
-  bottom: 10;
+  bottom: 10px;
   right: 0;
   z-index: 100;
   background: #fff;

@@ -1,6 +1,13 @@
 import React from 'react'
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../../store/slices/userSlice.js";
 
 function Header() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+
   return (
       <div className="nav">
         <div className="container">
@@ -9,31 +16,39 @@ function Header() {
               <span className="bolder">Soft</span><span className="light">Dropbox</span>
             </div>
             <div className="menu row row_center">
-              <a href="">
+              <Link to='/'>
                 <span className="hide-sm ml-2">Главная</span>
                 <span className="hide-m"><i className="fa-solid fa-house"></i></span>
-              </a>
-              <a href="">
+              </Link>
+              <Link to='/plans'>
                 <span className="hide-sm ml-2">Тарифы</span>
                 <span className="hide-m"><i className="fa-solid fa-crown"></i></span>
-              </a>
-              <a href="">
+              </Link>
+
+              <Link to='/album/create'>
                 <div className="addFile">
                   <div className="button">
-                    <i className="fa-solid fa-plus fa-xl"></i>
+                    <i className="fa-solid fa-plus faa-xl"></i>
                   </div>
                 </div>
-              </a>
-              <a href="">
+              </Link>
+
+              <Link to='/albums'>
                 <span className="hide-sm ml-2">Мои альбомы</span>
                 <span className="hide-m"><i className="fa-solid fa-book-open"></i></span>
-              </a>
+              </Link>
+
               <div className="row">
-                <a href="">
+                <Link to='/settings'>
                   <span className="hide-sm ml-2">Nick</span>
                   <span className="hide-m"><i className="fa-solid fa-person"></i></span>
-                </a>
-                <a className="ml-1 grey hide-sm" href="">(выход)</a>
+                </Link>
+
+                <a className="ml-1 grey hide-sm" href="" onClick={() => {
+                  dispatch(logout())
+                  navigate('/')
+                }
+                }>(выход)</a>
               </div>
             </div>
           </div>

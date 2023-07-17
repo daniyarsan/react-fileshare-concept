@@ -14,15 +14,15 @@ function CreateAlbum() {
 
               <div className="mt-1">
                 <div className="row">
-                  <div><i className="fa-solid fa-pen-line" style="width: 30px;"></i></div>
+                  <div><i className="fa-solid fa-pen-line"></i></div>
                   <p>Придумайте название, добавьте описание и/или <span className="bold text-dark">прикрепите файлы</span> для создания альбома.</p>
                 </div>
                 <div className="row mt-1">
-                  <div><i className="fa-solid fa-lock-hashtag" style="width: 30px;"></i></div>
+                  <div><i className="fa-solid fa-lock-hashtag" ></i></div>
                   <p>При необходимости <span className="bold text-dark">добавьте описание и пароль</span> к каждому файлу, установите срок жизни ссылки.</p>
                 </div>
                 <div className="row mt-1">
-                  <div><i className="fa-solid fa-link" style="width: 30px;"></i></div>
+                  <div><i className="fa-solid fa-link" ></i></div>
                   <p><span className="bold text-dark">Делитесь ссылкой</span> для просмотра или скачивания архива.</p>
                 </div>
               </div>
@@ -138,7 +138,6 @@ function CreateAlbum() {
                         </div>
                       </div>
 
-
                       <div className="mt-1">
                         <textarea className="col-1@xs" name="" id="" cols="30" rows="10" placeholder="Описание к фото"></textarea>
                         <div className="password mt-1">
@@ -150,7 +149,6 @@ function CreateAlbum() {
                           </div>
                         </div>
                       </div>
-
 
                     </div>
                   </div>

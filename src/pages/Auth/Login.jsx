@@ -1,27 +1,33 @@
 import React from 'react'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Formik, Form, ErrorMessage, Field} from "formik";
-import {VALIDATION_MIN_PASSWORD_LENGTH} from "../../api/conf.js";
+import {VALIDATION_MIN_PASSWORD_LENGTH} from "../../api/const.js";
 import {object, string} from "yup";
 import Links from "./_parts/Links.jsx";
+import {useDispatch} from "react-redux";
+import {login} from "../../store/slices/userSlice.js";
 
 
 function Login(props) {
-
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  
   const initialValues = {
     username: '',
     password: ''
   }
   const validation = object({
-    username: string().required('Обязательное поле').email('Некорректный Email формат'),
+    username: string().required('Обязательное поле'),
     password: string()
         .required('Обязательное поле')
         .min(VALIDATION_MIN_PASSWORD_LENGTH, `Пароль должен быть мин ${VALIDATION_MIN_PASSWORD_LENGTH} символов`)
   })
 
   const onSubmit = (data, formikHelpers) => {
-    console.log('submitted')
-
+    dispatch(login(data)).then((response) => {
+      // navigate('/');
+    })
+    
     // formikHelpers.resetForm()
   }
 
@@ -47,7 +53,7 @@ function Login(props) {
                       <div className="form mt-2">
                         <div className="relative">
                           <div className="bold small">Логин</div>
-                          <Field name="username" className='col-1@xs' type="email"/>
+                          <Field name="username" className='col-1@xs' type="text"/>
                         </div>
                         <ErrorMessage className="text-grey" name="username" component="small"/>
 

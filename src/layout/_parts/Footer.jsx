@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Header() {
+function Footer() {
   return (
       <section className="footer">
         <div className="container">
@@ -28,4 +28,4 @@ function Header() {
   )
 }
 
-export default Header
+export default Footer
