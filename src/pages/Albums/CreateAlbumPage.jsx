@@ -1,8 +1,8 @@
 import React from 'react'
 
-function CreateAlbum() {
+function CreateAlbumPage() {
   return (
-      <section className="create-albom">
+      <section className="canvas create-albom">
         <div className="container">
           <div className="flex pdd-md-wrapper">
             <div className="col-1@sx col-2-5@m pdd-md-hor mt-3">
@@ -168,4 +168,4 @@ function CreateAlbum() {
   )
 }
 
-export default CreateAlbum
+export default CreateAlbumPage

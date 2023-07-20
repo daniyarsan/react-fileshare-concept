@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import {AUTH_TOKEN, LOGIN_URL, REGISTER_URL} from "../../api/const.js";
+import {AUTH_TOKEN, LOGIN, REGISTER} from "../../api/const.js";
 import requester from "../../api/axios.js";
 import {toast} from "react-toastify";
 
@@ -12,7 +12,7 @@ const initialState = {
 
 export const login = createAsyncThunk('user/login', async (data, thunkAPI) => {
   try {
-    const response = await requester.post(LOGIN_URL, JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
+    const response = await requester.post(LOGIN, JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
 
     if (response.status < 200 || response.status >= 300) {
       return thunkAPI.rejectWithValue(response?.data)
@@ -25,7 +25,7 @@ export const login = createAsyncThunk('user/login', async (data, thunkAPI) => {
 
 export const registration = createAsyncThunk('user/registration', async (data, thunkAPI) => {
   try {
-    const response = await requester.post(REGISTER_URL, JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
+    const response = await requester.post(REGISTER, JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
     if (response.status < 200 || response.status >= 300) {
       return thunkAPI.rejectWithValue(response?.data)
     }

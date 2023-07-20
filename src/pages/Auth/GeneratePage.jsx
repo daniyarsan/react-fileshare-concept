@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Generation(props) {
+function GeneratePage(props) {
 
   return (
       <div className="row row_col row_sb h100">
@@ -41,4 +41,4 @@ function Generation(props) {
   )
 }
 
-export default Generation
+export default GeneratePage

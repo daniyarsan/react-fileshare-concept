@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {useParams} from "react-router-dom";
-import {getAlbumDetails} from "../../api/manager.js";
+import {useNavigate, useParams} from "react-router-dom";
+import {deleteAlbum, getAlbumDetails} from "../../api/manager.js";
 import {Preloader} from "../../components/Preloader/index.js";
 
 function AlbumPage(props) {
+  const navigate = useNavigate()
   const {url} = useParams()
 
   const [loading, setLoading] = useState(true)
@@ -13,11 +14,17 @@ function AlbumPage(props) {
     getAlbumDetails(url).then(resp => {
       setAlbumDetails(resp?.data)
       setLoading(false)
+    }).catch(err => {
+      navigate('/albums')
     })
   }, [])
 
-  console.log(albumDetails)
 
+  const handleRemoveAlbum = () => {
+    deleteAlbum(url).then(resp => {
+      navigate('/albums')
+    })
+  }
 
   return (
       <section className='canvas'>
@@ -31,7 +38,7 @@ function AlbumPage(props) {
 
           <div className="row row_center row_sb mt-2">
             <h1 className="bolder">Альбом №4</h1>
-            <div className="button delete bold sm link">Удалить альбом</div>
+            <div className="button delete bold sm link" onClick={handleRemoveAlbum}>Удалить альбом</div>
           </div>
           <div className="date">09.06.2023</div>
           <div className="storagePeriod">Срок хранения файлов <span className="days bold">30 дней</span></div>

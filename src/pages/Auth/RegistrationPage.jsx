@@ -8,7 +8,7 @@ import {useDispatch} from "react-redux";
 import {registration} from "../../store/slices/userSlice.js";
 import {toast} from "react-toastify";
 
-function Registration(props) {
+function RegistrationPage(props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [recoveryCode, setRecoveryCode] = useState(null)
@@ -169,4 +169,4 @@ function Registration(props) {
   )
 }
 
-export default Registration
+export default RegistrationPage

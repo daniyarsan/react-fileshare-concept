@@ -8,18 +8,19 @@ import "react-toastify/dist/ReactToastify.css";
 import Default from "./layout/Default.jsx";
 import Auth from "./layout/Auth.jsx";
 
-import Registration from "./pages/Auth/Registration.jsx";
-import Login from "./pages/Auth/Login.jsx";
-import Generation from "./pages/Auth/Generation.jsx";
+import RegistrationPage from "./pages/Auth/RegistrationPage.jsx";
+import LoginPage from "./pages/Auth/LoginPage.jsx";
+import GeneratePage from "./pages/Auth/GeneratePage.jsx";
 import AlbumsPage from "./pages/Albums/AlbumsPage.jsx";
 import AlbumPage from "./pages/Albums/AlbumPage.jsx";
-import CreateAlbum from "./pages/Albums/CreateAlbum.jsx";
-import Dashboard from "./pages/Dashboard/Dashboard.jsx";
-import Staff from "./pages/Dashboard/Staff.jsx";
-import Forgot from "./pages/Auth/Forgot.jsx";
+import CreateAlbumPage from "./pages/Albums/CreateAlbumPage.jsx";
+import DashboardPage from "./pages/Dashboard/DashboardPage.jsx";
+import StaffPage from "./pages/Dashboard/StaffPage.jsx";
+import ForgotPage from "./pages/Auth/ForgotPage.jsx";
 import Plans from "./pages/Plans/Plans.jsx";
 import {AUTH_TOKEN} from "./api/const.js";
 import {useSelector} from "react-redux";
+import ResetPage from "./pages/Auth/ResetPage.jsx";
 
 function App() {
   const {isAuth} = useSelector(state => state.user)
@@ -30,11 +31,10 @@ function App() {
       return (
           <>
             <Route element={<Auth/>}>
-              <Route path="/" element={<Login/>}></Route>
-              <Route path="/login" element={<Login/>}></Route>
-              <Route path="/forgot" element={<Forgot/>}></Route>
-              <Route path="/registration" element={<Registration/>}></Route>
-              <Route path="/generation" element={<Generation/>}></Route>
+              <Route path="/" element={<LoginPage/>}></Route>
+              <Route path="/login" element={<LoginPage/>}></Route>
+              <Route path="/registration" element={<RegistrationPage/>}></Route>
+              <Route path="/forgot" element={<ForgotPage/>}></Route>
             </Route>
           </>
       )
@@ -42,14 +42,15 @@ function App() {
 
     return (
         <>
-
           <Route element={<Default/>}>
-            <Route path="/" element={<Dashboard/>}></Route>
+            <Route path="/" element={<DashboardPage/>}></Route>
             <Route path="/albums" element={<AlbumsPage/>}></Route>
             <Route path="/album/:url" element={<AlbumPage/>}></Route>
-            <Route path="/album/create" element={<CreateAlbum/>}></Route>
-            <Route path="/staff" element={<Staff/>}></Route>
+            <Route path="/album/create" element={<CreateAlbumPage/>}></Route>
+            <Route path="/staff" element={<StaffPage/>}></Route>
             <Route path="/plans" element={<Plans/>}></Route>
+            <Route path="/reset" element={<ResetPage/>}></Route>
+            <Route path="/generation" element={<GeneratePage/>}></Route>
           </Route>
         </>
     )

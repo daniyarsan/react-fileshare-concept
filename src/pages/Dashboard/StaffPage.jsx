@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Staff() {
+function StaffPage() {
   return (
       <section>
         <div className="container">
@@ -155,4 +155,4 @@ function Staff() {
   )
 }
 
-export default Staff
+export default StaffPage

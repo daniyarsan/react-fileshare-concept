@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import {getAlbumsList} from "../../api/manager.js";
-import {Link} from "react-router-dom";
+import {deleteAlbum, getAlbumsList} from "../../api/manager.js";
+import {Link, useNavigate} from "react-router-dom";
 import {Preloader} from "../../components/Preloader/index.js";
 import {BASE_URL} from "../../api/const.js";
 import {toast} from "react-toastify";
 
 function AlbumsPage() {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [albumsList, setAlbumsList] = useState()
 
@@ -16,7 +17,13 @@ function AlbumsPage() {
     })
   }, [])
 
-  const AlbumAlert = ({show, setShow}) => {
+  const handleRemoveAlbum = (url) => {
+    deleteAlbum(url).then(resp => {
+      navigate('/albums')
+    })
+  }
+
+  const AlbumAlert = ({show, setShow, url}) => {
 
     return (
         <div className={`custom-alert-wrapper relative ${!show ? 'hidden' : ''}`}>
@@ -34,7 +41,7 @@ function AlbumsPage() {
                   setShow(false)
                 }}>Отмена
                 </div>
-                <div className="link small ml-2">Удалить</div>
+                <div className="link small ml-2" onClick={() =>{handleRemoveAlbum(url)}}>Удалить</div>
               </div>
             </div>
           </div>
@@ -70,7 +77,7 @@ function AlbumsPage() {
     return (
         <div className="card-wrapper pdd-sm">
 
-          <AlbumAlert show={show} setShow={setShow}/>
+          <AlbumAlert show={show} setShow={setShow} url={url} />
 
           <div className="card card-body">
             <div className="row row_sb">

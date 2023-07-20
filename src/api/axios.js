@@ -9,7 +9,7 @@ requester.interceptors.request.use((config) => {
   const tokenData = JSON.parse(localStorage.getItem(AUTH_TOKEN));
 
   if (tokenData) {
-    // config.headers["Authorization"] = `Bearer ${tokenData.access_token}`;
+    config.headers["Authorization"] = `Bearer ${tokenData.access_token}`;
     config.headers["Content-Type"] = 'application/json';
   }
 

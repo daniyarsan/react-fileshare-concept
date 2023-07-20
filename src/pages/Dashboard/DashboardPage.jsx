@@ -2,7 +2,7 @@ import React from 'react'
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 
-function Dashboard() {
+function DashboardPage() {
   const {userData} = useSelector(state => state.user)
 
 
@@ -93,4 +93,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default DashboardPage

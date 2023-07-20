@@ -1,9 +1,11 @@
 export const BASE_URL = import.meta.env.VITE_API_URL
 export const BASE_API_URL = BASE_URL + '/api'
-export const REGISTER_URL = '/register'
-export const LOGIN_URL = '/login'
+export const REGISTER = '/register'
+export const LOGIN = '/login'
 export const ALBUMS_LIST = '/albums_list'
-export const ALBUMS_DETAILS = '/album'
+export const ALBUM_DETAILS = '/album'
+export const ALBUM_DELETE = '/remove_album'
+
 export const USER_STAT = '/user_stat'
 export const PRICING = '/pricing'
 

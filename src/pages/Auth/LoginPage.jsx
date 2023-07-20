@@ -9,7 +9,7 @@ import {login, setUserData} from "../../store/slices/userSlice.js";
 import {getUserStat} from "../../api/manager.js";
 
 
-function Login(props) {
+function LoginPage(props) {
   const [showPassword, setShowPassword] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -100,4 +100,4 @@ function Login(props) {
   )
 }
 
-export default Login
+export default LoginPage

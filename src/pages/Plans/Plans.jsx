@@ -6,10 +6,14 @@ function Plans() {
   const [loading, setLoading] = useState(true)
   const [isMonthly, setIsMonthly] = useState(true)
   const [pricing, setPricing] = useState([])
+  const [yearlyPlans, setYearlyPlans] = useState([])
+  const [monthlyPlans, setMonthlyPlans] = useState([])
 
   useEffect(() => {
     getPricing().then(resp => {
-      setPricing(resp?.data)
+      const {month_pricing_options, year_pricing_options} = resp?.data
+      setMonthlyPlans(month_pricing_options)
+      setYearlyPlans(year_pricing_options)
       setLoading(false)
     })
   }, [])
@@ -36,7 +40,9 @@ function Plans() {
         <div className="mt-3">
           <div className="row row_sb row_center">
             <h3>{question}</h3>
-            <div className="icon link" onClick={() => {setShow(!show)}}>
+            <div className="icon link" onClick={() => {
+              setShow(!show)
+            }}>
               {show ? (<i className="fa-duotone fa-arrow-down-to-line fa-lg"></i>) : (<i className="fa-duotone fa-arrow-up-to-line fa-lg"></i>)}
             </div>
           </div>
@@ -48,7 +54,63 @@ function Plans() {
     )
   }
 
-  console.log(isMonthly)
+  const PricingCard = ({option, size, price, shelf_time, files}) => {
+    return (
+        <div className="pdd-md">
+          <div className="card pdd-lg">
+            <div className="row row_sb">
+              <p className="bold text-dark">{option}</p>
+              <p className="bold"></p>
+            </div>
+            <h1>{size} ГБ</h1>
+            <div className="list">
+              <p>Стоимость {price}$</p>
+              <p>Загрузка файла до {size} ГБ</p>
+              <p>Срок хранения файлов до {shelf_time} месяцев</p>
+              {/**/}
+              <p>Создание альбомов</p>
+              <p>Установка пароля к каждому файлу отдельно</p>
+              <p>Отчет просмотра файлов</p>
+            </div>
+            <div className="btn btn-dark row row_col row_center col-1@xs mt-2 active">
+              <p>Подключить за {price} $/мес.</p>
+              <p className="thin small">При оплате за год + год бесплатно</p>
+            </div>
+          </div>
+        </div>
+    )
+  }
+
+  const TimerAlert = () => {
+    return (
+        <div className="custom-alert timer">
+          <div className="row row_end">
+            <div className="icon-close">
+              <i className="fa-solid fa-xmark"></i>
+            </div>
+          </div>
+          <div className="body row">
+            <div className="row row_center" style={{lineHeight: '24px'}}>
+              <div className="">
+                <h1>74</h1>
+                <p className="bolder">дн</p>
+              </div>
+              <div className="ml-1">
+                <h1 className="thin">05</h1>
+                <p>мин</p>
+              </div>
+              <div className="ml-1">
+                <h1 className="thin">12</h1>
+                <p>сек</p>
+              </div>
+            </div>
+            <div className="img-contain ml-2" style={{width: '40px'}}>
+              <img src="/static/img/emoji/icon_001.svg" alt=""/>
+            </div>
+          </div>
+        </div>
+    )
+  }
 
   return (
       <div className='canvas bgPeach'>
@@ -58,33 +120,11 @@ function Plans() {
                   <h1 className="bolder center">Выберите подходящий тариф</h1>
                   <h3 className="thin center">Активируйте тариф Бизнес
                     <span className="bolder relative">
-                    <div className="custom-alert timer">
-                        <div className="row row_end">
-                            <div className="icon-close">
-                                <i className="fa-solid fa-xmark"></i>
-                            </div>
-                        </div>
-                        <div className="body row">
-                            <div className="row row_center" style={{lineHeight: '24px'}}>
-                                <div className="">
-                                    <h1>74</h1>
-                                    <p className="bolder">дн</p>
-                                </div>
-                                <div className="ml-1">
-                                    <h1 className="thin">05</h1>
-                                    <p>мин</p>
-                                </div>
-                                <div className="ml-1">
-                                    <h1 className="thin">12</h1>
-                                    <p>сек</p>
-                                </div>
-                            </div>
-                            <div className="img-contain ml-2" style={{width: '40px'}}>
-                                <img src="/static/img/emoji/icon_001.svg" alt=""/>
-                            </div>
-                        </div>
-                    </div> бесплатно до 1 сентября
-          </span>
+
+                       {/*<TimerAlert />*/}
+
+                      бесплатно до 1 сентября
+                    </span>
                   </h3>
 
                   <div className="flex row_center row-1@xs row-1-3@m mt-3">
@@ -113,8 +153,10 @@ function Plans() {
                       <div className="togglePeriod row row_center">
                         <p className={`month ${isMonthly ? 'choosen' : ''}`}>На месяц</p>
                         <div className="ml-1">
-                          <input type="checkbox" id="switch" onChange={()=>{setIsMonthly(!isMonthly)}} />
-                          <label htmlFor='switch' ></label>
+                          <input type="checkbox" id="switch" onChange={() => {
+                            setIsMonthly(!isMonthly)
+                          }}/>
+                          <label htmlFor='switch'></label>
                         </div>
                         <p className={`year ml-1 ${isMonthly ? '' : 'choosen'}`}>На год</p>
                       </div>
@@ -122,71 +164,16 @@ function Plans() {
                   </div>
 
                   <div className="cards flex row-1@xs row-1-3@m mt-2 pdd-md-wrapper">
+                    {
+                      (isMonthly ? monthlyPlans : yearlyPlans).map(item => {
+                        return <PricingCard key={item.option} {...item} />
+                      })
+                    }
 
-                    <div className="pdd-md">
-                      <div className="card pdd-lg">
-                        <div className="row row_sb">
-                          <p className="bold text-dark">Премиум</p>
-                          <p className="bold"></p>
-                        </div>
-                        <h1>10 ГБ</h1>
-                        <div className="list">
-                          <p>Стоимость 37$</p>
-                          <p>Загрузка файла до 10 ГБ</p>
-                          <p>Создание альбомов</p>
-                          <p>Срок хранения файлов до 12 месяцев</p>
-                          <p>Установка пароля к каждому файлу отдельно</p>
-                          <p>Отчет просмотра файлов</p>
-                        </div>
-                        <div className="btn btn-dark row row_col row_center col-1@xs mt-2 active">
-                          <p>Подключить за 37 $/мес.</p>
-                          <p className="thin small">При оплате за год + год бесплатно</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="pdd-md">
-                      <div className="card pdd-lg active">
-                        <div className="row row_sb">
-                          <p className="bold text-dark">Бизнес</p>
-                          <p className="bold text-orange">Бесплатно</p>
-                        </div>
-                        <h1>50 ГБ</h1>
-                        <div className="list">
-                          <p>Стоимость 107$</p>
-                          <p>Загрузка файла до 50 ГБ</p>
-                          <p>Расширенная история изменений</p>
-                          <p>Создание альбомов</p>
-                          <p>Срок хранения файлов до 12 месяцев</p>
-                          <p>Установка пароля к каждому файлу отдельно</p>
-                          <p>Отчет просмотра файлов</p>
-                        </div>
-                        <div className="btn btn-dark row row_col row_center col-1@xs mt-2 active">
-                          <p>Подключить за 107 $/мес.</p>
-                          <p className="thin small">При оплате за год</p>
-                        </div>
-                        <p className="small center">Акция действует до 1 сентября</p>
-                      </div>
-                    </div>
-
-                    <div className="pdd-md">
-                      <div className="card pdd-lg">
-                        <div className="row row_sb">
-                          <p className="bold text-dark">Бесплатно</p>
-                          <p className="bold"></p>
-                        </div>
-                        <h1>50 МБ</h1>
-                        <div className="list">
-                          <p>Загрузка файла до 50 МБ</p>
-                          <p>Срок хранения файлов до 30 дней</p>
-                          <p>Установка пароля к каждому файлу отдельно</p>
-                          <p>Отчет просмотра файлов</p>
-                        </div>
-                      </div>
-                    </div>
                   </div>
 
                   <hr/>
+
                   <div className="flex row_center row_col" style={{marginTtop: '80px'}}>
                     <div className="col-1@xs col-2-3@m">
                       <h2 className="bolder center">Остались вопросы?</h2>

@@ -2,7 +2,7 @@ import React from 'react'
 import Links from "./_parts/Links.jsx";
 
 
-function Forgot(props) {
+function ResetPage(props) {
 
   return (
       <section className="login">
@@ -63,4 +63,4 @@ function Forgot(props) {
   )
 }
 
-export default Forgot
+export default ResetPage
