@@ -1,6 +1,12 @@
 import React from 'react'
+import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
 
 function Dashboard() {
+  const {userData} = useSelector(state => state.user)
+
+
+
   return (
       <section>
         <div className="container">
@@ -12,9 +18,9 @@ function Dashboard() {
               </div>
               <div className="mt-2">
                 <div className="bold small">Логин</div>
-                <div className="input">Zoiberg</div>
+                <div className="input">{userData.username}</div>
                 <div className="row row_end">
-                  <p className="small text-dark link line">Сменить пароль</p>
+                  <Link to='/reset' className="small text-dark link line">Сменить пароль</Link>
                 </div>
               </div>
             </div>

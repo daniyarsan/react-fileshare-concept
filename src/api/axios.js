@@ -1,24 +1,49 @@
 import axios from 'axios'
-import {AUTH_TOKEN, BASE_URL} from './const.js'
-
-export const getToken = () => {
-  return JSON.parse(localStorage.getItem(AUTH_TOKEN)) || ''
-}
-const token = getToken()
+import {AUTH_TOKEN, BASE_API_URL} from './const.js'
 
 const requester = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    'Authorization':`Bearer ${token}`
-  }
+  baseURL: BASE_API_URL,
 });
 
-requester.interceptors.request.use((req) => {
-  if(token) {
-    req.headers.Authorization = `Bearer ${token}`;
+requester.interceptors.request.use((config) => {
+  const tokenData = JSON.parse(localStorage.getItem(AUTH_TOKEN));
+
+  if (tokenData) {
+    // config.headers["Authorization"] = `Bearer ${tokenData.access_token}`;
+    config.headers["Content-Type"] = 'application/json';
   }
-  return req;
-})
+
+  return config;
+});
+
+
+requester.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    async (error) => {
+      if (localStorage.getItem(AUTH_TOKEN)) {
+        if (error.response?.status === 401) {
+          const tokenData = JSON.parse(localStorage.getItem(AUTH_TOKEN));
+          console.log('logout because of expired token')
+          console.log(tokenData)
+
+
+          // const payload = {
+          //   refresh_token: tokenData.refresh_token,
+          // };
+          // await api.post(REFRESH_URL, payload).then(response => {
+          //   localStorage.setItem(AUTH_TOKEN, JSON.stringify(response.data));
+          // })
+          // return api(error.config);
+        } else {
+          return Promise.reject(error);
+        }
+      }
+
+      return error.response
+    }
+);
 
 export default requester
 

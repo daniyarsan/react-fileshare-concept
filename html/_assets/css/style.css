@@ -20,6 +20,11 @@ body {
           box-sizing: border-box;
 }
 
+.canvas {
+  min-height: 80vh;
+  overflow: hidden;
+  height:auto;
+}
 div.bgPeach {
   background: #FEEDDC;
 }

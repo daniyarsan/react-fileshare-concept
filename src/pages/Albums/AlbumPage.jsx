@@ -1,19 +1,34 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {useParams} from "react-router-dom";
+import {getAlbumDetails} from "../../api/manager.js";
+import {Preloader} from "../../components/Preloader/index.js";
 
-function Album(props) {
+function AlbumPage(props) {
+  const {url} = useParams()
 
-  const {id} = useParams()
+  const [loading, setLoading] = useState(true)
+  const [albumDetails, setAlbumDetails] = useState()
 
-  console.log(id)
+  useEffect(() => {
+    getAlbumDetails(url).then(resp => {
+      setAlbumDetails(resp?.data)
+      setLoading(false)
+    })
+  }, [])
+
+  console.log(albumDetails)
+
 
   return (
-      <section>
+      <section className='canvas'>
+        {loading && <Preloader/>}
+
         <div className="container">
           <div className="breadcrumb row mt-3">
             <a href="">Мои альбомы </a>
             <a href=""> / Альбом №4</a>
           </div>
+
           <div className="row row_center row_sb mt-2">
             <h1 className="bolder">Альбом №4</h1>
             <div className="button delete bold sm link">Удалить альбом</div>
@@ -166,4 +181,4 @@ function Album(props) {
   )
 }
 
-export default Album
+export default AlbumPage

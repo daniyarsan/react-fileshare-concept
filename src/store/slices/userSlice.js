@@ -6,19 +6,18 @@ import {toast} from "react-toastify";
 const initialState = {
   userData: {},
   isAuth: false,
-  token: null,
+  tokenData: {},
   isLoading: false
 }
 
 export const login = createAsyncThunk('user/login', async (data, thunkAPI) => {
   try {
-    const response = await requester.post(LOGIN_URL, JSON.stringify(data), {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    return response?.data
+    const response = await requester.post(LOGIN_URL, JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
 
+    if (response.status < 200 || response.status >= 300) {
+      return thunkAPI.rejectWithValue(response?.data)
+    }
+    return response?.data
   } catch (err) {
     return thunkAPI.rejectWithValue(err.response?.data)
   }
@@ -26,21 +25,13 @@ export const login = createAsyncThunk('user/login', async (data, thunkAPI) => {
 
 export const registration = createAsyncThunk('user/registration', async (data, thunkAPI) => {
   try {
-    const response = await requester.post(REGISTER_URL, JSON.stringify(data), {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-
-    const result = response?.data
-
+    const response = await requester.post(REGISTER_URL, JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
     if (response.status < 200 || response.status >= 300) {
-      return thunkAPI.rejectWithValue(result)
+      return thunkAPI.rejectWithValue(response?.data)
     }
-
     return response?.data
-
   } catch (err) {
+    console.log(err)
     return thunkAPI.rejectWithValue(err.response?.data)
   }
 
@@ -54,6 +45,9 @@ const userSlice = createSlice({
     logout() {
       localStorage.removeItem(AUTH_TOKEN)
       return initialState
+    },
+    setUserData(state, action) {
+      state.userData = action.payload
     }
   },
 
@@ -63,12 +57,11 @@ const userSlice = createSlice({
           state.loading = true
         })
         .addCase(login.fulfilled, (state, action) => {
+          const tokenData = action.payload
+          localStorage.setItem(AUTH_TOKEN, JSON.stringify(tokenData))
+          state.tokenData = tokenData
           state.loading = false
           state.isAuth = true
-          const token = action.payload?.token
-          state.token = token
-          state.userData.name = 'test user'
-          localStorage.setItem(AUTH_TOKEN, JSON.stringify(token))
         })
 
         .addCase(login.rejected, (state, {payload}) => {
@@ -84,7 +77,6 @@ const userSlice = createSlice({
           state.loading = true
         })
         .addCase(registration.fulfilled, (state, action) => {
-          console.log(action)
           state.loading = false
         })
 
@@ -98,6 +90,6 @@ const userSlice = createSlice({
   }
 })
 
-export const {logout} = userSlice.actions
+export const {logout, setUserData} = userSlice.actions
 
 export default userSlice.reducer

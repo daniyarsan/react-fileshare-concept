@@ -1,4 +1,4 @@
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import '../html/_assets/css/style.css'
 import '../html/_assets/css/structure.css'
 import '../html/_assets/fonts/inter/stylesheet.css'
@@ -11,14 +11,13 @@ import Auth from "./layout/Auth.jsx";
 import Registration from "./pages/Auth/Registration.jsx";
 import Login from "./pages/Auth/Login.jsx";
 import Generation from "./pages/Auth/Generation.jsx";
-import Albums from "./pages/Albums/Albums.jsx";
-import Album from "./pages/Albums/Album.jsx";
+import AlbumsPage from "./pages/Albums/AlbumsPage.jsx";
+import AlbumPage from "./pages/Albums/AlbumPage.jsx";
 import CreateAlbum from "./pages/Albums/CreateAlbum.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Staff from "./pages/Dashboard/Staff.jsx";
 import Forgot from "./pages/Auth/Forgot.jsx";
 import Plans from "./pages/Plans/Plans.jsx";
-import Public from "./layout/Public.jsx";
 import {AUTH_TOKEN} from "./api/const.js";
 import {useSelector} from "react-redux";
 
@@ -43,16 +42,14 @@ function App() {
 
     return (
         <>
-          <Route element={<Public/>}>
-            <Route path="/plans" element={<Plans/>}></Route>
-          </Route>
 
           <Route element={<Default/>}>
             <Route path="/" element={<Dashboard/>}></Route>
-            <Route path="/albums" element={<Albums/>}></Route>
-            <Route path="/album/:id" element={<Album/>}></Route>
+            <Route path="/albums" element={<AlbumsPage/>}></Route>
+            <Route path="/album/:url" element={<AlbumPage/>}></Route>
             <Route path="/album/create" element={<CreateAlbum/>}></Route>
             <Route path="/staff" element={<Staff/>}></Route>
+            <Route path="/plans" element={<Plans/>}></Route>
           </Route>
         </>
     )

@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 import {Link, useNavigate} from "react-router-dom";
 import {Formik, Form, ErrorMessage, Field} from "formik";
-import {VALIDATION_MIN_PASSWORD_LENGTH} from "../../api/const.js";
+import {AUTH_TOKEN, VALIDATION_MIN_PASSWORD_LENGTH} from "../../api/const.js";
 import {object, string} from "yup";
 import Links from "./_parts/Links.jsx";
 import {useDispatch} from "react-redux";
-import {login} from "../../store/slices/userSlice.js";
+import {login, setUserData} from "../../store/slices/userSlice.js";
+import {getUserStat} from "../../api/manager.js";
 
 
 function Login(props) {
@@ -25,14 +26,18 @@ function Login(props) {
   })
 
   const onSubmit = (data, formikHelpers) => {
-    dispatch(login(data)).then((response) => {
+
+    dispatch(login(data)).then((resp) => {
+      getUserStat().then(({data}) => {
+        dispatch(setUserData(data))
+      })
       navigate('/');
     })
     formikHelpers.resetForm()
   }
 
   return (
-      <section className="login">
+      <section className="canvas login">
         <div className="container">
           <div className="flex row-1@xs row-1-3@m">
             <div></div>
