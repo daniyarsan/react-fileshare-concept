@@ -40,7 +40,7 @@ function Header() {
               </Link>
 
               <div className="row">
-                <Link to='/settings'>
+                <Link to='/'>
                   <span className="hide-sm ml-2">{userData?.username}</span>
                   <span className="hide-m"><i className="fa-solid fa-person"></i></span>
                 </Link>

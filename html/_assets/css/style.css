@@ -21,6 +21,7 @@ body {
 }
 
 .canvas {
+  padding-top: 80px;
   min-height: 80vh;
   height:auto;
 }
@@ -419,6 +420,12 @@ textarea {
   cursor: pointer;
 }
 
+.btn.main {
+  background-color: #ff8100;
+  color: #fff;
+  cursor: pointer;
+}
+
 .btn[active]:hover {
   background-color: #000;
 }
@@ -546,8 +553,9 @@ body {
 }
 
 .login {
-  padding: 60px 0px 20px;
+  /*padding: 60px 0px 20px;*/
 }
+
 .login .toggleMenu .toggleBtn {
   cursor: pointer;
   color: #b7bac1;
@@ -920,7 +928,7 @@ h2 {
 }
 @media (min-width: 960px) {
   body {
-    padding-top: 80px;
+    /*padding-top: 80px;*/
   }
   .footer {
     padding: 20px 0px;

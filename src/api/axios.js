@@ -5,6 +5,11 @@ const requester = axios.create({
   baseURL: BASE_API_URL,
 });
 
+export const publicRequester = axios.create({
+  baseURL: BASE_API_URL,
+});
+
+
 requester.interceptors.request.use((config) => {
   const tokenData = JSON.parse(localStorage.getItem(AUTH_TOKEN));
 
@@ -15,7 +20,6 @@ requester.interceptors.request.use((config) => {
 
   return config;
 });
-
 
 requester.interceptors.response.use(
     (response) => {

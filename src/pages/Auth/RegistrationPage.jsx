@@ -7,12 +7,15 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useDispatch} from "react-redux";
 import {registration} from "../../store/slices/userSlice.js";
 import {toast} from "react-toastify";
+import {Preloader} from "../../components/Preloader/index.js";
 
 function RegistrationPage(props) {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
   const [recoveryCode, setRecoveryCode] = useState(null)
   const [showPassword, setShowPassword] = useState(false)
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const initialValues = {
     username: '',
@@ -36,8 +39,12 @@ function RegistrationPage(props) {
   })
 
   const onSubmit = (data, formikHelpers) => {
-    dispatch(registration({username: data.username, password: data.password})).then(({payload}) => {
-      setRecoveryCode(payload?.recovery_code)
+    setLoading(true)
+    dispatch(registration({username: data.username, password: data.password})).then((result) => {
+      if (!result.type.toLowerCase().includes('rejected')) {
+        setRecoveryCode(result?.payload?.code)
+      }
+      setLoading(false)
     })
     formikHelpers.resetForm()
   }
@@ -90,11 +97,13 @@ function RegistrationPage(props) {
 
   return (
       <section className="canvas login">
+        {loading && <Preloader/>}
+
+
         <div className="container">
           <div className="flex row-1@xs row-1-3@m">
             <div></div>
             <div>
-
               <Links active='registration'/>
 
               <h3 className="bolder mt-6">Добро пожаловать!</h3>

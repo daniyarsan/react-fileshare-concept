@@ -24,7 +24,6 @@ function AlbumsPage() {
   }
 
   const AlbumAlert = ({show, setShow, url}) => {
-
     return (
         <div className={`custom-alert-wrapper relative ${!show ? 'hidden' : ''}`}>
           <div className="custom-alert">
@@ -118,7 +117,6 @@ function AlbumsPage() {
         </div>
     )
   }
-
 
   return (
       <section className="canvas albums">

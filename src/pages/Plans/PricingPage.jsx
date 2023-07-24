@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {getPricing} from "../../api/manager.js";
 import {Preloader} from "../../components/Preloader/index.js";
 
-function Plans() {
+function PricingPage() {
   const [loading, setLoading] = useState(true)
   const [isMonthly, setIsMonthly] = useState(true)
   const [pricing, setPricing] = useState([])
@@ -114,6 +114,7 @@ function Plans() {
 
   return (
       <div className='canvas bgPeach'>
+
         {loading ? <Preloader/> :
             (
                 <div className="container">
@@ -194,4 +195,4 @@ function Plans() {
   )
 }
 
-export default Plans
+export default PricingPage

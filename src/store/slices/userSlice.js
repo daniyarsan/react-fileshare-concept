@@ -77,10 +77,12 @@ const userSlice = createSlice({
           state.loading = true
         })
         .addCase(registration.fulfilled, (state, action) => {
+          console.log('fullfilled')
           state.loading = false
         })
 
         .addCase(registration.rejected, (state, {payload}) => {
+          console.log('rejected')
           state.loading = false
           toast.error(payload?.msg, {
             position: toast.POSITION.TOP_RIGHT,

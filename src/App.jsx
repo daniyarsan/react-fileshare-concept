@@ -17,7 +17,7 @@ import CreateAlbumPage from "./pages/Albums/CreateAlbumPage.jsx";
 import DashboardPage from "./pages/Dashboard/DashboardPage.jsx";
 import StaffPage from "./pages/Dashboard/StaffPage.jsx";
 import ForgotPage from "./pages/Auth/ForgotPage.jsx";
-import Plans from "./pages/Plans/Plans.jsx";
+import PricingPage from "./pages/Plans/PricingPage.jsx";
 import {AUTH_TOKEN} from "./api/const.js";
 import {useSelector} from "react-redux";
 import ResetPage from "./pages/Auth/ResetPage.jsx";
@@ -48,9 +48,9 @@ function App() {
             <Route path="/album/:url" element={<AlbumPage/>}></Route>
             <Route path="/album/create" element={<CreateAlbumPage/>}></Route>
             <Route path="/staff" element={<StaffPage/>}></Route>
-            <Route path="/plans" element={<Plans/>}></Route>
+            <Route path="/plans" element={<PricingPage/>}></Route>
             <Route path="/reset" element={<ResetPage/>}></Route>
-            <Route path="/generation" element={<GeneratePage/>}></Route>
+            <Route path="/generate" element={<GeneratePage/>}></Route>
           </Route>
         </>
     )
