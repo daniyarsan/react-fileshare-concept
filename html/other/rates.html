@@ -104,7 +104,7 @@
             </div>
 
             <div class="row row_end">
-                <div class="togglePeriod row row_center">
+                <div class="toggleDefault row row_center">
                     <p class="month">На месяц</p>
                     <div class="ml-1">
                         <input type="checkbox" id="switch" checked/>
@@ -236,10 +236,10 @@
     </div>
 <script>
 
-    let togglePeriod = document.querySelector('.togglePeriod');
-    let checkbox = togglePeriod.querySelector('#switch');
-    let month = togglePeriod.querySelector('.month');
-    let year = togglePeriod.querySelector('.year');
+    let toggleDefault = document.querySelector('.toggleDefault');
+    let checkbox = toggleDefault.querySelector('#switch');
+    let month = toggleDefault.querySelector('.month');
+    let year = toggleDefault.querySelector('.year');
     year.classList.add('choosen');
 
     checkbox.addEventListener("click", function() {

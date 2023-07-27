@@ -1,170 +1,227 @@
-import React from 'react'
+import React, {useEffect, useRef, useState} from 'react'
+import {ErrorMessage, Field, FieldArray, Form, Formik, useFormikContext} from "formik";
+import {Preloader} from "../../components/Preloader/index.js";
+import {array, object, string} from "yup";
+import {formatBytes, formatTime} from "../../service/helper.js";
+import {createAlbum} from "../../api/manager.js";
 
 function CreateAlbumPage() {
-  return (
-      <section className="canvas create-albom">
-        <div className="container">
-          <div className="flex pdd-md-wrapper">
-            <div className="col-1@sx col-2-5@m pdd-md-hor mt-3">
+  const [loading, setLoading] = useState(false)
+  const [isSecured, setIsSecured] = useState(true)
 
-              <div className="row row_center">
-                <h1 className="bolder">Создание альбома</h1>
-                <span className="cleo text-orange ml-1 link"><i className="fa-solid fa-circle-question"></i></span>
-              </div>
+  const initialValues = {
+    name: '',
+    description: '',
+    period: '',
+    secured: false,
+    files: [],
+  }
 
-              <div className="mt-1">
-                <div className="row">
-                  <div><i className="fa-solid fa-pen-line"></i></div>
-                  <p>Придумайте название, добавьте описание и/или <span className="bold text-dark">прикрепите файлы</span> для создания альбома.</p>
-                </div>
-                <div className="row mt-1">
-                  <div><i className="fa-solid fa-lock-hashtag" ></i></div>
-                  <p>При необходимости <span className="bold text-dark">добавьте описание и пароль</span> к каждому файлу, установите срок жизни ссылки.</p>
-                </div>
-                <div className="row mt-1">
-                  <div><i className="fa-solid fa-link" ></i></div>
-                  <p><span className="bold text-dark">Делитесь ссылкой</span> для просмотра или скачивания архива.</p>
-                </div>
-              </div>
-              <div className="mt-2">
-                <div className="title">
-                  <input className="col-1@xs" type="text" placeholder="Заголовок (необязательно)"/>
-                </div>
-                <div className="mt-1">
-                  <textarea name="" id="" cols="30" rows="10" placeholder="Описание к альбому…"></textarea>
-                </div>
-                <div className="limit mt-1 relative">
-                  <input className="col-1@xs" type="text" placeholder="Срок хранения файлов"/>
-                  <div className="list">
-                    <p className="link" data-id="1">1 день</p>
-                    <p className="link" data-id="3">3 дня</p>
-                    <p className="link" data-id="7">7 дней</p>
-                    <p className="link" data-id="14">14 дней</p>
-                    <p className="link" data-id="30">30 дней</p>
-                    <p className="link" data-id="90">90 дней</p>
-                  </div>
-                </div>
-                <div className="password mt-1">
-                  <div className="relative">
-                    <input className="input-password col-1@xs" type="password" placeholder="Пароль (необязательно)"/>
-                    <div className="input-icon">
-                      <i className="eye fa-solid fa-eye-slash"></i>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-1@xs btn mt-2 hidden-xs hidden-sm active">Создать</div>
-              </div>
+  const validation = object({
+    name: string().required('Обязательное поле'),
+    period: string().required('Обязательное поле'),
+    files: array().of(object().shape({
+      image: string().required('Name is a required field.'),
+    })),
+  })
+
+  const onSubmit = (data, formikHelpers) => {
+    setLoading(true)
+
+    const formData = new FormData();
+    formData.append('name', 'asdfasdf');
+    formData.append('period', data.period);
+    formData.append('description', data.description);
+    formData.append('secured', data.secured);
+    data.files.forEach(item => {
+      formData.append('files', item.image)
+    })
+
+    createAlbum(formData).then(resp => {
+      setLoading(false)
+      console.log(resp)
+    })
+
+    // formikHelpers.resetForm()
+  }
+
+  const PreviewImage = ({file}) => {
+    const [preview, setPreview] = useState()
+    const render = new FileReader()
+    render.readAsDataURL(file)
+    render.onload = () => {
+      setPreview(render.result)
+    }
+
+    return (
+        <div className="card img-cover">
+          <img className="" src={preview} alt="preview"/>
+        </div>
+    )
+  }
+
+  const ImageBlock = ({index, setFieldValue, remove, values}) => {
+    const fileRef = useRef()
+    const [file, setFile] = useState(null)
+
+    return (
+        <div key={index} className="mt-2">
+          <div className="card-wrapper">
+            <div className="row row_sb">
+              <p className="bold text-dark">{index >= 0 && `${index + 1}.`} {file?.name}</p>
+              <div className="text-grey link" onClick={() => remove(index)}>Удалить</div>
             </div>
+            <p className="small">{file?.size && formatBytes(file.size)} {file?.lastModified && formatTime(file?.lastModified)}</p>
 
-            <div className="col-1@sx col-3-5@m pdd-md-hor set-height mt-3">
-              <h1 className="bolder">Вложенные в альбом файлы</h1>
+            <hr/>
 
-              <p className="mt-1">Вы можете отправить каждый загруженный файл отдельно, не предоставляя доступ ко всему альбому. После создания перейдите в раздел мои альбомы,
-                выберите необходимый файл и поделитесь им. (только для зарегистрированных пользователей)</p>
-              <div className="cards">
+            <div className="flex row-1@xs">
+              <div className="img-wrapper mt-1 col-4-12@m">
+                {/* If file is uploaded - initiate preview */}
+                {values.files[index].image && <PreviewImage file={values.files[index].image}/>}
+                <button type='button'
+                        className='col-1@xs btn active'
+                        onClick={() => {
+                          fileRef.current.click()
+                        }}>Загрузить
+                </button>
 
-                <div className="mt-2">
-                  <div className="card-wrapper">
-                    <div className="row row_sb">
-                      <p className="bold text-dark">1. IMG_3136.jpg</p>
-                      <div className="text-grey link">Удалить</div>
-                    </div>
-                    <p className="small">1.32 МБ 22/2/23 01:29</p>
-                    <div className="flex row-1@xs row-1-2@m">
-                      <div className="img-wrapper mt-1">
-                        <div className="card img-cover">
-                          <img className="" src="/static/img/img005.png" alt=""/>
-                        </div>
-                      </div>
-                      <div className="mt-1">
-                        <textarea className="col-1@xs" name="" id="" cols="30" rows="10" placeholder="Описание к фото"></textarea>
-                        <div className="password mt-1">
-                          <div className="relative">
-                            <input className="input-password col-1@xs" type="password" placeholder="Пароль (необязательно)"/>
-                            <div className="input-icon">
-                              <i className="eye fa-solid fa-eye-slash"></i>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <hr className="mt-2"/>
-
-                <div className="mt-2 hidden">
-                  <div className="card-wrapper">
-                    <div className="row row_sb">
-                      <p className="bold text-dark">1. IMG_3136.jpg</p>
-                      <div className="text-grey link">Удалить</div>
-                    </div>
-                    <p className="small">1.32 МБ 22/2/23 01:29</p>
-                    <div className="flex row-1@xs row-1-2@m">
-                      <div className="img-wrapper mt-1">
-                        <div className="card img-cover">
-                          <img className="" src="/static/img/img001.png" alt=""/>
-                        </div>
-                      </div>
-                      <div className="mt-1">
-                        <textarea className="col-1@xs" name="" id="" cols="30" rows="10" placeholder="Описание к фото"></textarea>
-                        <div className="password mt-1">
-                          <div className="relative">
-                            <input className="input-password col-1@xs" type="password" placeholder="Пароль (необязательно)"/>
-                            <div className="input-icon">
-                              <i className="eye fa-solid fa-eye-slash"></i>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <hr className="mt-2 hidden"/>
-
-                <div className="mt-2 hidden">
-                  <div className="card-wrapper">
-                    <div className="row row_sb">
-                      <p className="bold text-dark">1. IMG_3136.jpg</p>
-                      <div className="text-grey link">Удалить</div>
-                    </div>
-                    <p className="small">1.32 МБ 22/2/23 01:29</p>
-
-                    <div className="flex row-1@xs row-1-2@m">
-                      <div className="img-wrapper mt-1">
-                        <div className="card img-cover">
-                          <img className="" src="/static/img/img004.png" alt=""/>
-                        </div>
-                      </div>
-
-                      <div className="mt-1">
-                        <textarea className="col-1@xs" name="" id="" cols="30" rows="10" placeholder="Описание к фото"></textarea>
-                        <div className="password mt-1">
-                          <div className="relative">
-                            <input className="input-password col-1@xs" type="password" placeholder="Пароль (необязательно)"/>
-                            <div className="input-icon">
-                              <i className="eye fa-solid fa-eye-slash"></i>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
+                <input ref={fileRef} hidden type="file" onChange={(event) => {
+                  const file = event.currentTarget.files[0]
+                  setFile(file)
+                  setFieldValue(`files[${index}].image`, file);
+                }}/>
               </div>
-
-              <div className="row row_end mt-2">
-                <div className="btn ml-2 active">Добавить</div>
+              <div className="mt-1 col-8-12@m">
+                <Field as='textarea' name={`files[${index}].description`} type="text" placeholder="Описание к файлу…"/>
               </div>
-
-              <div className="col-1@xs btn mt-2 hidden-md hidden-lg">Создать</div>
             </div>
           </div>
-
+          <hr className="mt-2"/>
         </div>
-      </section>
+    )
+  }
+
+  /* FORM OBSERVER TO UPDATE STATE DATA */
+  const FormObserver = () => {
+    const {values} = useFormikContext();
+
+    useEffect(() => {
+      const {secured} = values
+      setIsSecured(secured)
+    }, [values]);
+
+    return null;
+  };
+
+  /* RENDER WHOLE PAGE */
+  return (
+      <>
+        {loading && <Preloader/>}
+
+        <section className="canvas create-albom">
+          <div className="container">
+            <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validation}>
+              {({errors, isValid, setFieldValue, values, handleSubmit, touched, dirty}) => (
+                  <Form className="flex pdd-md-wrapper">
+                    <FormObserver/>
+                    <div className="col-1@sx col-2-5@m pdd-md-hor mt-3">
+                      <div className="row row_center">
+                        <div className="toggleDefault">
+                          <Field id="switch" type="checkbox" name="secured"/>
+                          <label htmlFor='switch'></label>
+                        </div>
+
+                        <div className="link small text-grey"> выбрать видимость альбома</div>
+                      </div>
+
+                      <div className="row row_sb">
+                        <h1 className="bolder">Создание {isSecured ? 'приватного' : 'публичного'} альбома <span className="cleo text-orange ml-1 link"><i
+                            className="fa-solid fa-circle-question"></i></span></h1>
+                      </div>
+
+                      <div className="mt-1">
+                        <div className="row">
+                          <div className='icon-block'><i className="fa-solid fa-pen-line"></i></div>
+                          <p>Придумайте название, добавьте описание и/или <span className="bold text-dark">прикрепите файлы</span> для создания альбома.</p>
+                        </div>
+                        <div className="row mt-1">
+                          <div className='icon-block'><i className="fa-solid fa-lock-hashtag"></i></div>
+                          <p>При необходимости <span className="bold text-dark">добавьте описание и пароль</span> к каждому файлу, установите срок жизни ссылки.</p>
+                        </div>
+                        <div className="row mt-1">
+                          <div className='icon-block'><i className="fa-solid fa-link"></i></div>
+                          <p><span className="bold text-dark">Делитесь ссылкой</span> для просмотра или скачивания архива.</p>
+                        </div>
+                      </div>
+
+                      <div className="mt-2">
+                        <div className="title">
+                          <Field className='col-1@xs' type="text" name="name" placeholder="Заголовок"/>
+                          <ErrorMessage className="text-danger" name="name" component="small"/>
+                        </div>
+
+                        <div className="limit mt-1 relative">
+                          <Field className="col-1@xs" as="select" name="period">
+                            <option value="">Выберите период</option>
+                            <option value="1">1 день</option>
+                            <option value="3">3 дня</option>
+                            <option value="7">7 дней</option>
+                            <option value="14">14 дней</option>
+                            <option value="30">30 дней</option>
+                            <option value="90">90 дней</option>
+                          </Field>
+                          <ErrorMessage className="text-danger" name="period" component="small"/>
+                        </div>
+
+                        <div className="mt-1">
+                          <Field as='textarea' name="description" type="text" placeholder="Описание к альбому…"/>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div className="col-1@sx col-3-5@m pdd-md-hor set-height mt-3">
+                      <h1 className="bolder">Вложенные в альбом файлы</h1>
+
+                      <p className="mt-1">Вы можете отправить каждый загруженный файл отдельно, не предоставляя доступ ко всему альбому. После создания перейдите в раздел мои
+                        альбомы,
+                        выберите необходимый файл и поделитесь им. (только для зарегистрированных пользователей)</p>
+
+                      {/* Complex dynamic field set to add more photos */}
+
+                      <FieldArray name='files'>
+                        {(fieldArrayProps) => {
+                          const {push, form} = fieldArrayProps;
+                          const {values} = form;
+                          const {files} = values;
+
+                          return (
+                              <div className="cards">
+                                {files.map((f, index) => (<ImageBlock key={index} index={index} {...fieldArrayProps} setFieldValue={setFieldValue} values={values}/>))}
+                                <div className="row row_end mt-2">
+
+                                  {/* Add new image item */}
+                                  <div className="btn ml-2 active" onClick={() => push({
+                                    description: '',
+                                    image: null
+                                  })}>Добавить
+                                  </div>
+                                </div>
+                              </div>
+                          )
+                        }}
+                      </FieldArray>
+                    </div>
+
+                    <button type='submit' className={`col-1@xs btn mt-2 ${(isValid && dirty) ? 'active' : ''}`}>Создать</button>
+                  </Form>
+              )}
+            </Formik>
+
+          </div>
+        </section>
+      </>
   )
 }
 

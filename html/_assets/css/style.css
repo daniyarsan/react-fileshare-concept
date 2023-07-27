@@ -57,78 +57,48 @@ div.bgPeach hr {
   margin: 20px 0px;
 }
 
-.toggleType {
-  background-color: #F4E3D4;
-  border-radius: 14px;
-  padding: 6px;
-  width: -webkit-fit-content !important;
-  width: -moz-fit-content !important;
-  width: fit-content !important;
-  margin: 0 auto;
-}
-.toggleType .btn {
-  background-color: rgba(0, 0, 0, 0);
-  border: none;
-  color: #222;
-  cursor: not-allowed;
-}
-.toggleType .btn i {
-  font-size: 20px;
-}
-.toggleType .btn[active]:hover {
-  background-color: #fff;
-}
-.toggleType .btn[active] {
-  background-color: #fff;
-  border: none;
-  color: #222;
-  cursor: default;
-}
-.toggleType .corporative:hover .custom-alert-wrapper {
-  display: block;
-}
-.toggleType .custom-alert {
-  bottom: 100%;
-}
 
-.togglePeriod input[type=checkbox] {
+
+/* TOGGLE */
+
+.toggleDefault input[type=checkbox] {
   height: 0;
   width: 0;
-  visibility: hidden;
+  display: none;
 }
-.togglePeriod label {
+.toggleDefault label {
   cursor: pointer;
-  width: 70px;
-  height: 40px;
+  width: 60px;
+  height: 30px;
   background: #F4E3D4;
   display: block;
   border-radius: 100px;
   position: relative;
 }
-.togglePeriod p {
+.toggleDefault p {
   color: #BCB0A8;
 }
-.togglePeriod p.choosen {
+.toggleDefault p.choosen {
   color: #222;
 }
-.togglePeriod label:after {
+.toggleDefault label:after {
   content: "";
   position: absolute;
   top: 5px;
   left: 5px;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   background: #fff;
   border-radius: 90px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
-.togglePeriod input:checked + label:after {
+.toggleDefault input:checked + label:after {
   left: calc(100% - 5px);
   -webkit-transform: translateX(-100%);
           transform: translateX(-100%);
 }
-.togglePeriod label:active:after {
+.toggleDefault label:active:after {
   width: 70px;
 }
 
@@ -271,16 +241,20 @@ p {
   color: #555;
 }
 
-.text-grey p {
-  color: #b7bac1;
-}
-
 .text-orange {
   color: #ff8100;
 }
 
+.text-grey p {
+  color: #b7bac1;
+}
+
 .text-grey {
   color: #b7bac1;
+}
+
+.text-danger {
+  color: #960502;
 }
 
 .text-dark {
@@ -302,13 +276,19 @@ hr {
   height: 1px;
 }
 
-input {
+textarea {
+  resize: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", Roboto, "Helvetica Neue";
+  font-size: 15px;
+}
+
+input, select {
   height: 50px;
   border-radius: 12px;
   border: 1px solid #e3e5e7;
   margin: 6px 0px;
   padding: 0px 14px;
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: 1px;
 }
 
@@ -552,6 +532,11 @@ body {
   cursor: not-allowed;
 }
 
+.icon-block {
+  margin-right: 10px;
+}
+
+/* CONTENT STYLES */
 .login {
   /*padding: 60px 0px 20px;*/
 }
@@ -594,6 +579,7 @@ body {
 .breadcrumb a {
   color: #777;
   font-size: 14px;
+  margin-left: 5px;
 }
 .breadcrumb a:hover {
   color: #666;

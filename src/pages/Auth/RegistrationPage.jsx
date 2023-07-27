@@ -59,18 +59,6 @@ function RegistrationPage(props) {
           потеряли данные для входа. Администраторам и пользователям следует хранить резервный код в безопасном месте.</p>
         <div className="mt-2 row row_center">
           <div>
-            <div id="copytoClipboard-alert" className="custom-alert-wrapper relative hidden">
-              <div className="custom-alert">
-                <div className="body row">
-                  <div>
-                    <p className="bolder">Скопировано</p>
-                  </div>
-                  <div className="img-contain ml-1">
-                    <img src="" alt=""/>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div id="shareLink" className="bold text-overflow">{recoveryCode}</div>
           </div>
 
@@ -89,8 +77,7 @@ function RegistrationPage(props) {
         <div className="mt-2 row row_col row_center">
           <div className="col-1@xs btn active" onClick={() => {
             navigate('/')
-          }}>Сохранил
-          </div>
+          }}>Сохранил</div>
         </div>
       </>
   )
@@ -98,7 +85,6 @@ function RegistrationPage(props) {
   return (
       <section className="canvas login">
         {loading && <Preloader/>}
-
 
         <div className="container">
           <div className="flex row-1@xs row-1-3@m">

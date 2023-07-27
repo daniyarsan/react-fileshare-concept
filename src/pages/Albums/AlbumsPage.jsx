@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {deleteAlbum, getAlbumsList} from "../../api/manager.js";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {Preloader} from "../../components/Preloader/index.js";
 import {BASE_URL} from "../../api/const.js";
 import {toast} from "react-toastify";
+import {formatTime} from "../../service/helper.js";
 
 function AlbumsPage() {
-  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [albumsList, setAlbumsList] = useState()
 
@@ -19,7 +19,7 @@ function AlbumsPage() {
 
   const handleRemoveAlbum = (url) => {
     deleteAlbum(url).then(resp => {
-      navigate('/albums')
+      window.location.reload()
     })
   }
 
@@ -40,7 +40,10 @@ function AlbumsPage() {
                   setShow(false)
                 }}>Отмена
                 </div>
-                <div className="link small ml-2" onClick={() =>{handleRemoveAlbum(url)}}>Удалить</div>
+                <div className="link small ml-2" onClick={() => {
+                  handleRemoveAlbum(url)
+                }}>Удалить
+                </div>
               </div>
             </div>
           </div>
@@ -70,13 +73,13 @@ function AlbumsPage() {
     )
   }
 
-  const AlbumItem = ({name, url, password, create_date, shelf_time}) => {
+  const AlbumItem = ({name, url, password, create_date, shelf_time, view_count}) => {
     const [show, setShow] = useState(false)
 
     return (
         <div className="card-wrapper pdd-sm">
 
-          <AlbumAlert show={show} setShow={setShow} url={url} />
+          <AlbumAlert show={show} setShow={setShow} url={url}/>
 
           <div className="card card-body">
             <div className="row row_sb">
@@ -92,10 +95,10 @@ function AlbumsPage() {
                 </div>
               </div>
             </div>
-            <div className="date sm mt-05">{create_date}</div>
-            <div className="storagePeriod sm">Просмотров <span className="days bold">7</span></div>
+            <div className="date sm mt-05">{formatTime(Date.parse(create_date))}</div>
+            <div className="storagePeriod sm">Просмотров: <span className="days bold">{view_count}</span></div>
 
-            <div className="storagePeriod sm">Срок хранения <span className="days bold">30 дней</span></div>
+            <div className="storagePeriod sm">Срок хранения: <span className="days bold">{shelf_time} дней</span></div>
             <div className="share row row_center row_sb mt-05 sm">
               <div className="bold text-overflow">
                 {`${BASE_URL}/${url}`}

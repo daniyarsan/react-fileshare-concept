@@ -151,7 +151,7 @@ function PricingPage() {
                     </div>
 
                     <div className="row row_end">
-                      <div className="togglePeriod row row_center">
+                      <div className="toggleDefault row row_center">
                         <p className={`month ${isMonthly ? 'choosen' : ''}`}>На месяц</p>
                         <div className="ml-1">
                           <input type="checkbox" id="switch" onChange={() => {
@@ -162,6 +162,7 @@ function PricingPage() {
                         <p className={`year ml-1 ${isMonthly ? '' : 'choosen'}`}>На год</p>
                       </div>
                     </div>
+
                   </div>
 
                   <div className="cards flex row-1@xs row-1-3@m mt-2 pdd-md-wrapper">
@@ -170,7 +171,6 @@ function PricingPage() {
                         return <PricingCard key={item.option} {...item} />
                       })
                     }
-
                   </div>
 
                   <hr/>
