@@ -4,8 +4,11 @@ import {Preloader} from "../../components/Preloader/index.js";
 import {array, object, string} from "yup";
 import {formatBytes, formatTime} from "../../service/helper.js";
 import {createAlbum} from "../../api/manager.js";
+import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 function CreateAlbumPage() {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [isSecured, setIsSecured] = useState(true)
 
@@ -29,7 +32,7 @@ function CreateAlbumPage() {
     setLoading(true)
 
     const formData = new FormData();
-    formData.append('name', 'asdfasdf');
+    formData.append('name', data.name);
     formData.append('period', data.period);
     formData.append('description', data.description);
     formData.append('secured', data.secured);
@@ -39,7 +42,11 @@ function CreateAlbumPage() {
 
     createAlbum(formData).then(resp => {
       setLoading(false)
-      console.log(resp)
+      toast.success('Альбом успешно создан', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000
+      })
+      navigate('/albums')
     })
 
     // formikHelpers.resetForm()

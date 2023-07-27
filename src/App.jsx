@@ -29,7 +29,6 @@ function App() {
   const {isAuth} = useSelector(state => state.user)
   const isAuthorized = isAuth && localStorage.getItem(AUTH_TOKEN)
 
-
   const LogoutComponent = () => {
     useEffect(() => {
       navigate('/')
