@@ -3,17 +3,32 @@ import {ErrorMessage, Field, FieldArray, Form, Formik, useFormikContext} from "f
 import {Preloader} from "../../components/Preloader/index.js";
 import {array, object, string} from "yup";
 import {formatBytes, formatTime} from "../../service/helper.js";
-import {createAlbum} from "../../api/manager.js";
+import {createAlbum, getAlbumDetails} from "../../api/manager.js";
 import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 function CreateAlbumPage() {
+  const {url} = useParams()
+
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [isSecured, setIsSecured] = useState(true)
+  const [albumDetails, setAlbumDetails] = useState()
+
+  useEffect(() => {
+    getAlbumDetails(url).then(resp => {
+      setAlbumDetails(resp?.data)
+      setLoading(false)
+    }).catch(err => {
+      console.log(err)
+
+    })
+  }, [])
+
+  console.log(albumDetails)
 
   const initialValues = {
-    name: '',
+    name: albumDetails?.album.name,
     description: '',
     period: '',
     secured: false,

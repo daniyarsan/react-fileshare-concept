@@ -13,15 +13,14 @@ import LoginPage from "./pages/Auth/LoginPage.jsx";
 import GeneratePage from "./pages/Auth/GeneratePage.jsx";
 import AlbumsPage from "./pages/Albums/AlbumsPage.jsx";
 import AlbumPage from "./pages/Albums/AlbumPage.jsx";
-import CreateAlbumPage from "./pages/Albums/CreateAlbumPage.jsx";
+import AlbumPageForm from "./pages/Albums/AlbumPageForm.jsx";
 import DashboardPage from "./pages/Dashboard/DashboardPage.jsx";
 import StaffPage from "./pages/Dashboard/StaffPage.jsx";
 import ForgotPage from "./pages/Auth/ForgotPage.jsx";
 import PricingPage from "./pages/Plans/PricingPage.jsx";
 import {AUTH_TOKEN} from "./api/const.js";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import ResetPage from "./pages/Auth/ResetPage.jsx";
-import {logout} from "./store/slices/userSlice.js";
 import {useEffect} from "react";
 
 function App() {
@@ -56,7 +55,8 @@ function App() {
             <Route path="/" element={<DashboardPage/>}></Route>
             <Route path="/albums" element={<AlbumsPage/>}></Route>
             <Route path="/album/:url" element={<AlbumPage/>}></Route>
-            <Route path="/album/create" element={<CreateAlbumPage/>}></Route>
+            <Route path="/album/create" element={<AlbumPageForm/>}></Route>
+            <Route path="/album/edit/:url" element={<AlbumPageForm/>}></Route>
             <Route path="/staff" element={<StaffPage/>}></Route>
             <Route path="/plans" element={<PricingPage/>}></Route>
             <Route path="/reset" element={<ResetPage/>}></Route>
