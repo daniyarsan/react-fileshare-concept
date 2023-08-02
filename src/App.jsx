@@ -13,7 +13,7 @@ import LoginPage from "./pages/Auth/LoginPage.jsx";
 import GeneratePage from "./pages/Auth/GeneratePage.jsx";
 import AlbumsPage from "./pages/Albums/AlbumsPage.jsx";
 import AlbumPage from "./pages/Albums/AlbumPage.jsx";
-import AlbumPageForm from "./pages/Albums/AlbumPageForm.jsx";
+import AlbumPageForm from "./components/Album/AlbumPageForm.jsx";
 import DashboardPage from "./pages/Dashboard/DashboardPage.jsx";
 import StaffPage from "./pages/Dashboard/StaffPage.jsx";
 import ForgotPage from "./pages/Auth/ForgotPage.jsx";

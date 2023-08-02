@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {ErrorMessage, Field, FieldArray, Form, Formik, useFormikContext} from "formik";
-import {Preloader} from "../../components/Preloader/index.js";
+import {Preloader} from "../Preloader/index.js";
 import {array, object, string} from "yup";
 import {formatBytes, formatTime} from "../../service/helper.js";
-import {createAlbum, getAlbumDetails} from "../../api/manager.js";
+import {createAlbum, getAlbumDetails, updateAlbum} from "../../api/manager.js";
 import {toast} from "react-toastify";
 import {useNavigate, useParams} from "react-router-dom";
-import SelectField from "../../components/SelectField/SelectField.jsx";
+import SelectField from "../SelectField/SelectField.jsx";
 
 function AlbumPageForm() {
   const navigate = useNavigate()
@@ -15,19 +15,7 @@ function AlbumPageForm() {
   const [album, setAlbum] = useState()
   const {url} = useParams()
   const isAddMode = !url;
-
-  useEffect(() => {
-    // setLoading(true)
-    if (!isAddMode) {
-      getAlbumDetails(url).then(resp => {
-        setLoading(false)
-        setAlbum(resp?.data)
-      }).catch(err => {
-        console.log(err)
-      })
-    }
-  }, []);
-
+  const [removedImages, setRemovedImages] = useState([])
 
   const initialValues = {
     name: '',
@@ -45,6 +33,24 @@ function AlbumPageForm() {
     }))
   })
 
+
+  /* Actions */
+
+  /* Fetch Album details for Edit */
+  useEffect(() => {
+    if (!isAddMode) {
+      setLoading(true)
+      getAlbumDetails(url).then(resp => {
+        setLoading(false)
+        setAlbum(resp?.data)
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  }, []);
+
+
+  /* Form Submit */
   const onSubmit = (data, formikHelpers) => {
     setLoading(true)
 
@@ -67,27 +73,35 @@ function AlbumPageForm() {
         navigate('/albums')
       })
     } else {
-      console.log(data)
+      formData.append('removedImages', removedImages);
+
+      updateAlbum(formData).then(resp => {
+        setLoading(false)
+        toast.success('Альбом успешно создан', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000
+        })
+        navigate('/albums')
+      })
     }
+
     formikHelpers.resetForm()
   }
 
-  const PreviewImage = ({file}) => {
+  const ImagePreview = ({file}) => {
     const [preview, setPreview] = useState()
     const render = new FileReader()
     render.readAsDataURL(file)
     render.onload = () => {
       setPreview(render.result)
     }
-
     return (
         <div className="card img-cover">
           <img className="" src={preview} alt="preview"/>
         </div>
     )
   }
-
-  const ImageBlock = ({index, setFieldValue, remove, values}) => {
+  const ImageBlock = ({index, setFieldValue, remove, value}) => {
     const fileRef = useRef()
     const [file, setFile] = useState(null)
 
@@ -95,7 +109,7 @@ function AlbumPageForm() {
         <div key={index} className="mt-2">
           <div className="card-wrapper">
             <div className="row row_sb">
-              <p className="bold text-dark">{index >= 0 && `${index + 1}.`} {file?.name}</p>
+              <p className="bold text-dark">{file?.name}</p>
               <div className="text-grey link" onClick={() => remove(index)}>Удалить</div>
             </div>
             <p className="small">{file?.size && formatBytes(file.size)} {file?.lastModified && formatTime(file?.lastModified)}</p>
@@ -103,9 +117,11 @@ function AlbumPageForm() {
             <hr/>
 
             <div className="flex row-1@xs">
-              <div className="img-wrapper mt-1 col-4-12@m">
+              <div className="img-wrapper mt-1 col-3-12@m">
                 {/* If file is uploaded - initiate preview */}
-                {values.files[index].image && <PreviewImage file={values.files[index].image}/>}
+
+                {value.image && <ImagePreview file={value.image}/>}
+
                 <button type='button'
                         className='col-1@xs btn active'
                         onClick={() => {
@@ -119,7 +135,7 @@ function AlbumPageForm() {
                   setFieldValue(`files[${index}].image`, file);
                 }}/>
               </div>
-              <div className="mt-1 col-8-12@m">
+              <div className="mt-1 col-9-12@m">
                 <Field as='textarea' name={`files[${index}].description`} type="text" placeholder="Описание к файлу…"/>
               </div>
             </div>
@@ -129,6 +145,46 @@ function AlbumPageForm() {
     )
   }
 
+  const OldImagePreview = ({image}) => {
+    const imageId = image.data.slice(40, 60);
+    let isRemoved = removedImages.includes(imageId)
+
+    return (
+        <div className="image-card-wrapper col-2-12@m">
+          <div className={`card img-cover ${isRemoved && 'disabled'}`}>
+            <img className="" src={`data:image/jpeg;base64,${image?.data}`} alt="preview"/>
+          </div>
+
+          <div className="text-grey link" onClick={() => {
+            if (!isRemoved) {
+              setRemovedImages([...removedImages, imageId])
+            } else {
+              setRemovedImages(removedImages.filter(item => {
+                return item != imageId
+              }))
+            }
+          }}> {isRemoved ? 'Удалено' : 'Удалить'}
+          </div>
+        </div>
+    )
+  }
+  const OldImagesBlock = ({oldFiles}) => {
+    return (
+        <>
+          <h1 className="bolder">Файлы в альбоме</h1>
+          <p className="mt-1">Здесь вы видите файлы которые уже загружены в ваш альбом</p>
+          <div className="flex cards">
+            {oldFiles && oldFiles.map((file, index) => {
+              return <OldImagePreview key={index} index={index} {...file} />
+            })}
+          </div>
+          <hr/>
+        </>
+    )
+  }
+
+
+  /* RENDER WHOLE PAGE */
   /* FORM OBSERVER TO UPDATE STATE DATA */
   const FormObserver = () => {
     const {values} = useFormikContext();
@@ -141,7 +197,6 @@ function AlbumPageForm() {
     return null;
   };
 
-  /* RENDER WHOLE PAGE */
   return (
       <>
         {loading && <Preloader/>}
@@ -155,25 +210,25 @@ function AlbumPageForm() {
                   album?.album && setFieldValue('name', album?.album.name)
                   album?.album && setFieldValue('description', album?.description)
                   album?.album && setFieldValue('period', album?.album.shelf_time)
-                  // album?.album && setFieldValue('files', album?.images.map(item => ({image: item})))
+                  album?.album && setFieldValue('oldFiles', album?.images.map(item => ({image: item})))
                 }, [album])
 
                 return (
                     <Form className="flex pdd-md-wrapper">
                       <FormObserver/>
                       <div className="col-1@sx col-2-5@m pdd-md-hor mt-3">
-                        <div className="row row_center">
+                        <div className="link">Выбрать видимость альбома</div>
+
+                        <div className="row row_center mt-1">
                           <div className="toggleDefault">
                             <Field id="switch" type="checkbox" name="secured"/>
                             <label htmlFor='switch'></label>
                           </div>
-
-                          <div className="link small text-grey"> выбрать видимость альбома</div>
                         </div>
 
                         <div className="row row_sb">
                           <h1 className="bolder">Создание {isSecured ? 'приватного' : 'публичного'} альбома <span className="cleo text-orange ml-1 link"><i
-                              className="fa-solid fa-circle-question"></i></span></h1>
+                              className={`fa-solid ${isSecured ? 'fa-lock' : 'fa-lock-open'}`}></i></span></h1>
                         </div>
 
                         <div className="mt-1">
@@ -206,6 +261,7 @@ function AlbumPageForm() {
                               {value: 30, label: '30 дней'},
                               {value: 90, label: '90 дней'},
                             ]}/>
+
                             <ErrorMessage className="text-danger" name="period" component="small"/>
                           </div>
 
@@ -216,43 +272,44 @@ function AlbumPageForm() {
                       </div>
 
                       <div className="col-1@sx col-3-5@m pdd-md-hor set-height mt-3">
-                        <h1 className="bolder">Вложенные в альбом файлы</h1>
+                        {/* Complex dynamic field set to add more photos */}
+                        {!isAddMode && <OldImagesBlock {...values}/>}
 
+                        <h1 className="bolder">Вложенные в альбом файлы</h1>
                         <p className="mt-1">Вы можете отправить каждый загруженный файл отдельно, не предоставляя доступ ко всему альбому. После создания перейдите в раздел мои
                           альбомы,
                           выберите необходимый файл и поделитесь им. (только для зарегистрированных пользователей)</p>
 
-                        {/* Complex dynamic field set to add more photos */}
+                        <FieldArray name='files'>
+                          {(fieldArrayProps) => {
+                            const {push, form} = fieldArrayProps;
+                            const {values} = form;
+                            const {files} = values;
 
-                      <FieldArray name='files'>
-                        {(fieldArrayProps) => {
-                          const {push, form} = fieldArrayProps;
-                          const {values} = form;
-                          const {files} = values;
+                            return (
+                                <div className="cards">
+                                  {files.map((value, index) => (<ImageBlock key={index} index={index} {...fieldArrayProps} setFieldValue={setFieldValue} value={value}/>))}
 
-                          return (
-                              <div className="cards">
-                                {files.map((f, index) => (<ImageBlock key={index} index={index} {...fieldArrayProps} setFieldValue={setFieldValue} values={values}/>))}
-                                <div className="row row_end mt-2">
+                                  <div className="row row_end mt-2">
+                                    {/* Add new image item */}
+                                    <div className="btn ml-2 active" onClick={() => push({
+                                      description: '',
+                                      image: null
+                                    })}><i className='fa fa-plus'></i>
 
-                                  {/* Add new image item */}
-                                  <div className="btn ml-2 active" onClick={() => push({
-                                    description: '',
-                                    image: null
-                                  })}>Добавить
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                          )
-                        }}
-                      </FieldArray>
-                    </div>
+                            )
+                          }}
+                        </FieldArray>
+                      </div>
 
-                      <button type='submit' className={`col-1@xs btn mt-2 ${(isValid && dirty) ? 'active' : ''}`}>{isAddMode ? 'Создать' : 'Обновить'}</button>
+                      <button type='submit' className={`col-1@xs btn mt-2 ${(dirty) ? 'active' : ''}`}>{isAddMode ? 'Создать' : 'Обновить'}</button>
                     </Form>
-                )}}
+                )
+              }}
             </Formik>
-
           </div>
         </section>
       </>

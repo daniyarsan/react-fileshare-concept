@@ -10,6 +10,7 @@ export const ALBUMS_LIST = '/albums_list'
 export const ALBUM_DETAILS = '/album'
 export const ALBUM_DELETE = '/remove_album'
 export const ALBUM_CREATE = '/upload'
+export const ALBUM_UPDATE_BY_ID = '/album/update/'
 
 export const USER_STAT = '/user_stat'
 export const PRICING = '/pricing'

@@ -445,6 +445,7 @@ textarea {
      object-fit: cover;
   width: 100%;
   height: 100%;
+  border-radius: 12px;
 }
 
 .img-contain img {
@@ -612,6 +613,14 @@ body {
 }
 .breadcrumb a[active] {
   color: #555;
+}
+
+.image-card-wrapper {
+  margin-right: 10px;
+}
+
+.image-card-wrapper .img-cover.disabled {
+  opacity: .5;
 }
 
 .cards .card-body {

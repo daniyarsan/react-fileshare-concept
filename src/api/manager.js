@@ -1,4 +1,16 @@
-import {ALBUM_CREATE, ALBUM_DELETE, ALBUM_DETAILS, ALBUMS_LIST, LOGIN, PRICING, RECOVER_PASSWORD_BY_TOKEN, RECOVER_TOKEN, RESET_PASSWORD, USER_STAT} from "./const.js";
+import {
+    ALBUM_CREATE,
+    ALBUM_DELETE,
+    ALBUM_DETAILS,
+    ALBUM_UPDATE_BY_ID,
+    ALBUMS_LIST,
+    LOGIN,
+    PRICING,
+    RECOVER_PASSWORD_BY_TOKEN,
+    RECOVER_TOKEN,
+    RESET_PASSWORD,
+    USER_STAT
+} from "./const.js";
 import requester, {multipartRequester, publicRequester} from "./axios.js";
 
 export const login = async (data) => {
@@ -39,4 +51,8 @@ export const deleteAlbum = async (url) => {
 
 export const createAlbum = async (formData) => {
     return await multipartRequester.post(`${ALBUM_CREATE}`, formData)
+}
+
+export const updateAlbum = async (formData) => {
+    return await multipartRequester.post(`${ALBUM_UPDATE_BY_ID}`, formData)
 }

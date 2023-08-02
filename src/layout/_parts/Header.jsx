@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../store/slices/userSlice.js";
 
@@ -7,7 +7,9 @@ function Header() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {userData} = useSelector(state => state.user)
+  const location = useLocation();
 
+  console.log(location.pathname)
 
   return (
       <div className="nav">
@@ -26,13 +28,15 @@ function Header() {
                 <span className="hide-m"><i className="fa-solid fa-crown"></i></span>
               </Link>
 
-              <Link to='/album/create'>
-                <div className="addFile">
-                  <div className="button">
-                    <i className="fa-solid fa-plus faa-xl"></i>
-                  </div>
-                </div>
-              </Link>
+              {!(location.pathname.includes('/album/create')) && (
+                  <div className="addFile">
+                    <Link to='/album/create'>
+                      <div className="button">
+                        <i className="fa-solid fa-plus faa-xl"></i>
+                      </div>
+                    </Link>
+                  </div>)
+              }
 
               <Link to='/albums'>
                 <span className="hide-sm ml-2">Мои альбомы</span>
