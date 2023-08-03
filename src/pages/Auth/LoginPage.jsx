@@ -66,7 +66,7 @@ function LoginPage(props) {
                             <div className="bold small">Логин</div>
                             <Field name="username" className='col-1@xs' type="text"/>
                           </div>
-                          <ErrorMessage className="text-grey" name="username" component="small"/>
+                          <ErrorMessage className="text-danger" name="username" component="small"/>
 
                           <div className="password mt-1">
                             <div className="bold small">Пароль</div>
@@ -76,10 +76,10 @@ function LoginPage(props) {
                                 <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
                               </a>
                             </div>
-                            <ErrorMessage className="text-grey" name="password" component="small"/>
+                            <ErrorMessage className="text-danger" name="password" component="small"/>
 
                             <div className="row row_sb">
-                              <small className="text-grey"></small>
+                              <small className="text-danger"></small>
                               <Link to='/forgot' className="small line link">Забыл пароль?</Link>
                             </div>
                           </div>
@@ -87,7 +87,7 @@ function LoginPage(props) {
                           <button type="submit" className={`col-1@xs btn mt-3 ${(isValid && dirty) && 'active'}`}>Войти</button>
 
                           <div className="row row_col row_center">
-                            <p className="small text-grey center mt-1">Нет аккаунта?
+                            <p className="small text-danger center mt-1">Нет аккаунта?
                               <Link to='/registration' className="link line text-dark ml-1">Регистрация</Link>
                             </p>
                           </div>

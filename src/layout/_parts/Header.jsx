@@ -9,8 +9,6 @@ function Header() {
   const {userData} = useSelector(state => state.user)
   const location = useLocation();
 
-  console.log(location.pathname)
-
   return (
       <div className="nav">
         <div className="container">
@@ -35,8 +33,7 @@ function Header() {
                         <i className="fa-solid fa-plus faa-xl"></i>
                       </div>
                     </Link>
-                  </div>)
-              }
+                  </div>)}
 
               <Link to='/albums'>
                 <span className="hide-sm ml-2">Мои альбомы</span>

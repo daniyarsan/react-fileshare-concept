@@ -11,9 +11,8 @@ import Auth from "./layout/Auth.jsx";
 import RegistrationPage from "./pages/Auth/RegistrationPage.jsx";
 import LoginPage from "./pages/Auth/LoginPage.jsx";
 import GeneratePage from "./pages/Auth/GeneratePage.jsx";
-import AlbumsPage from "./pages/Albums/AlbumsPage.jsx";
-import AlbumPage from "./pages/Albums/AlbumPage.jsx";
-import AlbumPageForm from "./components/Album/AlbumPageForm.jsx";
+import AlbumsListPage from "./pages/Albums/AlbumsListPage.jsx";
+import AlbumDetailsPage from "./pages/Albums/AlbumDetailsPage.jsx";
 import DashboardPage from "./pages/Dashboard/DashboardPage.jsx";
 import StaffPage from "./pages/Dashboard/StaffPage.jsx";
 import ForgotPage from "./pages/Auth/ForgotPage.jsx";
@@ -22,6 +21,8 @@ import {AUTH_TOKEN} from "./api/const.js";
 import {useSelector} from "react-redux";
 import ResetPage from "./pages/Auth/ResetPage.jsx";
 import {useEffect} from "react";
+import AlbumEditPage from "./pages/Albums/AlbumEditPage.jsx";
+import AlbumCreatePage from "./pages/Albums/AlbumCreatePage.jsx";
 
 function App() {
   const navigate = useNavigate()
@@ -53,10 +54,10 @@ function App() {
         <>
           <Route element={<Default/>}>
             <Route path="/" element={<DashboardPage/>}></Route>
-            <Route path="/albums" element={<AlbumsPage/>}></Route>
-            <Route path="/album/:url" element={<AlbumPage/>}></Route>
-            <Route path="/album/create" element={<AlbumPageForm/>}></Route>
-            <Route path="/album/edit/:url" element={<AlbumPageForm/>}></Route>
+            <Route path="/albums" element={<AlbumsListPage/>}></Route>
+            <Route path="/album/:url" element={<AlbumDetailsPage/>}></Route>
+            <Route path="/album/create" element={<AlbumCreatePage/>}></Route>
+            <Route path="/album/edit/:url" element={<AlbumEditPage/>}></Route>
             <Route path="/staff" element={<StaffPage/>}></Route>
             <Route path="/plans" element={<PricingPage/>}></Route>
             <Route path="/reset" element={<ResetPage/>}></Route>

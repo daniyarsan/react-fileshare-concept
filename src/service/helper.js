@@ -15,3 +15,9 @@ export const formatBytes = (bytes, decimals = 2) => {
 export const formatTime = (timestamp, format = "MM/DD/YYYY HH:SS") => {
   return moment.unix(timestamp/1000).format(format);
 }
+
+export const baseUrl = () => {
+  var url = window.location.href
+  var arr = url.split("/");
+  return arr[0] + "//" + arr[2]
+}

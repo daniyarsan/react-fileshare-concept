@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react'
 import {deleteAlbum, getAlbumsList} from "../../api/manager.js";
 import {Link} from "react-router-dom";
 import {Preloader} from "../../components/Preloader/index.js";
-import {BASE_URL} from "../../api/const.js";
+import {BASE_URL, FRONT_URL} from "../../api/const.js";
 import {toast} from "react-toastify";
-import {formatTime} from "../../service/helper.js";
+import {baseUrl, formatTime} from "../../service/helper.js";
 
-function AlbumsPage() {
+function AlbumsListPage() {
   const [loading, setLoading] = useState(true)
   const [albumsList, setAlbumsList] = useState()
 
@@ -73,7 +73,7 @@ function AlbumsPage() {
     )
   }
 
-  const AlbumItem = ({name, url, password, create_date, shelf_time, view_count}) => {
+  const AlbumItem = ({name, url, create_date, shelf_time, password, view_count, ...rest}) => {
     const [show, setShow] = useState(false)
 
     return (
@@ -85,8 +85,11 @@ function AlbumsPage() {
             <div className="row row_sb">
               <h5 className="text-overflow">{name}</h5>
               <div className="row row_center">
+                <Link to={`/album/edit/${url}`} className="ml-1">
+                  <i className='fa-solid fa-pencil'></i>
+                </Link>
                 <div className="ml-1">
-                  <i className="fa-solid fa-lock-hashtag"></i>
+                  <i className={`fa-solid ${rest.public ? 'fa-lock-open' : 'fa-lock'}`}></i>
                 </div>
                 <div className="remove link" onClick={() => {
                   setShow(!show)
@@ -101,15 +104,17 @@ function AlbumsPage() {
             <div className="storagePeriod sm">Срок хранения: <span className="days bold">{shelf_time} дней</span></div>
             <div className="share row row_center row_sb mt-05 sm">
               <div className="bold text-overflow">
-                {`${BASE_URL}/${url}`}
+                {`${baseUrl()}/album/${url}`}
               </div>
               <div className="link bold ml-1" onClick={() => {
-                navigator.clipboard.writeText(`${BASE_URL}/${url}`)
 
-                toast.success('Скопировано', {
-                  position: toast.POSITION.TOP_RIGHT,
-                  autoClose: 2000
-                })
+                navigator.clipboard.writeText(`${baseUrl()}/album/${url}`)
+                    .then(() => {
+                      toast.success('URL успешно скопирован', {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 2000
+                      })
+                    }).catch((error) => console.error("Failed to copy text: ", error));
               }}><i className="fa-solid fa-clone"></i></div>
             </div>
 
@@ -136,12 +141,10 @@ function AlbumsPage() {
             {albumsList && albumsList.map(item => {
               return <AlbumItem key={item.url} {...item} />
             })}
-
           </div>
-
         </div>
       </section>
   )
 }
 
-export default AlbumsPage
+export default AlbumsListPage

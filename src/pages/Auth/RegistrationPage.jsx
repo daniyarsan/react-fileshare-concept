@@ -106,7 +106,7 @@ function RegistrationPage(props) {
                             <div>
                               <div className="bold small">Логин</div>
                               <Field name="username" className='col-1@xs' type="text"/>
-                              <ErrorMessage className="text-grey" name="username" component="small"/>
+                              <ErrorMessage className="text-danger" name="username" component="small"/>
                             </div>
 
                             <div className="password mt-1">
@@ -119,7 +119,7 @@ function RegistrationPage(props) {
                                   <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
                                 </a>
                               </div>
-                              <ErrorMessage className="text-grey" name="password" component="small"/>
+                              <ErrorMessage className="text-danger" name="password" component="small"/>
                             </div>
 
                             <div className="password mt-1">
@@ -132,7 +132,7 @@ function RegistrationPage(props) {
                                   <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
                                 </a>
                               </div>
-                              <ErrorMessage className="text-grey" name="confirmPassword" component="small"/>
+                              <ErrorMessage className="text-danger" name="confirmPassword" component="small"/>
                             </div>
 
                             <div className="accept-rules mt-2">
@@ -148,7 +148,7 @@ function RegistrationPage(props) {
                             <button type="submit" className={`col-1@xs btn mt-2 ${(isValid && dirty) && 'active'}`}>Далее</button>
 
                             <div className="row row_col row_center">
-                              <p className="small text-grey center mt-1">Уже есть аккаунт?
+                              <p className="small text-danger center mt-1">Уже есть аккаунт?
                                 <Link to='/login' className="link line text-dark ml-1">Войти</Link>
                               </p>
                             </div>

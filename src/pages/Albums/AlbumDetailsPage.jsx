@@ -3,19 +3,17 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {deleteAlbum, getAlbumDetails} from "../../api/manager.js";
 import {Preloader} from "../../components/Preloader/index.js";
 import {toast} from "react-toastify";
-import {formatTime} from "../../service/helper.js";
+import {baseUrl, formatTime} from "../../service/helper.js";
 
-function AlbumPage(props) {
+function AlbumDetailsPage(props) {
+  const {url} = useParams()
+
   const [loading, setLoading] = useState(true)
   const [albumDetails, setAlbumDetails] = useState()
   const [showPassword, setShowPassword] = useState(false)
-
   const navigate = useNavigate()
-  const {url} = useParams()
-
 
   useEffect(() => {
-
     getAlbumDetails(url).then(resp => {
       setAlbumDetails(resp?.data)
       setLoading(false)
@@ -83,7 +81,7 @@ function AlbumPage(props) {
             <div className="share flex row_center mt-05">
               <span className=" mr-1">Ссылка на альбом:</span>
               <div>
-                <div id="shareLink" className="bold text-overflow">{album?.url}</div>
+                <div id="shareLink" className="bold text-overflow">{`${baseUrl()}/album/${url}`}</div>
               </div>
               <div className="link bold ml-1" onClick={() => {
                 navigator.clipboard.writeText(album?.url)
@@ -124,4 +122,4 @@ function AlbumPage(props) {
   )
 }
 
-export default AlbumPage
+export default AlbumDetailsPage

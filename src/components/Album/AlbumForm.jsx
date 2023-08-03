@@ -5,16 +5,16 @@ import {array, object, string} from "yup";
 import {formatBytes, formatTime} from "../../service/helper.js";
 import {createAlbum, getAlbumDetails, updateAlbum} from "../../api/manager.js";
 import {toast} from "react-toastify";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import SelectField from "../SelectField/SelectField.jsx";
 
-function AlbumPageForm() {
+function AlbumForm({url}) {
+  const isAddMode = !url;
+
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [isSecured, setIsSecured] = useState(true)
   const [album, setAlbum] = useState()
-  const {url} = useParams()
-  const isAddMode = !url;
   const [removedImages, setRemovedImages] = useState([])
 
   const initialValues = {
@@ -32,7 +32,6 @@ function AlbumPageForm() {
       image: string().required('Name is a required field.'),
     }))
   })
-
 
   /* Actions */
 
@@ -58,7 +57,7 @@ function AlbumPageForm() {
     formData.append('name', data.name);
     formData.append('period', data.period);
     formData.append('description', data.description);
-    formData.append('secured', data.secured);
+    formData.append('public', !data.secured);
     data.files.forEach(item => {
       formData.append('files', item.image)
     })
@@ -305,7 +304,9 @@ function AlbumPageForm() {
                         </FieldArray>
                       </div>
 
-                      <button type='submit' className={`col-1@xs btn mt-2 ${(dirty) ? 'active' : ''}`}>{isAddMode ? 'Создать' : 'Обновить'}</button>
+                      <div className="col-1@sx col-1@m pdd-md-hor">
+                        <button type='submit' className={`col-1@xs btn mt-2 ${(isValid && dirty) ? 'active' : ''}`}>{isAddMode ? 'Создать' : 'Обновить'}</button>
+                      </div>
                     </Form>
                 )
               }}
@@ -316,4 +317,4 @@ function AlbumPageForm() {
   )
 }
 
-export default AlbumPageForm
+export default AlbumForm
