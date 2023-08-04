@@ -431,6 +431,7 @@ textarea {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .btn[active], .btn.active {
@@ -438,6 +439,10 @@ textarea {
     color: #fff;
     border: 1px solid #222;
     cursor: pointer;
+}
+
+.btn.outline {
+    background: transparent;
 }
 
 .btn.main {
@@ -452,6 +457,14 @@ textarea {
 
 .img-cover {
     overflow: hidden;
+}
+
+.img-meta {
+    padding: 20px;
+}
+
+.img-action {
+    padding: 20px 0;
 }
 
 .img-cover img {
@@ -643,12 +656,13 @@ body {
 }
 
 .image-card-wrapper {
-    margin-right: 10px;
+    margin: 10px 0;
 }
 
 .image-card-wrapper .img-cover.disabled {
     opacity: .5;
 }
+
 
 .cards .card-body {
     padding: 20px 20px 14px;
@@ -784,12 +798,17 @@ body {
     box-shadow: 0px 3px 20px rgba(62, 67, 78, 0.0588235294);
 }
 
+.preview img {
+    width: 80px;
+    height: 80px;
+}
+
 .text-overflow {
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    white-space: nowrap;
+    word-break: break-all;
 }
 
 .footer {

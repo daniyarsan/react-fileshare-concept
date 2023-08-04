@@ -88,9 +88,7 @@ function AlbumsListPage() {
                 <Link to={`/album/edit/${url}`} className="ml-1">
                   <i className='fa-solid fa-pencil'></i>
                 </Link>
-                <div className="ml-1">
-                  <i className={`fa-solid ${rest.public ? 'fa-lock-open' : 'fa-lock'}`}></i>
-                </div>
+
                 <div className="remove link" onClick={() => {
                   setShow(!show)
                 }}>
