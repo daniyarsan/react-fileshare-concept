@@ -26,14 +26,13 @@ function Header() {
                 <span className="hide-m"><i className="fa-solid fa-crown"></i></span>
               </Link>
 
-              {!(location.pathname.includes('/album/create')) && (
-                  <div className="addFile">
-                    <Link to='/album/create'>
-                      <div className="button">
-                        <i className="fa-solid fa-plus faa-xl"></i>
-                      </div>
-                    </Link>
-                  </div>)}
+              <div className="addFile">
+                <Link to='/album/create'>
+                  <div className="button">
+                    <i className="fa-solid fa-plus faa-xl"></i>
+                  </div>
+                </Link>
+              </div>
 
               <Link to='/albums'>
                 <span className="hide-sm ml-2">Мои альбомы</span>

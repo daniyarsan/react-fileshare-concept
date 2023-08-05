@@ -217,10 +217,10 @@ function AlbumForm({url}) {
 
                                   <div className="row row_end mt-2">
                                     <button type='button'
-                                            className='col-1@xs btn active'
+                                            className='col-1@xs btn outline'
                                             onClick={() => {
                                               fileRef.current.click()
-                                            }}>Загрузить фото
+                                            }}><i className='fa fa-cloud-upload'></i> Загрузить фото
                                     </button>
 
                                     <input ref={fileRef} type="file" hidden multiple='multiple' onChange={(event) => {

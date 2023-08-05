@@ -35,47 +35,6 @@ function GeneratePage(props) {
     formikHelpers.resetForm()
   }
 
-  const FormView = () => {
-    return (
-        <div>
-          <div className="row row_center row_sb mt-6">
-            <h3 className="bolder">Создайте резервный код</h3>
-          </div>
-          <p className="mt-1">
-            <span className="text-orange">Резервный код - это единственный путь восстановить доступ к аккаунту</span>, случае если Вы забыли или потеряли
-            данные для входа. Администраторам и пользователям следует хранить резервный код в безопасном месте.
-          </p>
-
-          <div className="mt-2">
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validation}
-                onSubmit={onSubmit}>
-              {({errors, isValid, handleSubmit, touched, dirty}) => (
-                  <Form onSubmit={handleSubmit}>
-                    <div className="password mt-1">
-                      <div className="bold small">Пароль</div>
-                      <div className="relative">
-                        <Field className='input-password col-1@xs' type={showPassword ? 'text' : 'password'} name="password"/>
-                        <a onClick={() => {
-                          setShowPassword(!showPassword)
-                        }} className="input-icon">
-                          <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
-                        </a>
-                      </div>
-                      <ErrorMessage className="text-grey" name="password" component="small"/>
-                    </div>
-
-                    <button type="submit" className={`col-1@xs btn mt-2 ${(isValid && dirty) && 'active'}`}>Сгенерировать код</button>
-                  </Form>
-              )}
-            </Formik>
-
-            <Link to='/' className="small center link line text-dark">Нет, спасибо</Link>
-          </div>
-        </div>
-    )
-  }
 
   const SuccessView = () => {
     return (
@@ -116,7 +75,45 @@ function GeneratePage(props) {
           <div className="container">
             <div className="flex row-1@xs row-1-3@m">
               <div></div>
-              {recoveryCode ? <SuccessView/> : <FormView/>}
+              {recoveryCode ? <SuccessView/> : (
+                  <div>
+                    <div className="row row_center row_sb mt-6">
+                      <h3 className="bolder">Создайте резервный код</h3>
+                    </div>
+                    <p className="mt-1">
+                      <span className="text-orange">Резервный код - это единственный путь восстановить доступ к аккаунту</span>, случае если Вы забыли или потеряли
+                      данные для входа. Администраторам и пользователям следует хранить резервный код в безопасном месте.
+                    </p>
+
+                    <div className="mt-2">
+                      <Formik
+                          initialValues={initialValues}
+                          validationSchema={validation}
+                          onSubmit={onSubmit}>
+                        {({errors, isValid, handleSubmit, touched, dirty}) => (
+                            <Form onSubmit={handleSubmit}>
+                              <div className="password mt-1">
+                                <div className="bold small">Пароль</div>
+                                <div className="relative">
+                                  <Field className='input-password col-1@xs' type={showPassword ? 'text' : 'password'} name="password"/>
+                                  <span className="input-icon" onClick={() => {
+                                    setShowPassword(!showPassword)
+                                  }}>
+                          <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
+                        </span>
+                                </div>
+                                <ErrorMessage className="text-grey" name="password" component="small"/>
+                              </div>
+
+                              <button type="submit" className={`col-1@xs btn mt-2 ${(isValid && dirty) && 'active'}`}>Сгенерировать код</button>
+                            </Form>
+                        )}
+                      </Formik>
+
+                      <Link to='/' className="small center link line text-dark">Нет, спасибо</Link>
+                    </div>
+                  </div>
+              )}
             </div>
           </div>
 

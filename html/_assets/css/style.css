@@ -25,6 +25,10 @@ body {
     height: auto;
 }
 
+.fa {
+    margin: 0 10px;
+}
+
 div.bgPeach {
     background: #FEEDDC;
 }
@@ -353,6 +357,7 @@ input::placeholder {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
+    cursor: pointer;
 }
 
 .input {
