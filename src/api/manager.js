@@ -1,7 +1,7 @@
 import {
     ALBUM_CREATE,
     ALBUM_DELETE,
-    ALBUM_DETAILS,
+    ALBUM_DETAILS, ALBUM_FULL_IMAGE,
     ALBUM_UPDATE_BY_ID,
     ALBUMS_LIST,
     LOGIN,
@@ -49,10 +49,14 @@ export const deleteAlbum = async (url) => {
     return await requester.post(`${ALBUM_DELETE}`, {url})
 }
 
+export const getFullImage = async (data) => {
+    return await requester.post(`${ALBUM_FULL_IMAGE}`, data)
+}
+
+/* Multipart data */
 export const createAlbum = async (formData) => {
     return await multipartRequester.post(`${ALBUM_CREATE}`, formData)
 }
-
 export const updateAlbum = async (formData) => {
     return await multipartRequester.post(`${ALBUM_UPDATE_BY_ID}`, formData)
 }
