@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {deleteAlbum, getAlbumDetails, getFullImage} from "../../api/manager.js";
-import {Preloader} from "../../components/Preloader/index.js";
+import {Preloader} from "../../components/UI/Preloader/index.js";
 import {toast} from "react-toastify";
 import {baseUrl, formatTime} from "../../service/helper.js";
 import Modal from "../../components/UI/Modal/Modal.jsx";
@@ -77,7 +77,7 @@ function AlbumDetailsPage(props) {
 
                 <div className="row row_center row_sb mt-2">
                   <h1 className="bolder">{albumDetails?.album?.name}</h1>
-                  <div className="button delete bold sm link" onClick={handleRemoveAlbum}>Удалить альбом</div>
+                  <Link to={`/album/edit/${url}`} className="bold sm"><i></i>Редактировать альбом</Link>
                 </div>
                 <div className="date">{formatTime(Date.parse(albumDetails?.album?.create_date))}</div>
                 <div className="storagePeriod">Срок хранения файлов <span className="days bold">{albumDetails?.album?.shelf_time} дней</span></div>

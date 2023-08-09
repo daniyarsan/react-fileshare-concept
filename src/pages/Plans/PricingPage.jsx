@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {getPricing} from "../../api/manager.js";
-import {Preloader} from "../../components/Preloader/index.js";
+import {Preloader} from "../../components/UI/Preloader/index.js";
 
 function PricingPage() {
   const [loading, setLoading] = useState(true)

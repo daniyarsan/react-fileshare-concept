@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Preloader} from "../../components/Preloader/index.js";
+import {Preloader} from "../../components/UI/Preloader/index.js";
 import {Link} from "react-router-dom";
 import {object, string} from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";

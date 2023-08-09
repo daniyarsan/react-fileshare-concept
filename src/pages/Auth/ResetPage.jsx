@@ -5,7 +5,7 @@ import {resetPassword} from "../../api/manager.js";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {Preloader} from "../../components/Preloader/index.js";
+import {Preloader} from "../../components/UI/Preloader/index.js";
 import {toast} from "react-toastify";
 
 

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {deleteAlbum, getAlbumsList} from "../../api/manager.js";
 import {Link} from "react-router-dom";
-import {Preloader} from "../../components/Preloader/index.js";
+import {Preloader} from "../../components/UI/Preloader/index.js";
 import {BASE_URL, FRONT_URL} from "../../api/const.js";
 import {toast} from "react-toastify";
 import {baseUrl, formatTime} from "../../service/helper.js";

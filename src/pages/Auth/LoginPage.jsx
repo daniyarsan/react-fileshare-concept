@@ -7,7 +7,7 @@ import Links from "./_parts/Links.jsx";
 import {useDispatch} from "react-redux";
 import {login, setUserData} from "../../store/slices/userSlice.js";
 import {getUserStat} from "../../api/manager.js";
-import {Preloader} from "../../components/Preloader/index.js";
+import {Preloader} from "../../components/UI/Preloader/index.js";
 
 
 function LoginPage(props) {

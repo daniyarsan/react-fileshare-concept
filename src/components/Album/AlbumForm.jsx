@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {ErrorMessage, Field, FieldArray, Form, Formik, useFormikContext} from "formik";
-import {Preloader} from "../Preloader/index.js";
+import {Preloader} from "../UI/Preloader/index.js";
 import {array, object, string} from "yup";
 import {formatBytes, formatTime} from "../../service/helper.js";
 import {createAlbum, getAlbumDetails, updateAlbum} from "../../api/manager.js";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import SelectField from "../SelectField/SelectField.jsx";
+import SelectField from "../UI/SelectField/SelectField.jsx";
 
 function AlbumForm({url}) {
   const isAddMode = !url;
@@ -28,8 +28,6 @@ function AlbumForm({url}) {
       image: string().required('Images should be added'),
     }))
   })
-
-  /* Actions */
 
   /* Fetch Album details for Edit */
   useEffect(() => {
@@ -75,21 +73,63 @@ function AlbumForm({url}) {
         }
       })
     } else {
-      formData.append('removedImages', removedImages);
+      removedImages.forEach(item => {
+        formData.append('files_to_delete', item);
+      })
+      formData.append('url', url);
+
       updateAlbum(formData).then(resp => {
         setLoading(false)
-        toast.success('Альбом успешно создан', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 2000
-        })
-        navigate('/albums')
+        console.log(resp)
+
+
+        // toast.success('Альбом успешно создан', {
+        //   position: toast.POSITION.TOP_RIGHT,
+        //   autoClose: 2000
+        // })
+        // navigate('/albums')
       })
     }
 
     formikHelpers.resetForm()
   }
 
+  const OldImagePreview = ({index, image}) => {
+  let isRemoved = removedImages.includes(index)
 
+  return (
+      <div className='flex image-card-wrapper'>
+        <div className={`preview img-cover col-6-12@xs ${isRemoved && 'disabled'}`}>
+          <img className="" src={`data:image/jpeg;base64,${image?.data}`} alt="preview"/>
+        </div>
+        <div className="col-6-12@xs img-action text-danger link" onClick={() => {
+          console.log(removedImages)
+
+          if (!isRemoved) {
+            setRemovedImages([...removedImages, index])
+          } else {
+            setRemovedImages(removedImages.filter(item => {
+              return item != index
+            }))
+          }
+        }}> {isRemoved ? 'Удалено' : 'Удалить'}
+        </div>
+      </div>
+  )
+}
+const OldImagesBlock = ({oldFiles}) => {
+
+  return (
+      <>
+        <h1 className="bolder">Файлы в альбоме</h1>
+        <p className="mt-1">Здесь вы видите файлы которые уже загружены в ваш альбом</p>
+        {oldFiles && oldFiles.map((file, index) => {
+          return <OldImagePreview key={index} index={index} {...file} />
+        })}
+        <hr/>
+      </>
+  )
+}
 
   const ImageBlock = ({file, index, remove, setFieldValue}) => {
     const [preview, setPreview] = useState()
@@ -102,16 +142,13 @@ function AlbumForm({url}) {
 
     return (
         <div className="flex image-card-wrapper">
-
           <div className='preview img-cover col-3-12@xs'>
             <img className="" src={preview} alt="preview"/>
           </div>
-
           <div className="col-7-12@xs img-meta">
             <p className="small">{file.image?.lastModified && formatTime(file.image?.lastModified)} | {file.image?.name} </p>
           </div>
-
-          <div className="col-2-12@xs img-action text-danger" onClick={() => remove(index)}>Удалить</div>
+          <div className="col-2-12@xs img-action text-danger link" onClick={() => remove(index)}>Удалить</div>
         </div>
     )
   }
@@ -129,7 +166,7 @@ function AlbumForm({url}) {
 
   return (
       <>
-        {loading && <Preloader/>}
+        {loading && <Preloader />}
 
         <section className="canvas create-albom">
           <div className="container">
@@ -141,8 +178,7 @@ function AlbumForm({url}) {
                   album?.album && setFieldValue('name', album?.album.name)
                   album?.album && setFieldValue('description', album?.description)
                   album?.album && setFieldValue('period', album?.album.shelf_time)
-                  // album?.album && setFieldValue('oldFiles', album?.images.map(item => ({image: item})))
-
+                  album?.album && setFieldValue('oldFiles', album?.images.map(item => ({image: item})))
                 }, [album])
 
 
@@ -193,8 +229,8 @@ function AlbumForm({url}) {
                         </div>
                       </div>
                       <div className="col-1@sx col-3-5@m pdd-md-hor set-height mt-3">
-                        {/* Complex dynamic field set to add more photos */}
-                        {/*{!isAddMode && <OldImagesBlock {...values}/>}*/}
+
+                        {!isAddMode && <OldImagesBlock {...values}/>}
 
                         <h1 className="bolder">Вложенные в альбом файлы</h1>
                         <p className="mt-1">
@@ -253,45 +289,3 @@ function AlbumForm({url}) {
 }
 
 export default AlbumForm
-
-
-
-
-
-// const OldImagePreview = ({image}) => {
-//   const imageId = image.data.slice(40, 60);
-//   let isRemoved = removedImages.includes(imageId)
-//
-//   return (
-//       <div className="image-card-wrapper col-2-12@m">
-//         <div className={`card img-cover ${isRemoved && 'disabled'}`}>
-//           <img className="" src={`data:image/jpeg;base64,${image?.data}`} alt="preview"/>
-//         </div>
-//
-//         <div className="text-grey link" onClick={() => {
-//           if (!isRemoved) {
-//             setRemovedImages([...removedImages, imageId])
-//           } else {
-//             setRemovedImages(removedImages.filter(item => {
-//               return item != imageId
-//             }))
-//           }
-//         }}> {isRemoved ? 'Удалено' : 'Удалить'}
-//         </div>
-//       </div>
-//   )
-// }
-// const OldImagesBlock = ({oldFiles}) => {
-//   return (
-//       <>
-//         <h1 className="bolder">Файлы в альбоме</h1>
-//         <p className="mt-1">Здесь вы видите файлы которые уже загружены в ваш альбом</p>
-//         <div className="flex cards">
-//           {oldFiles && oldFiles.map((file, index) => {
-//             return <OldImagePreview key={index} index={index} {...file} />
-//           })}
-//         </div>
-//         <hr/>
-//       </>
-//   )
-// }

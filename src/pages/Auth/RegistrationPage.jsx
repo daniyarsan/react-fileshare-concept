@@ -7,7 +7,7 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useDispatch} from "react-redux";
 import {registration} from "../../store/slices/userSlice.js";
 import {toast} from "react-toastify";
-import {Preloader} from "../../components/Preloader/index.js";
+import {Preloader} from "../../components/UI/Preloader/index.js";
 
 function RegistrationPage(props) {
   const [loading, setLoading] = useState(false)

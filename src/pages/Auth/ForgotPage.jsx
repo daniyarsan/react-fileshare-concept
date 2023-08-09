@@ -6,7 +6,7 @@ import {VALIDATION_MIN_PASSWORD_LENGTH} from "../../api/const.js";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {recoverPasswordByToken} from "../../api/manager.js";
 import {toast} from "react-toastify";
-import {Preloader} from "../../components/Preloader/index.js";
+import {Preloader} from "../../components/UI/Preloader/index.js";
 import {useNavigate} from "react-router-dom";
 
 

@@ -663,6 +663,7 @@ body {
 
 .image-card-wrapper {
     margin: 10px 0;
+    position: relative;
 }
 
 .image-card-wrapper .img-cover.disabled {
