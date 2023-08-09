@@ -53,65 +53,9 @@ function ForgotPage(props) {
   }
 
 
-  const FormView = () => {
-    return (
-        <>
-          <h3 className="bolder mt-6">Восстановление доступа</h3>
-          <p className="small bold text-grey">Введите Ваши данные для восстановления доступа</p>
-
-          <Formik
-              initialValues={initialValues}
-              validationSchema={validation}
-              onSubmit={onSubmit}>
-            {({errors, isValid, handleSubmit, touched, dirty}) => (
-                <Form onSubmit={handleSubmit}>
-
-                  <div className="form mt-2">
-                    <div className="relative">
-                      <div className="bold small">Резервный код</div>
-                      <Field name="reserveCode" className='col-1@xs' type="text"/>
-                      <ErrorMessage className="text-grey" name="reserveCode" component="small"/>
-                    </div>
-
-                    <div className="password">
-                      <div className="bold small mt-1">Новый пароль</div>
-                      <div className="relative">
-                        <Field className='input-password col-1@xs' type={showPassword ? 'text' : 'password'} name="password"/>
-                        <a onClick={() => {
-                          setShowPassword(!showPassword)
-                        }} className="input-icon">
-                          <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
-                        </a>
-                      </div>
-                      <ErrorMessage className="text-grey" name="password" component="small"/>
-                    </div>
-
-                    <div className="password">
-                      <div className="bold small mt-1">Подтвердите пароль</div>
-                      <div className="relative">
-                        <Field className='input-password col-1@xs' type={showPassword ? 'text' : 'password'} name="confirmPassword"/>
-                        <a onClick={() => {
-                          setShowPassword(!showPassword)
-                        }} className="input-icon">
-                          <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
-                        </a>
-                      </div>
-                      <ErrorMessage className="text-grey" name="confirmPassword" component="small"/>
-                    </div>
-
-                    <button type="submit" className={`col-1@xs btn mt-2 ${(isValid && dirty) && 'active'}`}>Восстановить</button>
-
-                  </div>
-                </Form>
-            )}
-          </Formik>
-        </>
-    )
-  }
-
   const SuccessView = () => {
     return (
-        <>
+        <div>
           <div className="row row_center row_sb mt-6">
             <h3 className="bolder">Пароль успешно создан</h3>
           </div>
@@ -152,7 +96,7 @@ function ForgotPage(props) {
             }}>Сохранил
             </div>
           </div>
-        </>
+        </div>
     )
   }
 
@@ -168,7 +112,61 @@ function ForgotPage(props) {
 
                 <Links/>
 
-                {recoveryCode ? <SuccessView/> : <FormView/>}
+                {recoveryCode ?
+                    <SuccessView/> :
+                    (
+                        <div>
+                          <h3 className="bolder mt-6">Восстановление доступа</h3>
+                          <p className="small bold text-grey">Введите Ваши данные для восстановления доступа</p>
+
+                          <Formik
+                              initialValues={initialValues}
+                              validationSchema={validation}
+                              onSubmit={onSubmit}>
+                            {({errors, isValid, handleSubmit, touched, dirty}) => (
+                                <Form onSubmit={handleSubmit}>
+
+                                  <div className="form mt-2">
+                                    <div className="relative">
+                                      <div className="bold small">Резервный код</div>
+                                      <Field name="reserveCode" className='col-1@xs' type="text"/>
+                                      <ErrorMessage className="text-grey" name="reserveCode" component="small"/>
+                                    </div>
+
+                                    <div className="password">
+                                      <div className="bold small mt-1">Новый пароль</div>
+                                      <div className="relative">
+                                        <Field className='input-password col-1@xs' type={showPassword ? 'text' : 'password'} name="password"/>
+                                        <a onClick={() => {
+                                          setShowPassword(!showPassword)
+                                        }} className="input-icon">
+                                          <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
+                                        </a>
+                                      </div>
+                                      <ErrorMessage className="text-grey" name="password" component="small"/>
+                                    </div>
+
+                                    <div className="password">
+                                      <div className="bold small mt-1">Подтвердите пароль</div>
+                                      <div className="relative">
+                                        <Field className='input-password col-1@xs' type={showPassword ? 'text' : 'password'} name="confirmPassword"/>
+                                        <a onClick={() => {
+                                          setShowPassword(!showPassword)
+                                        }} className="input-icon">
+                                          <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
+                                        </a>
+                                      </div>
+                                      <ErrorMessage className="text-grey" name="confirmPassword" component="small"/>
+                                    </div>
+
+                                    <button type="submit" className={`col-1@xs btn mt-2 ${(isValid && dirty) && 'active'}`}>Восстановить</button>
+
+                                  </div>
+                                </Form>
+                            )}
+                          </Formik>
+                        </div>
+                    )}
 
               </div>
               <div></div>

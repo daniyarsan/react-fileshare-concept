@@ -76,18 +76,19 @@ function AlbumForm({url}) {
       removedImages.forEach(item => {
         formData.append('files_to_delete', item);
       })
+      !formData.has('files_to_delete') && formData.append('files_to_delete', [])
       formData.append('url', url);
 
       updateAlbum(formData).then(resp => {
         setLoading(false)
         console.log(resp)
-
-
-        // toast.success('Альбом успешно создан', {
-        //   position: toast.POSITION.TOP_RIGHT,
-        //   autoClose: 2000
-        // })
-        // navigate('/albums')
+        toast.success('Альбом успешно обновлен', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000
+        })
+        navigate('/albums')
+      }).catch(err => {
+        console.log(err)
       })
     }
 
@@ -95,41 +96,41 @@ function AlbumForm({url}) {
   }
 
   const OldImagePreview = ({index, image}) => {
-  let isRemoved = removedImages.includes(index)
+    let isRemoved = removedImages.includes(index)
 
-  return (
-      <div className='flex image-card-wrapper'>
-        <div className={`preview img-cover col-6-12@xs ${isRemoved && 'disabled'}`}>
-          <img className="" src={`data:image/jpeg;base64,${image?.data}`} alt="preview"/>
+    return (
+        <div className='flex image-card-wrapper'>
+          <div className={`preview img-cover col-6-12@xs ${isRemoved && 'disabled'}`}>
+            <img className="" src={`data:image/jpeg;base64,${image?.data}`} alt="preview"/>
+          </div>
+          <div className="col-6-12@xs img-action text-danger link" onClick={() => {
+            console.log(removedImages)
+
+            if (!isRemoved) {
+              setRemovedImages([...removedImages, index])
+            } else {
+              setRemovedImages(removedImages.filter(item => {
+                return item != index
+              }))
+            }
+          }}> {isRemoved ? 'Удалено' : 'Удалить'}
+          </div>
         </div>
-        <div className="col-6-12@xs img-action text-danger link" onClick={() => {
-          console.log(removedImages)
+    )
+  }
+  const OldImagesBlock = ({oldFiles}) => {
 
-          if (!isRemoved) {
-            setRemovedImages([...removedImages, index])
-          } else {
-            setRemovedImages(removedImages.filter(item => {
-              return item != index
-            }))
-          }
-        }}> {isRemoved ? 'Удалено' : 'Удалить'}
-        </div>
-      </div>
-  )
-}
-const OldImagesBlock = ({oldFiles}) => {
-
-  return (
-      <>
-        <h1 className="bolder">Файлы в альбоме</h1>
-        <p className="mt-1">Здесь вы видите файлы которые уже загружены в ваш альбом</p>
-        {oldFiles && oldFiles.map((file, index) => {
-          return <OldImagePreview key={index} index={index} {...file} />
-        })}
-        <hr/>
-      </>
-  )
-}
+    return (
+        <>
+          <h1 className="bolder">Файлы в альбоме</h1>
+          <p className="mt-1">Здесь вы видите файлы которые уже загружены в ваш альбом</p>
+          {oldFiles && oldFiles.map((file, index) => {
+            return <OldImagePreview key={index} index={index} {...file} />
+          })}
+          <hr/>
+        </>
+    )
+  }
 
   const ImageBlock = ({file, index, remove, setFieldValue}) => {
     const [preview, setPreview] = useState()
@@ -166,7 +167,7 @@ const OldImagesBlock = ({oldFiles}) => {
 
   return (
       <>
-        {loading && <Preloader />}
+        {loading && <Preloader/>}
 
         <section className="canvas create-albom">
           <div className="container">
@@ -248,7 +249,7 @@ const OldImagesBlock = ({oldFiles}) => {
                             return (
                                 <>
                                   <div className="cards mt-2">
-                                    {files.map((file, index) => (<ImageBlock key={index} index={index} {...fieldArrayProps} setFieldValue={setFieldValue} file={file} />))}
+                                    {files.map((file, index) => (<ImageBlock key={index} index={index} {...fieldArrayProps} setFieldValue={setFieldValue} file={file}/>))}
                                   </div>
 
                                   <div className="row row_end mt-2">

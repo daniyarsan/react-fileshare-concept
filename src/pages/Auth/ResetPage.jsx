@@ -42,6 +42,7 @@ function ResetPage(props) {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
       })
+      navigate('/')
     }).catch(({response}) => {
       setLoading(false)
       toast.error(response.data?.msg, {
@@ -57,7 +58,8 @@ function ResetPage(props) {
         {loading && <Preloader/>}
         <section className='canvas'>
           <div className="container">
-            <div className="mt-3 row row-1@xs row-1-3@m">
+            <div className="flex row-1@xs row-1-3@m">
+              <div></div>
               <div>
                 <div className="row row_sb row_center">
                   <h1 className="bolder">Личные данные</h1>
@@ -128,6 +130,7 @@ function ResetPage(props) {
                   )}
                 </Formik>
               </div>
+              <div></div>
             </div>
           </div>
         </section>
