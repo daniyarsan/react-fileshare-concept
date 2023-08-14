@@ -25,6 +25,9 @@ body {
     height: auto;
 }
 
+.logo a > span {
+    color: #fff !important;
+}
 
 .fa {
     margin: 0 10px;
@@ -32,10 +35,6 @@ body {
 
 div.bgPeach {
     background: #FEEDDC;
-}
-
-div.bgPeach .nav {
-    background-color: #FEEDDC;
 }
 
 div.bgPeach .footer {
@@ -821,7 +820,7 @@ body {
 .footer {
     width: 100%;
     padding: 12px 0px;
-    background: #fbfbfd;
+    background: transparent;
 }
 
 .create-albom textarea {
@@ -1062,10 +1061,6 @@ h2 {
 
     .canvas {
         padding-top: 8vh;
-    }
-
-    .footer {
-        padding: 20px 0px;
     }
 
     .galleryItem.show {

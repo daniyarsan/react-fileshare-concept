@@ -1,25 +1,24 @@
 import React, {useEffect, useState} from 'react'
 import AlbumDetails from "../../components/Album/AlbumDetails.jsx";
 import {useNavigate, useParams} from "react-router-dom";
-import {getAlbumDetails} from "../../api/manager.js";
+import {getAlbumDetailsPublic} from "../../api/manager.js";
 import {Preloader} from "../../components/UI/Preloader/index.js";
 
-function AlbumDetailsPage() {
+function AlbumDetailsPublicPage() {
   const {url} = useParams()
+  const {password} = useParams()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [albumDetails, setAlbumDetails] = useState()
 
   useEffect(() => {
-    getAlbumDetails(url).then(resp => {
+    getAlbumDetailsPublic(url, password).then(resp => {
       setAlbumDetails(resp?.data)
       setLoading(false)
     }).catch(err => {
       navigate('/albums')
     })
   }, [])
-
-
 
   const data = {
     albumDetails, url
@@ -28,8 +27,9 @@ function AlbumDetailsPage() {
   return (
       <>
         {loading && <Preloader/>}
+
         <AlbumDetails {...data} />
       </>)
 }
 
-export default AlbumDetailsPage
+export default AlbumDetailsPublicPage

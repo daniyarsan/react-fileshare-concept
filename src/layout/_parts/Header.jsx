@@ -2,19 +2,24 @@ import React from 'react'
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../store/slices/userSlice.js";
+import {AUTH_TOKEN} from "../../api/const.js";
 
 function Header() {
+  const {isAuth} = useSelector(state => state.user)
+  const isAuthorized = isAuth && localStorage.getItem(AUTH_TOKEN)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {userData} = useSelector(state => state.user)
-  const location = useLocation();
 
   return (
       <div className="nav">
         <div className="container">
           <div className="row row_center row_sb h100">
             <div className="logo upp hide-sm">
-              <span className="bolder">Soft</span><span className="light">Dropbox</span>
+              <Link to={`/`}>
+                <span className="bolder">Soft</span><span className="light">Dropbox</span>
+              </Link>
             </div>
             <div className="menu row row_center">
               <Link to='/'>
@@ -34,7 +39,7 @@ function Header() {
                 </Link>
               </div>
 
-              <Link to='/albums'>
+              <Link to={isAuthorized ? '/albums' : '/login'}>
                 <span className="hide-sm ml-2">Мои альбомы</span>
                 <span className="hide-m"><i className="fa-solid fa-book-open"></i></span>
               </Link>
@@ -45,11 +50,14 @@ function Header() {
                   <span className="hide-m"><i className="fa-solid fa-person"></i></span>
                 </Link>
 
-                <a className="ml-1 grey hide-sm" href="" onClick={() => {
-                  dispatch(logout())
-                  navigate('/')
-                }
-                }>(выход)</a>
+                {isAuthorized && (
+                    <a className="ml-1 grey hide-sm" href="" onClick={() => {
+                      dispatch(logout())
+                      navigate('/')
+                    }}>(выход)
+                    </a>
+                )}
+
 
               </div>
             </div>

@@ -1,7 +1,7 @@
 import {
     ALBUM_CREATE,
     ALBUM_DELETE,
-    ALBUM_DETAILS, ALBUM_FULL_IMAGE,
+    ALBUM_DETAILS, ALBUM_DETAILS_PUBLIC, ALBUM_FULL_IMAGE,
     ALBUM_UPDATE_BY_ID,
     ALBUMS_LIST,
     LOGIN,
@@ -39,6 +39,10 @@ export const getAlbumsList = async () => {
 
 export const getAlbumDetails = async (url) => {
     return await requester.post(`${ALBUM_DETAILS}`, {url})
+}
+
+export const getAlbumDetailsPublic = async (url, password) => {
+    return await publicRequester.get(`${ALBUM_DETAILS_PUBLIC}/${url}/${password}`)
 }
 
 export const getPricing = async () => {

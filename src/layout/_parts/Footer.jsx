@@ -2,7 +2,7 @@ import React from 'react'
 
 function Footer() {
   return (
-      <section className="footer">
+      <div className="footer">
         <div className="container">
           <div className="flex row-1@xs row-1-3@m">
             <div></div>
@@ -24,7 +24,7 @@ function Footer() {
             </div>
           </div>
         </div>
-      </section>
+      </div>
   )
 }
 

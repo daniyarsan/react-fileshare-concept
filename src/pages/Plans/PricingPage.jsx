@@ -38,11 +38,11 @@ function PricingPage() {
 
     return (
         <div className="mt-3">
-          <div className="row row_sb row_center">
+          <div className="row row_sb row_center link" onClick={() => {
+            setShow(!show)
+          }}>
             <h3>{question}</h3>
-            <div className="icon link" onClick={() => {
-              setShow(!show)
-            }}>
+            <div className="icon">
               {show ? (<i className="fa-duotone fa-arrow-down-to-line fa-lg"></i>) : (<i className="fa-duotone fa-arrow-up-to-line fa-lg"></i>)}
             </div>
           </div>
@@ -121,9 +121,7 @@ function PricingPage() {
                   <h1 className="bolder center">Выберите подходящий тариф</h1>
                   <h3 className="thin center">Активируйте тариф Бизнес
                     <span className="bolder relative">
-
                        {/*<TimerAlert />*/}
-
                       бесплатно до 1 сентября
                     </span>
                   </h3>
@@ -149,20 +147,20 @@ function PricingPage() {
                         <i className="fa-solid fa-people-group mr-1"></i> Корпоративный
                       </div>
                     </div>
+                    <div></div>
+                  </div>
 
-                    <div className="row row_end">
-                      <div className="toggleDefault row row_center">
-                        <p className={`month ${isMonthly ? 'choosen' : ''}`}>На месяц</p>
-                        <div className="ml-1">
-                          <input type="checkbox" id="switch" onChange={() => {
-                            setIsMonthly(!isMonthly)
-                          }}/>
-                          <label htmlFor='switch'></label>
-                        </div>
-                        <p className={`year ml-1 ${isMonthly ? '' : 'choosen'}`}>На год</p>
+                  <div className="flex row_center row-1@xs mt-3">
+                    <div className="toggleDefault row row_center">
+                      <p className={`month ${isMonthly ? 'choosen' : ''}`}>На месяц</p>
+                      <div className="ml-1">
+                        <input type="checkbox" id="switch" onChange={() => {
+                          setIsMonthly(!isMonthly)
+                        }}/>
+                        <label htmlFor='switch'></label>
                       </div>
+                      <p className={`year ml-1 ${isMonthly ? '' : 'choosen'}`}>На год</p>
                     </div>
-
                   </div>
 
                   <div className="cards flex row-1@xs row-1-3@m mt-2 pdd-md-wrapper">
