@@ -10,7 +10,7 @@ export const DeleteDialog = ({children, title, text, handleDelete}) => {
         return (
             <dialog>
               <h2>{title}</h2>
-              <p>{title}</p>
+              <p>{text}</p>
               <button onClick={onClose} aria-label="close" className="x">❌</button>
 
               <div className="row row_sb row-1-2@m">

@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import {getAlbumsList} from "../../api/manager.js";
+import {deleteAlbum, getAlbumsList} from "../../api/manager.js";
 import {Link} from "react-router-dom";
 import {Preloader} from "../../components/UI/Preloader/index.js";
 import {toast} from "react-toastify";
 import {baseUrl, formatTime} from "../../service/helper.js";
 import Clipboard from 'react-clipboard.js';
+import DeleteDialog from "../../components/UI/DeleteDialog.jsx";
 
 function AlbumsListPage() {
   const [loading, setLoading] = useState(true)
@@ -17,6 +18,11 @@ function AlbumsListPage() {
     })
   }, [])
 
+  const handleRemoveAlbum = (url) => {
+    deleteAlbum(url).then((resp) => {
+      window.location.reload()
+    })
+  }
 
   /* COMPONENT */
   const AlbumItem = ({name, url, create_date, shelf_time, password, view_count, ...rest}) => {
@@ -31,11 +37,12 @@ function AlbumsListPage() {
                 <Link to={`/album/edit/${url}`} className="ml-1">
                   <i className='fa-solid fa-pencil'></i>
                 </Link>
-                <div className="remove link" onClick={() => {
-                  setShow(!show)
-                }}>
-                  <i className="fa-solid fa-trash-xmark"></i>
-                </div>
+                <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {handleRemoveAlbum(url)}}>
+                  <div className="remove link">
+                    <i className="fa-solid fa-trash-xmark"></i>
+                  </div>
+                </DeleteDialog>
+
               </div>
             </div>
             <div className="date sm mt-05">{formatTime(Date.parse(create_date))}</div>

@@ -35,9 +35,7 @@ export const PricingBlock = ({monthlyPlans, yearlyPlans}) => {
       <div className="container">
         <h1 className="bolder center">Выберите подходящий тариф</h1>
         <h3 className="thin center">Активируйте тариф Бизнес
-          <span className="bolder relative">
-            {/*<TimerAlert />*/
-            }бесплатно до 1 сентября</span>
+          <span className="bolder relative">{/*<TimerAlert />*/}бесплатно до 1 сентября</span>
         </h3>
 
         <div className="flex row_center row-1@xs row-1-3@m mt-3">

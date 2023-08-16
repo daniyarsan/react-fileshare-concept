@@ -11,14 +11,12 @@ import DeleteDialog from "../UI/DeleteDialog.jsx"; // Import css
 function AlbumDetails({url, albumDetails, setLoading}) {
   const [modalContent, setModalContent] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-  const [show, setShow] = useState(false)
 
   const handleRemoveAlbum = (url) => {
     deleteAlbum(url).then((resp) => {
       window.location.reload()
     })
   }
-
 
   const ImageCard = ({index, url, image}) => {
     return (
