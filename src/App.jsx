@@ -8,7 +8,6 @@ import '../html/_assets/fonts/inter/stylesheet.css'
 import '../html/_assets/fonts/awesome/css/stylesheet.css'
 import "react-toastify/dist/ReactToastify.css";
 import Default from "./layout/Default.jsx";
-import Auth from "./layout/Auth.jsx";
 import RegistrationPage from "./pages/Auth/RegistrationPage.jsx";
 import LoginPage from "./pages/Auth/LoginPage.jsx";
 import GeneratePage from "./pages/Auth/GeneratePage.jsx";
@@ -34,15 +33,13 @@ function App() {
           <>
             <Route element={<Default/>}>
               <Route path="/" element={<AlbumCreatePage/>}></Route>
+              <Route path="/album/create" element={<AlbumCreatePage/>}></Route>
               <Route path="/plans" element={<PricingPage/>}></Route>
               <Route path="/album/:url/:password" element={<AlbumDetailsPublicPage/>}></Route>
-              <Route path='*' element={<NotFound />}/>
-            </Route>
-
-            <Route element={<Auth/>}>
               <Route path="/login" element={<LoginPage/>}></Route>
               <Route path="/registration" element={<RegistrationPage/>}></Route>
               <Route path="/forgot" element={<ForgotPage/>}></Route>
+              <Route path='*' element={<NotFound />}/>
             </Route>
           </>
       )
@@ -56,6 +53,7 @@ function App() {
             <Route path="/album/create" element={<AlbumCreatePage/>}></Route>
             <Route path="/album/edit/:url" element={<AlbumEditPage/>}></Route>
             <Route path="/album/:url" element={<AlbumDetailsPage/>}></Route>
+            <Route path="/album/:url/:password" element={<AlbumDetailsPublicPage/>}></Route>
             <Route path="/staff" element={<StaffPage/>}></Route>
             <Route path="/reset" element={<ResetPage/>}></Route>
             <Route path="/generate" element={<GeneratePage/>}></Route>

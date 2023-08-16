@@ -8,6 +8,7 @@ import {recoverPasswordByToken} from "../../api/manager.js";
 import {toast} from "react-toastify";
 import {Preloader} from "../../components/UI/Preloader/index.js";
 import {useNavigate} from "react-router-dom";
+import Clipboard from 'react-clipboard.js';
 
 
 function ForgotPage(props) {
@@ -59,37 +60,25 @@ function ForgotPage(props) {
           <div className="row row_center row_sb mt-6">
             <h3 className="bolder">Пароль успешно создан</h3>
           </div>
-          <p className="mt-1"><span className="text-orange">Резервный код так же был сброшен. Пожалуйста сохраните новый токен. </span> В случае если Вы забыли или
-            потеряли данные для входа. Администраторам и пользователям следует хранить резервный код в безопасном месте.</p>
-          <div className="mt-2 row row_center">
-            <div>
-              <div id="copytoClipboard-alert" className="custom-alert-wrapper relative hidden">
-                <div className="custom-alert">
-                  <div className="body row">
-                    <div>
-                      <p className="bolder">Скопировано</p>
-                    </div>
-                    <div className="img-contain ml-1">
-                      <img src="" alt=""/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div id="shareLink" className="bold text-overflow">{recoveryCode}</div>
-            </div>
+          <p className="mt-1">
+            <span className="text-orange">Резервный код так же был сброшен. Пожалуйста сохраните новый токен. </span>
+            В случае если Вы забыли или потеряли данные для входа. Администраторам и пользователям следует хранить резервный код в безопасном месте
+          </p>
 
-            <div className="link bold ml-1" onClick={() => {
-              navigator.clipboard.writeText(recoveryCode)
+          <Clipboard className="row row_center mt-2" component='a' data-clipboard-text={recoveryCode} onSuccess={() => {
+            toast.success('Скопировано', {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 2000
+            })
+          }}>
 
-              toast.success('Пароль успешно скопирован', {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 2000
-              })
-            }}>
+            <div id="shareLink" className="bold text-overflow">{recoveryCode}</div>
+            <div className="link bold ml-1">
               <i className="fa-solid fa-clone"></i>
             </div>
 
-          </div>
+          </Clipboard>
+
           <div className="mt-2 row row_col row_center">
             <div className="col-1@xs btn active" onClick={() => {
               navigate('/')

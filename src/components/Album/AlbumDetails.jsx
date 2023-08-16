@@ -1,19 +1,24 @@
 import React, {useState} from 'react'
 import {Link} from "react-router-dom";
-import {deleteAlbum, getAlbumDetails, getFullImage} from "../../api/manager.js";
+import {deleteAlbum, getFullImage} from "../../api/manager.js";
 import {baseUrl, formatTime} from "../../service/helper.js";
 import {toast} from "react-toastify";
 import Modal from "../UI/Modal/Modal.jsx";
+import Clipboard from 'react-clipboard.js';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import DeleteDialog from "../UI/DeleteDialog.jsx"; // Import css
 
-function AlbumDetails({url, albumDetails}) {
+function AlbumDetails({url, albumDetails, setLoading}) {
   const [modalContent, setModalContent] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [show, setShow] = useState(false)
 
-  const handleRemoveAlbum = () => {
-    deleteAlbum(url).then(resp => {
-      navigate('/albums')
+  const handleRemoveAlbum = (url) => {
+    deleteAlbum(url).then((resp) => {
+      window.location.reload()
     })
   }
+
 
   const ImageCard = ({index, url, image}) => {
     return (
@@ -31,6 +36,7 @@ function AlbumDetails({url, albumDetails}) {
               <i className="fa-solid fa-eye"></i>
               <span className="bold"> 0</span>
             </div>
+
             <div className="ml-1" onClick={() => {
               setLoading(true)
               getFullImage({index: index, url: url}).then(({data}) => {
@@ -73,18 +79,17 @@ function AlbumDetails({url, albumDetails}) {
 
             <div className="share flex row_center mt-05">
               <span className=" mr-1">Ссылка на альбом:</span>
-              <div>
-                <div id="shareLink" className="bold text-overflow">{`${baseUrl()}/album/${url}`}</div>
-              </div>
-              <div className="link bold ml-1" onClick={() => {
-                navigator.clipboard.writeText(albumDetails?.album?.url)
-                toast.success('URL успешно скопирован', {
+
+              <Clipboard className="link bold ml-1" component='a' data-clipboard-text={`${baseUrl()}/album/${url}`} onSuccess={() => {
+                toast.success('Скопировано', {
                   position: toast.POSITION.TOP_RIGHT,
                   autoClose: 2000
                 })
               }}>
+
+                <div id="shareLink" className="bold text-overflow">{`${baseUrl()}/album/${url}`}</div>
                 <i className="fa-solid fa-clone"></i>
-              </div>
+              </Clipboard>
             </div>
             <div className="description mt-1">
               <span className="bold">Описание</span>
@@ -100,6 +105,13 @@ function AlbumDetails({url, albumDetails}) {
             <div className="row row_start mt-2">
               <div className="btn active">Скачать альбом архивом</div>
             </div>
+
+            <div className="row row_start mt-2">
+              <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {handleRemoveAlbum(url)}}>
+                <div className="btn danger">Удалить альбом</div>
+              </DeleteDialog>
+            </div>
+
           </div>
         </section>
 

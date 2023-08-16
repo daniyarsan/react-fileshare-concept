@@ -8,6 +8,7 @@ import {useDispatch} from "react-redux";
 import {registration} from "../../store/slices/userSlice.js";
 import {toast} from "react-toastify";
 import {Preloader} from "../../components/UI/Preloader/index.js";
+import Clipboard from 'react-clipboard.js';
 
 function RegistrationPage(props) {
   const [loading, setLoading] = useState(false)
@@ -56,9 +57,10 @@ function RegistrationPage(props) {
         </div>
         <p className="mt-1"><span className="text-orange">Резервный код - это единственный путь восстановить доступ к аккаунту</span>, в случае если Вы забыли или
           потеряли данные для входа. Администраторам и пользователям следует хранить резервный код в безопасном месте.</p>
-        <div className="mt-2 row row_center" onClick={() => {
-          navigator.clipboard.writeText(recoveryCode)
-          toast.success('Пароль успешно скопирован', {
+
+
+        <Clipboard className="mt-2 row row_center" component='a' data-clipboard-text={recoveryCode} onSuccess={() => {
+          toast.success('Скопировано', {
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 2000
           })
@@ -66,13 +68,12 @@ function RegistrationPage(props) {
           <div>
             <div id="shareLink" className="bold text-overflow">{recoveryCode}</div>
           </div>
-
           <div className="link bold ml-1">
-
             <i className="fa-solid fa-clone"></i>
           </div>
 
-        </div>
+        </Clipboard>
+
         <div className="mt-2 row row_col row_center">
           <div className="col-1@xs btn active" onClick={() => {
             navigate('/')

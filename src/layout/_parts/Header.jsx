@@ -5,12 +5,12 @@ import {logout} from "../../store/slices/userSlice.js";
 import {AUTH_TOKEN} from "../../api/const.js";
 
 function Header() {
-  const {isAuth} = useSelector(state => state.user)
-  const isAuthorized = isAuth && localStorage.getItem(AUTH_TOKEN)
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const {isAuth} = useSelector(state => state.user)
+  const isAuthorized = isAuth && localStorage.getItem(AUTH_TOKEN)
   const {userData} = useSelector(state => state.user)
+
 
   return (
       <div className="nav">
@@ -45,20 +45,19 @@ function Header() {
               </Link>
 
               <div className="row">
-                <Link to='/'>
+                <a onClick={() => {
+                  isAuth ? navigate('/albums') : navigate('/login')
+                }}>
                   <span className="hide-sm ml-2">{userData?.username}</span>
                   <span className="hide-m"><i className="fa-solid fa-person"></i></span>
-                </Link>
+                </a>
 
                 {isAuthorized && (
                     <a className="ml-1 grey hide-sm" href="" onClick={() => {
                       dispatch(logout())
                       navigate('/')
-                    }}>(выход)
-                    </a>
+                    }}>(выход)</a>
                 )}
-
-
               </div>
             </div>
           </div>

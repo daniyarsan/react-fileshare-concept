@@ -38,7 +38,6 @@ function AlbumCreatePage() {
         })
       }
     })
-    formikHelpers.resetForm()
   }
 
 

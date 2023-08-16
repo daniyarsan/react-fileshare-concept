@@ -88,7 +88,7 @@ function ResetPage(props) {
                                 <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
                               </a>
                             </div>
-                            <ErrorMessage className="text-grey" name="password" component="small"/>
+                            <ErrorMessage className="text-danger" name="password" component="small"/>
                           </div>
 
                           <div className="password">
@@ -101,7 +101,7 @@ function ResetPage(props) {
                                 <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
                               </a>
                             </div>
-                            <ErrorMessage className="text-grey" name="new_password" component="small"/>
+                            <ErrorMessage className="text-danger" name="new_password" component="small"/>
                           </div>
 
                           <div className="password">
@@ -114,14 +114,13 @@ function ResetPage(props) {
                                 <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
                               </a>
                             </div>
-                            <ErrorMessage className="text-grey" name="confirmPassword" component="small"/>
+                            <ErrorMessage className="text-danger" name="confirmPassword" component="small"/>
                           </div>
 
                           <button type="submit" className={`col-1@xs btn mt-2 ${(isValid && dirty) && 'active'}`}>Сохранить</button>
 
-
                           <div className="row row_col row_center mt-1">
-                            <p className="small link text-grey line" onClick={() => {
+                            <p className="small link text-danger line" onClick={() => {
                               navigate('/')
                             }}>Отмена</p>
                           </div>

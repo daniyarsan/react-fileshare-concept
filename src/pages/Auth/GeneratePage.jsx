@@ -5,6 +5,8 @@ import {object, string} from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {recoverToken} from "../../api/manager.js";
 import {toast} from "react-toastify";
+import {baseUrl} from "../../service/helper.js";
+import Clipboard from 'react-clipboard.js';
 
 function GeneratePage(props) {
   const [loading, setLoading] = useState(false)
@@ -44,21 +46,18 @@ function GeneratePage(props) {
           </div>
           <p className="mt-1"><span className="text-orange">Резервный код - это единственный путь восстановить доступ к аккаунту</span>, в случае если Вы забыли или потеряли данные
             для входа. Администраторам и пользователям следует хранить резервный код в безопасном месте.</p>
-          <div className="mt-2 row row_center">
-            <div>
-              <div id="shareLink" className="bold text-overflow">{recoveryCode}</div>
-            </div>
-            <div className="link bold ml-1" onClick={() => {
-              navigator.clipboard.writeText(recoveryCode)
 
-              toast.success('Пароль успешно скопирован', {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 2000
-              })
-            }}>
+          <Clipboard className="mt-2 row row_center" component='a' data-clipboard-text={recoveryCode} onSuccess={() => {
+            toast.success('Скопировано', {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 2000
+            })
+          }}>
+            <div id="shareLink" className="bold text-overflow">{recoveryCode}</div>
+            <div className="link bold ml-1">
               <i className="fa-solid fa-clone"></i>
             </div>
-          </div>
+          </Clipboard>
           <div className="mt-2 row row_col row_center">
             <Link to='/' className="col-1@xs btn active">Сохранил</Link>
           </div>
@@ -70,7 +69,6 @@ function GeneratePage(props) {
   return (
       <>
         {loading && <Preloader/>}
-
         <section className='canvas'>
           <div className="container">
             <div className="flex row-1@xs row-1-3@m">

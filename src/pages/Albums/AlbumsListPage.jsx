@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {deleteAlbum, getAlbumsList} from "../../api/manager.js";
+import {getAlbumsList} from "../../api/manager.js";
 import {Link} from "react-router-dom";
 import {Preloader} from "../../components/UI/Preloader/index.js";
-import {BASE_URL, FRONT_URL} from "../../api/const.js";
 import {toast} from "react-toastify";
 import {baseUrl, formatTime} from "../../service/helper.js";
+import Clipboard from 'react-clipboard.js';
 
 function AlbumsListPage() {
   const [loading, setLoading] = useState(true)
@@ -17,70 +17,13 @@ function AlbumsListPage() {
     })
   }, [])
 
-  const handleRemoveAlbum = (url) => {
-    deleteAlbum(url).then(resp => {
-      window.location.reload()
-    })
-  }
 
-  const AlbumAlert = ({show, setShow, url}) => {
-    return (
-        <div className={`custom-alert-wrapper relative ${!show ? 'hidden' : ''}`}>
-          <div className="custom-alert">
-            <div className="body">
-              <div className="row">
-                <div>
-                  <p className="f-700">Подтвердите удаление альбома</p>
-                </div>
-                <div className="img-contain ml-1">
-                </div>
-              </div>
-              <div className="btns row mt-1">
-                <div className="link small text-grey" onClick={() => {
-                  setShow(false)
-                }}>Отмена
-                </div>
-                <div className="link small ml-2" onClick={() => {
-                  handleRemoveAlbum(url)
-                }}>Удалить
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    )
-  }
-
-  const AlbumImages = () => {
-    return (
-        <div className="preview row row-1-3@xs pdd-xs-wrapper mt-1">
-          <div className="pdd-xs">
-            <div className="card-xs img-cover square">
-              <img src="/static/img/img001.png" alt=""/>
-            </div>
-          </div>
-          <div className="pdd-xs">
-            <div className="card-xs img-cover square">
-              <img src="/static/img/img002.png" alt=""/>
-            </div>
-          </div>
-          <div className="pdd-xs">
-            <div className="card-xs img-cover square">
-              <img src="/static/img/img003.png" alt=""/>
-            </div>
-          </div>
-        </div>
-    )
-  }
-
+  /* COMPONENT */
   const AlbumItem = ({name, url, create_date, shelf_time, password, view_count, ...rest}) => {
     const [show, setShow] = useState(false)
 
     return (
         <div className="card-wrapper pdd-sm">
-
-          <AlbumAlert show={show} setShow={setShow} url={url}/>
-
           <div className="card card-body">
             <div className="row row_sb">
               <h5 className="text-overflow">{name}</h5>
@@ -88,7 +31,6 @@ function AlbumsListPage() {
                 <Link to={`/album/edit/${url}`} className="ml-1">
                   <i className='fa-solid fa-pencil'></i>
                 </Link>
-
                 <div className="remove link" onClick={() => {
                   setShow(!show)
                 }}>
@@ -100,21 +42,20 @@ function AlbumsListPage() {
             <div className="storagePeriod sm">Просмотров: <span className="days bold">{view_count}</span></div>
 
             <div className="storagePeriod sm">Срок хранения: <span className="days bold">{shelf_time} дней</span></div>
-            <div className="share row row_center row_sb mt-05 sm">
+
+            <Clipboard className="share row row_center row_sb mt-05 sm" component='a' data-clipboard-text={`${baseUrl()}/album/${url}`}
+                       onSuccess={() => {
+                         toast.success('Скопировано', {
+                           position: toast.POSITION.TOP_RIGHT,
+                           autoClose: 2000
+                         })
+                       }}>
+
               <div className="bold text-overflow">
                 {`${baseUrl()}/album/${url}`}
               </div>
-              <div className="link bold ml-1" onClick={() => {
-
-                navigator.clipboard.writeText(`${baseUrl()}/album/${url}`)
-                    .then(() => {
-                      toast.success('URL успешно скопирован', {
-                        position: toast.POSITION.TOP_RIGHT,
-                        autoClose: 2000
-                      })
-                    }).catch((error) => console.error("Failed to copy text: ", error));
-              }}><i className="fa-solid fa-clone"></i></div>
-            </div>
+              <div className="link bold ml-1"><i className="fa-solid fa-clone"></i></div>
+            </Clipboard>
 
             {/*<AlbumImages/>*/}
 
@@ -123,25 +64,29 @@ function AlbumsListPage() {
         </div>
     )
   }
+  /* COMPONENT */
+
 
   return (
-      <section className="canvas albums">
+      <>
         {loading && <Preloader/>}
 
-        <div className="container">
-          <div className="breadcrumb row mt-3">
-            <a href="">Мои альбомы</a>
-          </div>
-          <h1 className="bolder">Мои альбомы</h1>
+        <section className="canvas albums">
+          <div className="container">
+            <div className="breadcrumb row mt-3">
+              <a href="">Мои альбомы</a>
+            </div>
+            <h1 className="bolder">Мои альбомы</h1>
 
-          <div className="cards flex row-1@xs row-1-2@s row-1-4@m pdd-sm-wrapper">
-
-            {albumsList && albumsList.map(item => {
-              return <AlbumItem key={item.url} {...item} />
-            })}
+            <div className="cards flex row-1@xs row-1-2@s row-1-4@m pdd-sm-wrapper">
+              {albumsList && albumsList.map(item => {
+                return <AlbumItem key={item.url} {...item} />
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </>
+
   )
 }
 

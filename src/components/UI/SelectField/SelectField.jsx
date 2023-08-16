@@ -10,7 +10,7 @@ function SelectField(props) {
   }
 
   return (
-      <Select classNamePrefix='choosen' {...props} onChange={onChange} onBlur={setTouched} value = {
+      <Select isSearchable={false} classNamePrefix='choosen' {...props} onChange={onChange} onBlur={setTouched}  value = {
         props.options.filter(option =>
             option.value === props.field.value)
       } />

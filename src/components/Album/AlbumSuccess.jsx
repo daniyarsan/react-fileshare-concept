@@ -3,6 +3,7 @@ import {baseUrl} from "../../service/helper.js";
 import {toast} from "react-toastify";
 import {deleteAlbum} from "../../api/manager.js";
 import {useNavigate} from "react-router-dom";
+import Clipboard from 'react-clipboard.js';
 
 function AlbumSuccess({name, password, create_date, shelf_time, url, view_count}) {
   const navigate = useNavigate()
@@ -28,27 +29,19 @@ function AlbumSuccess({name, password, create_date, shelf_time, url, view_count}
           <div>
             <h1 className="bolder mt-6">Успешно</h1>
             <p className="small bold text-grey">Зарегистрирутесь, чтобы иметь доступ ко всем созданным альбомам</p>
-            <div className="row row_center mt-1">
+
+            <Clipboard className="row row_center mt-1" component='a' data-clipboard-text={`${baseUrl()}/album/${url}/${password}`} onSuccess={() => {
+              toast.success('Скопировано', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 2000
+              })
+            }}>
               <div id="shareLink" className="bold text-overflow">{`${baseUrl()}/album/${url}/${password}`}</div>
-              <div className="link bold ml-1 text-orange" onClick={() => {
-                navigator.clipboard.writeText(`${baseUrl()}/album/${url}/${password}`).then(
-                    () => {
-                      toast.success('Скопировано', {
-                        position: toast.POSITION.TOP_RIGHT,
-                        autoClose: 2000
-                      })
-                    },
-                    () => {
-                      toast.error('Ошибка копирования', {
-                        position: toast.POSITION.TOP_RIGHT,
-                        autoClose: 2000
-                      })
-                    }
-                )
-              }}>
+              <div className="link bold ml-1 text-orange">
                 <i className="fa-solid fa-clone"></i>
               </div>
-            </div>
+            </Clipboard>
+
             <div className="storagePeriod mt-1">Срок хранения файлов <span className="days bold">{shelf_time} дней</span></div>
             <div className="col-1@xs btn mt-2 active">Поделиться</div>
 

@@ -20,15 +20,10 @@ function AlbumDetailsPage() {
   }, [])
 
 
-
-  const data = {
-    albumDetails, url
-  }
-
   return (
       <>
         {loading && <Preloader/>}
-        <AlbumDetails {...data} />
+        <AlbumDetails {...{albumDetails, url, setLoading}} />
       </>)
 }
 

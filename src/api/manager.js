@@ -5,7 +5,7 @@ import {
     ALBUM_UPDATE_BY_ID,
     ALBUMS_LIST,
     LOGIN,
-    PRICING,
+    TARIFF_PRICING,
     RECOVER_PASSWORD_BY_TOKEN,
     RECOVER_TOKEN,
     RESET_PASSWORD,
@@ -46,7 +46,7 @@ export const getAlbumDetailsPublic = async (url, password) => {
 }
 
 export const getPricing = async () => {
-    return await publicRequester.get(`${PRICING}`)
+    return await publicRequester.get(`${TARIFF_PRICING}`)
 }
 
 export const deleteAlbum = async (url) => {
