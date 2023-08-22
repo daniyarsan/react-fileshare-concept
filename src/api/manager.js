@@ -9,7 +9,7 @@ import {
     RECOVER_PASSWORD_BY_TOKEN,
     RECOVER_TOKEN,
     RESET_PASSWORD,
-    USER_STAT
+    USER_STAT, TARIFF_ACTIVATE
 } from "./const.js";
 import requester, {multipartRequester, publicRequester} from "./axios.js";
 
@@ -47,6 +47,10 @@ export const getAlbumDetailsPublic = async (url, password) => {
 
 export const getPricing = async () => {
     return await publicRequester.get(`${TARIFF_PRICING}`)
+}
+
+export const getTariff = async (option, use_year_discount) => {
+    return await requester.post(`${TARIFF_ACTIVATE}`, {option, use_year_discount})
 }
 
 export const deleteAlbum = async (url) => {

@@ -4,10 +4,12 @@ import Header from "./_parts/Header.jsx";
 import Footer from "./_parts/Footer.jsx";
 import {ToastContainer} from "react-toastify";
 
-function Default() {
+function Default({className, ...props}) {
+
+  console.log(className)
 
   return (
-      <div className="row row_col row_sb">
+      <div className={className}>
         <Header/>
         <Outlet/>
         <Footer/>

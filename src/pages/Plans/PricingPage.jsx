@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react'
-import {getPricing} from "../../api/manager.js";
+import {getPricing, getTariff} from "../../api/manager.js";
 import {Preloader} from "../../components/UI/Preloader/index.js";
 import {PricingBlock} from "../../components/Pricing/PricingBlock.jsx";
 import Faq from "../../components/Pricing/Faq.jsx";
+import {toast} from "react-toastify";
+import {PlanSuccess} from "../../components/Pricing/PlanSuccess.jsx";
 
 function PricingPage() {
   const [loading, setLoading] = useState(true)
   const [yearlyPlans, setYearlyPlans] = useState([])
   const [monthlyPlans, setMonthlyPlans] = useState([])
+  const [purchaseSuccessData, setPurchaseSuccessData] = useState(false)
 
   useEffect(() => {
     getPricing().then(resp => {
@@ -17,6 +20,20 @@ function PricingPage() {
       setLoading(false)
     })
   }, [])
+
+  const handlePurchase = (option, yearlyDiscount) => {
+    setLoading(true)
+    getTariff(option, yearlyDiscount).then(({data}) => {
+      setLoading(false)
+      setPurchaseSuccessData(data)
+    }).catch(({response}) => {
+      setLoading(false)
+      toast.error(response?.data?.msg, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000
+      })
+    })
+  }
 
   const faq = [
     {
@@ -33,15 +50,16 @@ function PricingPage() {
     }
   ]
 
-
   return (
       <>
         {loading && <Preloader/>}
 
-        <div className='canvas bgPeach'>
-          <PricingBlock {...{monthlyPlans, yearlyPlans}} />
+        <div className='canvas'>
+          <div className='container'>
+            {purchaseSuccessData ? <PlanSuccess {...purchaseSuccessData} /> : <PricingBlock {...{monthlyPlans, yearlyPlans, setLoading, handlePurchase}} />}
+          </div>
           <hr/>
-          <Faq data={faq} />
+          {!purchaseSuccessData && <Faq data={faq}/>}
         </div>
       </>
   )

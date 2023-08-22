@@ -9,7 +9,7 @@ import '../html/_assets/fonts/awesome/css/stylesheet.css'
 import "react-toastify/dist/ReactToastify.css";
 import Default from "./layout/Default.jsx";
 import RegistrationPage from "./pages/Auth/RegistrationPage.jsx";
-import LoginPage from "./pages/Auth/LoginPage.jsx";
+import {LoginPage} from "./pages/Auth/LoginPage.jsx";
 import GeneratePage from "./pages/Auth/GeneratePage.jsx";
 import AlbumsListPage from "./pages/Albums/AlbumsListPage.jsx";
 import AlbumDetailsPage from "./pages/Albums/AlbumDetailsPage.jsx";
@@ -31,15 +31,18 @@ function App() {
     if (!isAuth) {
       return (
           <>
-            <Route element={<Default/>}>
+            <Route element={<Default className="row row_col row_sb" />}>
               <Route path="/" element={<AlbumCreatePage/>}></Route>
               <Route path="/album/create" element={<AlbumCreatePage/>}></Route>
-              <Route path="/plans" element={<PricingPage/>}></Route>
               <Route path="/album/:url/:password" element={<AlbumDetailsPublicPage/>}></Route>
               <Route path="/login" element={<LoginPage/>}></Route>
               <Route path="/registration" element={<RegistrationPage/>}></Route>
               <Route path="/forgot" element={<ForgotPage/>}></Route>
               <Route path='*' element={<NotFound />}/>
+            </Route>
+
+            <Route element={<Default className="row row_col row_sb bgPeach" />}>
+              <Route path="/plans" element={<PricingPage/>}></Route>
             </Route>
           </>
       )
@@ -47,7 +50,7 @@ function App() {
 
     return (
         <>
-          <Route element={<Default/>}>
+          <Route element={<Default className="row row_col row_sb" />}>
             <Route path="/" element={<DashboardPage/>}></Route>
             <Route path="/albums" element={<AlbumsListPage/>}></Route>
             <Route path="/album/create" element={<AlbumCreatePage/>}></Route>
@@ -57,6 +60,9 @@ function App() {
             <Route path="/staff" element={<StaffPage/>}></Route>
             <Route path="/reset" element={<ResetPage/>}></Route>
             <Route path="/generate" element={<GeneratePage/>}></Route>
+          </Route>
+
+          <Route element={<Default className="row row_col row_sb bgPeach" />}>
             <Route path="/plans" element={<PricingPage/>}></Route>
           </Route>
         </>
@@ -68,7 +74,6 @@ function App() {
         {getRoutes(isAuthorized)}
       </Routes>
   )
-
 }
 
 export default App

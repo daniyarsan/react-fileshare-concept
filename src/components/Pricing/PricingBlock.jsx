@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {formatBytes} from "../../service/helper.js";
 
-export const PricingBlock = ({monthlyPlans, yearlyPlans}) => {
+export const PricingBlock = ({monthlyPlans, yearlyPlans, handlePurchase}) => {
+
   const [isMonthly, setIsMonthly] = useState(true)
 
-  /* COMPONENT */
-  const PricingCard = ({title, description, size, price, shelf_time, files}) => {
+  const PricingCard = ({title, description, size, price, shelf_time, files, option}) => {
     return (
         <div className="pdd-md">
           <div className="card pdd-lg">
@@ -21,7 +21,9 @@ export const PricingBlock = ({monthlyPlans, yearlyPlans}) => {
               <hr/>
               <p>{description}</p>
             </div>
-            <div className="btn btn-dark row row_col row_center col-1@xs mt-2 active">
+            <div className="btn btn-dark row row_col row_center col-1@xs mt-2 active" onClick={() => {
+              handlePurchase(option, !isMonthly)
+            }}>
               <p>Подключить за {Math.floor(price)} р/мес</p>
               {!isMonthly && (<p className="thin small">При оплате за год + год бесплатно</p>)}
             </div>
@@ -29,10 +31,10 @@ export const PricingBlock = ({monthlyPlans, yearlyPlans}) => {
         </div>
     )
   }
-  /* COMPONENT */
+
 
   return (
-      <div className="container">
+      <div className="pricingPage">
         <h1 className="bolder center">Выберите подходящий тариф</h1>
         <h3 className="thin center">Активируйте тариф Бизнес
           <span className="bolder relative">{/*<TimerAlert />*/}бесплатно до 1 сентября</span>
@@ -65,11 +67,10 @@ export const PricingBlock = ({monthlyPlans, yearlyPlans}) => {
           <div className="toggleDefault row row_center">
             <p className={`month ${isMonthly ? 'choosen' : ''}`}>На месяц</p>
             <div className="ml-1">
-              <input type="checkbox" id="switch" onChange={() => {
-                setIsMonthly(!isMonthly)
-              }}/>
+              <input type="checkbox" id="switch" onChange={() => {setIsMonthly(!isMonthly)}}/>
               <label htmlFor='switch'></label>
             </div>
+
             <p className={`year ml-1 ${isMonthly ? '' : 'choosen'}`}>На год</p>
           </div>
         </div>
