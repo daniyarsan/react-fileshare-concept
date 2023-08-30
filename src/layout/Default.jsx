@@ -6,8 +6,6 @@ import {ToastContainer} from "react-toastify";
 
 function Default({className, ...props}) {
 
-  console.log(className)
-
   return (
       <div className={className}>
         <Header/>

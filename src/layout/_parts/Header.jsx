@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../store/slices/userSlice.js";
 import {AUTH_TOKEN} from "../../api/const.js";

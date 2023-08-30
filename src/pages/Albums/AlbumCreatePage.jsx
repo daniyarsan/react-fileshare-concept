@@ -32,7 +32,7 @@ function AlbumCreatePage() {
     }).catch(({response}) => {
       setLoading(false)
       if (response.data?.code == 12) {
-        toast.error('Лимит загрузки файлов превышен', {
+        toast.error('На бесплатном тарифе доступна загрузка до 2 фотографий за раз', {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 2000
         })
@@ -43,7 +43,7 @@ function AlbumCreatePage() {
 
   return (
       <>
-        {loading && <Preloader/>}
+        {loading && <Preloader />}
         <section className="canvas create-albom">
           <div className="container">
             {albumUploadResult ? <AlbumSuccess {...albumUploadResult} /> : (<AlbumForm submitHandler={submitHandler} />)}

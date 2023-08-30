@@ -715,13 +715,22 @@ body {
     cursor: pointer;
 }
 
-.cards .card .btn.btn-dark {
+.cards .card .btn.btn-submit {
     background-color: #222;
     border: 1px solid #222;
     color: #fff;
 }
 
-.cards .card .btn.btn-dark p {
+.cards .card .btn.btn-submit p {
+    color: #fff;
+}
+
+.cards .card.active {
+    background: #f3f3f3;
+}
+.cards .card.active .btn-submit {
+    background-color: #2d6c00;
+    border: 1px solid #2d6c00;
     color: #fff;
 }
 
@@ -1063,6 +1072,11 @@ dialog p a:visited {
     .galleryItem.show {
         padding: 40px 0px;
         height: 100%;
+    }
+
+    .pricingPage h1 {
+        font-size: 33px;
+        line-height: 5vh;
     }
 }
 

@@ -1,19 +1,22 @@
 import React, {useState} from 'react'
 import {formatBytes} from "../../service/helper.js";
 
-export const PricingBlock = ({monthlyPlans, yearlyPlans, handlePurchase}) => {
-
+export const PricingBlock = ({monthlyPlans, yearlyPlans, userData, handlePurchase}) => {
   const [isMonthly, setIsMonthly] = useState(true)
 
   const PricingCard = ({title, description, size, price, shelf_time, files, option}) => {
+
     return (
         <div className="pdd-md">
-          <div className="card pdd-lg">
+
+          <div className={`card pdd-lg ${userData.tariff.option == option && 'active'}`}>
+
             <div className="row row_sb">
               <p className="bold text-dark">{title}</p>
               <p className="bold"></p>
             </div>
             <h1>{formatBytes(size * 1048576)}</h1>
+
             <div className="list">
               <p>Стоимость {Math.floor(price)}$</p>
               <p>Загрузка файла до {formatBytes(size * 1048576)}</p>
@@ -21,12 +24,15 @@ export const PricingBlock = ({monthlyPlans, yearlyPlans, handlePurchase}) => {
               <hr/>
               <p>{description}</p>
             </div>
-            <div className="btn btn-dark row row_col row_center col-1@xs mt-2 active" onClick={() => {
-              handlePurchase(option, !isMonthly)
-            }}>
-              <p>Подключить за {Math.floor(price)} р/мес</p>
-              {!isMonthly && (<p className="thin small">При оплате за год + год бесплатно</p>)}
-            </div>
+
+            {
+              userData.tariff.option == option ? (<button className='btn btn-submit row row_col row_center col-1@xs mt-2' disabled='disabled'>Подключено</button>) : (
+                <button className="btn btn-submit row row_col row_center col-1@xs mt-2" onClick={() => {
+                  handlePurchase(option, !isMonthly)}}>
+                  <p>Подключить за {Math.floor(price)} $/мес</p>
+                  {!isMonthly && (<p className="thin small">При оплате за год + год бесплатно</p>)}
+                </button>)
+            }
           </div>
         </div>
     )
@@ -36,8 +42,7 @@ export const PricingBlock = ({monthlyPlans, yearlyPlans, handlePurchase}) => {
   return (
       <div className="pricingPage">
         <h1 className="bolder center">Выберите подходящий тариф</h1>
-        <h3 className="thin center">Активируйте тариф Бизнес
-          <span className="bolder relative">{/*<TimerAlert />*/}бесплатно до 1 сентября</span>
+        <h3 className="thin center">Активируйте тариф Бизнес <br/> <span className="bolder relative">{/*<TimerAlert />*/}бесплатно до 1 сентября</span>
         </h3>
 
         <div className="flex row_center row-1@xs row-1-3@m mt-3">
@@ -57,7 +62,7 @@ export const PricingBlock = ({monthlyPlans, yearlyPlans, handlePurchase}) => {
                   </div>
                 </div>
               </div>
-              <i className="fa-solid fa-people-group mr-1"></i> Корпоративный
+              <i className="fa-solid fa-people-group mr-1"></i> Корпоративный (скоро)
             </div>
           </div>
           <div></div>
@@ -67,7 +72,9 @@ export const PricingBlock = ({monthlyPlans, yearlyPlans, handlePurchase}) => {
           <div className="toggleDefault row row_center">
             <p className={`month ${isMonthly ? 'choosen' : ''}`}>На месяц</p>
             <div className="ml-1">
-              <input type="checkbox" id="switch" onChange={() => {setIsMonthly(!isMonthly)}}/>
+              <input type="checkbox" id="switch" onChange={() => {
+                setIsMonthly(!isMonthly)
+              }}/>
               <label htmlFor='switch'></label>
             </div>
 

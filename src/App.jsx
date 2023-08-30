@@ -1,7 +1,7 @@
 import {AUTH_TOKEN} from "./api/const.js";
 import {useSelector} from "react-redux";
 
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, Navigate} from "react-router-dom";
 import '../html/_assets/css/style.css'
 import '../html/_assets/css/structure.css'
 import '../html/_assets/fonts/inter/stylesheet.css'
@@ -60,6 +60,7 @@ function App() {
             <Route path="/staff" element={<StaffPage/>}></Route>
             <Route path="/reset" element={<ResetPage/>}></Route>
             <Route path="/generate" element={<GeneratePage/>}></Route>
+            <Route path="*" element={<Navigate replace to="/" />} />
           </Route>
 
           <Route element={<Default className="row row_col row_sb bgPeach" />}>

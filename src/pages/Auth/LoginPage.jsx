@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {login, setUserData} from "../../store/slices/userSlice.js";
 import {getUserStat} from "../../api/manager.js";
@@ -10,8 +9,6 @@ import {LoginForm} from "../../components/Auth/Login/LoginForm.jsx";
 export const LoginPage = (props) => {
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
-
 
   const onSubmit = (data, formikHelpers) => {
     setLoading(true)
@@ -20,7 +17,6 @@ export const LoginPage = (props) => {
         dispatch(setUserData(data))
         setLoading(false)
       })
-      navigate('/');
     })
     formikHelpers.resetForm()
   }

@@ -4,13 +4,18 @@ import {Preloader} from "../../components/UI/Preloader/index.js";
 import {PricingBlock} from "../../components/Pricing/PricingBlock.jsx";
 import Faq from "../../components/Pricing/Faq.jsx";
 import {toast} from "react-toastify";
-import {PlanSuccess} from "../../components/Pricing/PlanSuccess.jsx";
+import {useSelector} from "react-redux";
+import {AUTH_TOKEN} from "../../api/const.js";
+import {useNavigate} from "react-router-dom";
 
 function PricingPage() {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [yearlyPlans, setYearlyPlans] = useState([])
   const [monthlyPlans, setMonthlyPlans] = useState([])
-  const [purchaseSuccessData, setPurchaseSuccessData] = useState(false)
+  
+  const {isAuth, userData} = useSelector(state => state.user)
+  const isAuthorized = isAuth && localStorage.getItem(AUTH_TOKEN)
 
   useEffect(() => {
     getPricing().then(resp => {
@@ -22,10 +27,15 @@ function PricingPage() {
   }, [])
 
   const handlePurchase = (option, yearlyDiscount) => {
+   if (!isAuthorized) {
+     navigate('/login')
+     return
+   }
+
     setLoading(true)
     getTariff(option, yearlyDiscount).then(({data}) => {
       setLoading(false)
-      setPurchaseSuccessData(data)
+      window.location.replace(data.url)
     }).catch(({response}) => {
       setLoading(false)
       toast.error(response?.data?.msg, {
@@ -56,10 +66,10 @@ function PricingPage() {
 
         <div className='canvas'>
           <div className='container'>
-            {purchaseSuccessData ? <PlanSuccess {...purchaseSuccessData} /> : <PricingBlock {...{monthlyPlans, yearlyPlans, setLoading, handlePurchase}} />}
+            <PricingBlock {...{monthlyPlans, yearlyPlans, setLoading, userData, handlePurchase}} />
           </div>
           <hr/>
-          {!purchaseSuccessData && <Faq data={faq}/>}
+          <Faq data={faq}/>
         </div>
       </>
   )
