@@ -9,7 +9,7 @@ export const PricingBlock = ({monthlyPlans, yearlyPlans, userData, handlePurchas
     return (
         <div className="pdd-md">
 
-          <div className={`card pdd-lg ${userData.tariff.option == option && 'active'}`}>
+          <div className={`card pdd-lg ${userData.tariff?.option == option && 'active'}`}>
 
             <div className="row row_sb">
               <p className="bold text-dark">{title}</p>
@@ -26,7 +26,7 @@ export const PricingBlock = ({monthlyPlans, yearlyPlans, userData, handlePurchas
             </div>
 
             {
-              userData.tariff.option == option ? (<button className='btn btn-submit row row_col row_center col-1@xs mt-2' disabled='disabled'>Подключено</button>) : (
+              userData.tariff?.option == option ? (<button className='btn btn-submit row row_col row_center col-1@xs mt-2' disabled='disabled'>Подключено</button>) : (
                 <button className="btn btn-submit row row_col row_center col-1@xs mt-2" onClick={() => {
                   handlePurchase(option, !isMonthly)}}>
                   <p>Подключить за {Math.floor(price)} $/мес</p>
