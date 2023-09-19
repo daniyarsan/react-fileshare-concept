@@ -7,6 +7,7 @@ import {AUTH_TOKEN} from "../../api/const.js";
 function Header() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const {isAuth} = useSelector(state => state.user)
   const isAuthorized = isAuth && localStorage.getItem(AUTH_TOKEN)
   const {userData} = useSelector(state => state.user)
@@ -43,6 +44,10 @@ function Header() {
                 <span className="hide-sm ml-2">Мои альбомы</span>
                 <span className="hide-m"><i className="fa-solid fa-book-open"></i></span>
               </Link>
+
+              {!isAuthorized && (
+                  <Link to='/login' className="hide-sm ml-2">Войти</Link>
+              )}
 
               <div className="row">
                 <a onClick={() => {

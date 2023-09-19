@@ -13,6 +13,7 @@ function RegistrationPage(props) {
 
   const onSubmit = (data, formikHelpers) => {
     setLoading(true)
+    
     dispatch(registration({username: data.username, password: data.password})).then((result) => {
       if (!result.type.toLowerCase().includes('rejected')) {
         setRecoveryCode(result?.payload?.code)

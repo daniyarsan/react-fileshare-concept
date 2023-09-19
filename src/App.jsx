@@ -1,5 +1,5 @@
 import {AUTH_TOKEN} from "./api/const.js";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {Route, Routes, Navigate} from "react-router-dom";
 import '../html/_assets/css/style.css'
@@ -21,12 +21,18 @@ import ResetPage from "./pages/Auth/ResetPage.jsx";
 import AlbumEditPage from "./pages/Albums/AlbumEditPage.jsx";
 import AlbumCreatePage from "./pages/Albums/AlbumCreatePage.jsx";
 import AlbumDetailsPublicPage from "./pages/Albums/AlbumDetailsPublicPage.jsx";
-import NotFound from "./pages/Stuff/NotFound.jsx";
+import {logout} from "./store/slices/userSlice.js";
 
 function App() {
+  const dispatch = useDispatch()
+
+  if (!localStorage.getItem(AUTH_TOKEN)) {
+    dispatch(logout())
+  }
   const {isAuth} = useSelector(state => state.user)
   const isAuthorized = isAuth && localStorage.getItem(AUTH_TOKEN)
-  
+
+
   const getRoutes = (isAuth) => {
     if (!isAuth) {
       return (
@@ -38,7 +44,7 @@ function App() {
               <Route path="/login" element={<LoginPage/>}></Route>
               <Route path="/registration" element={<RegistrationPage/>}></Route>
               <Route path="/forgot" element={<ForgotPage/>}></Route>
-              <Route path='*' element={<NotFound />}/>
+              <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
 
             <Route element={<Default className="row row_col row_sb bgPeach" />}>

@@ -3,19 +3,22 @@ import AlbumDetails from "../../components/Album/AlbumDetails.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {getAlbumDetails} from "../../api/manager.js";
 import {Preloader} from "../../components/UI/Preloader/index.js";
+import {useSelector} from "react-redux";
 
 function AlbumDetailsPage() {
   const {url} = useParams()
-  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [albumDetails, setAlbumDetails] = useState()
+  const {isAuth} = useSelector(state => state.user)
 
   useEffect(() => {
     getAlbumDetails(url).then(resp => {
       setAlbumDetails(resp?.data)
       setLoading(false)
     }).catch(err => {
-      navigate('/albums')
+      console.log(err)
+
+      // navigate('/albums')
     })
   }, [])
 
@@ -23,7 +26,7 @@ function AlbumDetailsPage() {
   return (
       <>
         {loading && <Preloader/>}
-        <AlbumDetails {...{albumDetails, url, setLoading}} />
+        <AlbumDetails {...{albumDetails, url, setLoading, isAuth}} />
       </>)
 }
 

@@ -1,14 +1,16 @@
 import React, {useState} from 'react'
 import AlbumForm from "../../components/Album/AlbumForm.jsx";
-import {createAlbum} from "../../api/manager.js";
+import {createAlbum, createAlbumPublic} from "../../api/manager.js";
 import {toast} from "react-toastify";
 import {Preloader} from "../../components/UI/Preloader/index.js";
 import AlbumSuccess from "../../components/Album/AlbumSuccess.jsx";
+import {useSelector} from "react-redux";
 
 function AlbumCreatePage() {
-
   const [loading, setLoading] = useState(false)
   const [albumUploadResult, setAlbumUploadResult] = useState()
+  const {isAuth} = useSelector(state => state.user)
+
 
   const submitHandler = (data, formikHelpers) => {
     setLoading(true)
@@ -21,16 +23,17 @@ function AlbumCreatePage() {
       formData.append('files', item.image)
     })
 
-    createAlbum(formData).then(({data}) => {
+    const createAlbumFunc = isAuth ? createAlbum : createAlbumPublic
+
+    createAlbumFunc(formData).then(({data}) => {
       setLoading(false)
       setAlbumUploadResult(data)
       toast.success('Альбом успешно создан', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
-      })
-
-    }).catch(({response}) => {
+      })}).catch(({response}) => {
       setLoading(false)
+      
       if (response.data?.code == 12) {
         toast.error('На бесплатном тарифе доступна загрузка до 2 фотографий за раз', {
           position: toast.POSITION.TOP_RIGHT,

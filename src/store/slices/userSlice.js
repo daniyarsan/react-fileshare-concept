@@ -56,6 +56,8 @@ const userSlice = createSlice({
         .addCase(login.pending, (state) => {
           state.loading = true
         })
+
+
         .addCase(login.fulfilled, (state, action) => {
           const tokenData = action.payload
           localStorage.setItem(AUTH_TOKEN, JSON.stringify(tokenData))
@@ -72,12 +74,12 @@ const userSlice = createSlice({
           })
         })
 
-        /************/
+
+
         .addCase(registration.pending, (state) => {
           state.loading = true
         })
         .addCase(registration.fulfilled, (state, action) => {
-          console.log('fullfilled')
           state.loading = false
         })
 

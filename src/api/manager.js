@@ -9,7 +9,7 @@ import {
     RECOVER_PASSWORD_BY_TOKEN,
     RECOVER_TOKEN,
     RESET_PASSWORD,
-    USER_STAT, TARIFF_ACTIVATE
+    USER_STAT, TARIFF_ACTIVATE, ALBUM_CREATE_ANON
 } from "./const.js";
 import requester, {multipartRequester, publicRequester} from "./axios.js";
 
@@ -64,6 +64,9 @@ export const getFullImage = async (data) => {
 /* Multipart data */
 export const createAlbum = async (formData) => {
     return await multipartRequester.post(`${ALBUM_CREATE}`, formData)
+}
+export const createAlbumPublic = async (formData) => {
+    return await multipartRequester.post(`${ALBUM_CREATE_ANON}`, formData)
 }
 export const updateAlbum = async (formData) => {
     return await multipartRequester.post(`${ALBUM_UPDATE_BY_ID}`, formData)

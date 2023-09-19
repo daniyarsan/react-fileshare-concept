@@ -5,7 +5,6 @@ export const publicRequester = axios.create({
   baseURL: BASE_API_URL,
 })
 
-/* This is for authorized JSON requests */
 const requester = axios.create({
   baseURL: BASE_API_URL,
 });

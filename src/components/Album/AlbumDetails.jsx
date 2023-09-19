@@ -8,7 +8,7 @@ import Clipboard from 'react-clipboard.js';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import DeleteDialog from "../UI/DeleteDialog.jsx"; // Import css
 
-function AlbumDetails({url, albumDetails, setLoading}) {
+function AlbumDetails({url, albumDetails, setLoading, isAuth}) {
   const [modalContent, setModalContent] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
@@ -63,20 +63,19 @@ function AlbumDetails({url, albumDetails, setLoading}) {
 
             <div className="row row_center row_sb mt-2">
               <h1 className="bolder">{albumDetails?.album?.name}</h1>
-              <Link to={`/album/edit/${url}`} className="bold sm"><i></i>Редактировать альбом</Link>
+              {isAuth && <Link to={`/album/edit/${url}`} className="bold sm"><i></i>Редактировать альбом</Link>}
             </div>
             <div className="date">{formatTime(Date.parse(albumDetails?.album?.create_date))}</div>
             <div className="storagePeriod">Срок хранения файлов <span className="days bold">{albumDetails?.album?.shelf_time} дней</span></div>
             <div className="password mt-05">
-              <span className="mr-1 link" onClick={() => {
+              <span className="mr-1 link">Показать Пароль:</span>
+              <span className="bold" onClick={() => {
                 setShowPassword(!showPassword)
-              }}>{showPassword ? 'Спрятать' : 'Показать'} Пароль:</span>
-
-              <span className="bold">{showPassword ? albumDetails?.album?.password : '************'}</span>
+              }}>{showPassword ? albumDetails?.album?.password : '************'}</span>
             </div>
 
-            <div className="share flex row_center mt-05">
-              <span className=" mr-1">Ссылка на альбом:</span>
+            <div className="row mt-05">
+              <span className="mr-1">Ссылка на альбом:</span>
 
               <Clipboard className="link bold ml-1" component='a' data-clipboard-text={`${baseUrl()}/album/${url}`} onSuccess={() => {
                 toast.success('Скопировано', {
@@ -85,8 +84,7 @@ function AlbumDetails({url, albumDetails, setLoading}) {
                 })
               }}>
 
-                <div id="shareLink" className="bold text-overflow">{`${baseUrl()}/album/${url}`}</div>
-                <i className="fa-solid fa-clone"></i>
+                <div id="shareLink" className="bold text-overflow">{`${baseUrl()}/album/${url}`} <i className="fa-solid fa-clone"></i></div>
               </Clipboard>
             </div>
             <div className="description mt-1">
@@ -105,7 +103,9 @@ function AlbumDetails({url, albumDetails, setLoading}) {
             </div>
 
             <div className="row row_start mt-2">
-              <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {handleRemoveAlbum(url)}}>
+              <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {
+                handleRemoveAlbum(url)
+              }}>
                 <div className="btn danger">Удалить альбом</div>
               </DeleteDialog>
             </div>

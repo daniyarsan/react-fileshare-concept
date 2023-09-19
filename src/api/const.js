@@ -14,11 +14,13 @@ export const USER_STAT = '/user/stat'
 /* ALBUMS */
 export const ALBUMS_LIST = '/album/list'
 export const ALBUM_DETAILS = '/album/get'
+
 export const ALBUM_DELETE = '/album/remove'
 export const ALBUM_FULL_IMAGE = '/album/fetch'
 export const ALBUM_DETAILS_PUBLIC = '/album/shared/get'       // /{url}/{password}
 export const ALBUM_FULL_IMAGE_PUBLIC = '/album/shared/fetch'  // /{url}/{password}/{index}
 export const ALBUM_CREATE = '/album/upload'
+export const ALBUM_CREATE_ANON = '/album/anon/upload'
 export const ALBUM_UPDATE_BY_ID = '/album/update/'
 
 /* TARIFF */
