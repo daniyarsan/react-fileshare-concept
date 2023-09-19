@@ -21,7 +21,7 @@ export const ALBUM_DETAILS_PUBLIC = '/album/shared/get'       // /{url}/{passwor
 export const ALBUM_FULL_IMAGE_PUBLIC = '/album/shared/fetch'  // /{url}/{password}/{index}
 export const ALBUM_CREATE = '/album/upload'
 export const ALBUM_CREATE_ANON = '/album/anon/upload'
-export const ALBUM_UPDATE_BY_ID = '/album/update/'
+export const ALBUM_UPDATE_BY_ID = '/album/update'
 
 /* TARIFF */
 export const TARIFF_PRICING = '/tariff/pricing'

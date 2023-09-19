@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {deleteAlbum, getFullImage} from "../../api/manager.js";
 import {baseUrl, formatTime} from "../../service/helper.js";
 import {toast} from "react-toastify";
@@ -9,13 +9,27 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import DeleteDialog from "../UI/DeleteDialog.jsx"; // Import css
 
 function AlbumDetails({url, albumDetails, setLoading, isAuth}) {
+  const navigate = useNavigate()
   const [modalContent, setModalContent] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
   const handleRemoveAlbum = (url) => {
     deleteAlbum(url).then((resp) => {
-      window.location.reload()
+      navigate('/albums')
     })
+  }
+
+  const openFullImage = (index) => {
+    setLoading(true)
+
+    getFullImage({index: index, url: url}).then(({data}) => {
+      setLoading(false)
+      const modalContent = <img src={`data:image/jpeg;base64,${data.data}`}/>
+      setModalContent(modalContent)
+    }).catch(err => {
+      console.log(err)
+    })
+
   }
 
   const ImageCard = ({index, url, image}) => {
@@ -26,7 +40,7 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth}) {
               <i className="icon-close text-white fa-solid fa-xmark fa-xl"></i>
             </div>
             <div className="img-cover">
-              <img className="galleryImg" src={`data:image/jpeg;base64,${image}`}/>
+              <img className="galleryImg pointer" onClick={() => openFullImage(index)} src={`data:image/jpeg;base64,${image}`}/>
             </div>
           </div>
           <div className="row row_end row_center mt-1">
@@ -35,16 +49,7 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth}) {
               <span className="bold"> 0</span>
             </div>
 
-            <div className="ml-1" onClick={() => {
-              setLoading(true)
-              getFullImage({index: index, url: url}).then(({data}) => {
-                setLoading(false)
-                const modalContent = <img src={`data:image/jpeg;base64,${data.data}`}/>
-                setModalContent(modalContent)
-              }).catch(err => {
-                console.log(err)
-              })
-            }}>
+            <div className="ml-1" onClick={() => openFullImage(index)}>
               <i className="link icon-open fa-solid fa-arrows-maximize"></i>
             </div>
           </div>

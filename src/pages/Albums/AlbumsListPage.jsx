@@ -28,8 +28,6 @@ function AlbumsListPage() {
   const AlbumItem = ({name, url, create_date, shelf_time, password, view_count, ...rest}) => {
     const [show, setShow] = useState(false)
 
-    console.log(url)
-
     return (
         <div className="card-wrapper pdd-sm">
           <div className="card card-body">
