@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import AlbumDetails from "../../components/Album/AlbumDetails.jsx";
 import {useNavigate, useParams} from "react-router-dom";
-import {getAlbumDetails} from "../../api/manager.js";
+import {getAlbumDetails, getFullImage} from "../../api/manager.js";
 import {Preloader} from "../../components/UI/Preloader/index.js";
 import {useSelector} from "react-redux";
 
@@ -23,10 +23,12 @@ function AlbumDetailsPage() {
   }, [])
 
 
+  const input = {albumDetails, url, isAuth, setLoading}
+
   return (
       <>
         {loading && <Preloader/>}
-        <AlbumDetails {...{albumDetails, url, setLoading, isAuth}} />
+        <AlbumDetails {...{input}} />
       </>)
 }
 

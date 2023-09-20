@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import AlbumDetails from "../../components/Album/AlbumDetails.jsx";
 import {useNavigate, useParams} from "react-router-dom";
-import {getAlbumDetailsPublic} from "../../api/manager.js";
+import {getAlbumDetailsPublic, getFullImage, getFullImagePublic} from "../../api/manager.js";
 import {Preloader} from "../../components/UI/Preloader/index.js";
 
 function AlbumDetailsPublicPage() {
@@ -20,15 +20,12 @@ function AlbumDetailsPublicPage() {
     })
   }, [])
 
-  const data = {
-    albumDetails, url
-  }
+  const input = {albumDetails, url, setLoading}
 
   return (
       <>
         {loading && <Preloader/>}
-
-        <AlbumDetails {...data} />
+        <AlbumDetails {...input} />
       </>)
 }
 

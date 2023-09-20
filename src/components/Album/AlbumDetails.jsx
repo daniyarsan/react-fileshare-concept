@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Link, useNavigate} from "react-router-dom";
-import {deleteAlbum, getFullImage} from "../../api/manager.js";
+import {deleteAlbum, deleteAlbumPublic, getFullImage, getFullImagePublic} from "../../api/manager.js";
 import {baseUrl, formatTime} from "../../service/helper.js";
 import {toast} from "react-toastify";
 import Modal from "../UI/Modal/Modal.jsx";
@@ -8,21 +8,33 @@ import Clipboard from 'react-clipboard.js';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import DeleteDialog from "../UI/DeleteDialog.jsx"; // Import css
 
-function AlbumDetails({url, albumDetails, setLoading, isAuth}) {
+function AlbumDetails({url, albumDetails, setLoading, isAuth = false}) {
   const navigate = useNavigate()
   const [modalContent, setModalContent] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const password = albumDetails?.album?.password
 
   const handleRemoveAlbum = (url) => {
-    deleteAlbum(url).then((resp) => {
+    setLoading(true)
+    const albumDeleter = isAuth ? deleteAlbum(url) : deleteAlbumPublic(url, password);
+    albumDeleter.then((resp) => {
+      toast.success('Альбом удален', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000
+      })
       navigate('/albums')
+
+    }).catch(err => {
+      setLoading(false)
+      console.log(err)
     })
   }
 
-  const openFullImage = (index) => {
+  const handleFullImageOpen = (index) => {
     setLoading(true)
+    const fullImageFetcher = isAuth ? getFullImage({index: index, url: url}) : getFullImagePublic(url, password, index);
 
-    getFullImage({index: index, url: url}).then(({data}) => {
+    fullImageFetcher.then(({data}) => {
       setLoading(false)
       const modalContent = <img src={`data:image/jpeg;base64,${data.data}`}/>
       setModalContent(modalContent)
@@ -30,7 +42,9 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth}) {
       console.log(err)
     })
 
+
   }
+
 
   const ImageCard = ({index, url, image}) => {
     return (
@@ -40,7 +54,7 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth}) {
               <i className="icon-close text-white fa-solid fa-xmark fa-xl"></i>
             </div>
             <div className="img-cover">
-              <img className="galleryImg pointer" onClick={() => openFullImage(index)} src={`data:image/jpeg;base64,${image}`}/>
+              <img className="galleryImg pointer" onClick={() => handleFullImageOpen(index)} src={`data:image/jpeg;base64,${image}`}/>
             </div>
           </div>
           <div className="row row_end row_center mt-1">
@@ -49,7 +63,7 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth}) {
               <span className="bold"> 0</span>
             </div>
 
-            <div className="ml-1" onClick={() => openFullImage(index)}>
+            <div className="ml-1" onClick={() => handleFullImageOpen(index)}>
               <i className="link icon-open fa-solid fa-arrows-maximize"></i>
             </div>
           </div>
@@ -110,8 +124,7 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth}) {
             <div className="row row_start mt-2">
               <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {
                 handleRemoveAlbum(url)
-              }}>
-                <div className="btn danger">Удалить альбом</div>
+              }}><div className="btn danger">Удалить альбом</div>
               </DeleteDialog>
             </div>
 

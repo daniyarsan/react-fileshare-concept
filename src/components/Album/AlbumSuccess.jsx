@@ -1,25 +1,30 @@
 import React from 'react'
 import {baseUrl} from "../../service/helper.js";
 import {toast} from "react-toastify";
-import {deleteAlbum} from "../../api/manager.js";
+import {deleteAlbum, deleteAlbumPublic} from "../../api/manager.js";
 import {useNavigate} from "react-router-dom";
 import Clipboard from 'react-clipboard.js';
+import {useSelector} from "react-redux";
 
 function AlbumSuccess({name, password, create_date, shelf_time, url, view_count}) {
   const navigate = useNavigate()
+  const {isAuth} = useSelector(state => state.user)
 
-  const handleDeleteAlbum = (url) => {
-    deleteAlbum(url).then(resp => {
-          console.log(resp)
+  const handleRemoveAlbum = (url) => {
+    const albumDeleter = isAuth ? deleteAlbum(url) : deleteAlbumPublic(url, password);
+    albumDeleter.then((resp) => {
 
-          toast.success('Альбом успешно удален', {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 2000
-          })
-          navigate('/')
-        }
-    )
+      toast.success('Альбом удален', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000
+      })
+      navigate('/albums')
+
+    }).catch(err => {
+      console.log(err)
+    })
   }
+
 
   return (
       <div className="flex row-1@xs row-1-3@m mt-3">
@@ -46,7 +51,7 @@ function AlbumSuccess({name, password, create_date, shelf_time, url, view_count}
             <div className="col-1@xs btn mt-2 active">Поделиться</div>
 
             <div className="mt-2 row row_center row_col">
-              <span className="link text-grey line" onClick={() => handleDeleteAlbum(url)}>Уничтожить альбом</span>
+              <span className="link text-grey line" onClick={() => handleRemoveAlbum(url)}>Уничтожить альбом</span>
             </div>
           </div>
         </div>

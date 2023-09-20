@@ -9,7 +9,7 @@ import {
     RECOVER_PASSWORD_BY_TOKEN,
     RECOVER_TOKEN,
     RESET_PASSWORD,
-    USER_STAT, TARIFF_ACTIVATE, ALBUM_CREATE_ANON
+    USER_STAT, TARIFF_ACTIVATE, ALBUM_CREATE_ANON, ALBUM_FULL_IMAGE_PUBLIC, ALBUM_DELETE_PUBLIC
 } from "./const.js";
 import requester, {multipartRequester, publicRequester} from "./axios.js";
 
@@ -41,14 +41,6 @@ export const getAlbumDetails = async (url) => {
     return await requester.post(`${ALBUM_DETAILS}`, {url})
 }
 
-export const getAlbumDetailsPublic = async (url, password) => {
-    return await publicRequester.get(`${ALBUM_DETAILS_PUBLIC}/${url}/${password}`)
-}
-
-export const getPricing = async () => {
-    return await publicRequester.get(`${TARIFF_PRICING}`)
-}
-
 export const getTariff = async (option, use_year_discount) => {
     return await requester.post(`${TARIFF_ACTIVATE}`, {option, use_year_discount})
 }
@@ -56,12 +48,26 @@ export const getTariff = async (option, use_year_discount) => {
 export const deleteAlbum = async (url) => {
     return await requester.post(`${ALBUM_DELETE}`, {url})
 }
-
 export const getFullImage = async (data) => {
     return await requester.post(`${ALBUM_FULL_IMAGE}`, data)
 }
 
-/* Multipart data */
+/* PUBLIC REQUESTS */
+export const getAlbumDetailsPublic = async (url, password) => {
+    return await publicRequester.get(`${ALBUM_DETAILS_PUBLIC}/${url}/${password}`)
+}
+export const getFullImagePublic = async (url, password, index) => {
+    return await publicRequester.get(`${ALBUM_FULL_IMAGE_PUBLIC}/${url}/${password}/${index}`)
+}
+export const getPricing = async () => {
+    return await publicRequester.get(`${TARIFF_PRICING}`)
+}
+export const deleteAlbumPublic = async (url, password) => {
+    return await publicRequester.get(`${ALBUM_DELETE_PUBLIC}/${url}/${password}`)
+}
+
+
+/* MULTIPART REQUESTS */
 export const createAlbum = async (formData) => {
     return await multipartRequester.post(`${ALBUM_CREATE}`, formData)
 }
