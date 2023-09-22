@@ -21,13 +21,14 @@ function AlbumsListPage() {
 
   const handleRemoveAlbum = (url) => {
     setLoading(true)
+
     deleteAlbum(url).then((resp) => {
       toast.success('Альбом удален', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
       })
-      navigate('/albums')
       setLoading(false)
+      window.location.reload(true)
     }).catch(err => {
       console.log(err)
       setLoading(false)
