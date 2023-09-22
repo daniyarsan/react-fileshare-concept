@@ -6,7 +6,8 @@ import {toast} from "react-toastify";
 import Modal from "../UI/Modal/Modal.jsx";
 import Clipboard from 'react-clipboard.js';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import DeleteDialog from "../UI/DeleteDialog.jsx"; // Import css
+import DeleteDialog from "../UI/DeleteDialog.jsx";
+import {BASE_URL} from "../../api/const.js"; // Import css
 
 function AlbumDetails({url, albumDetails, setLoading, isAuth = false}) {
   const navigate = useNavigate()
@@ -14,9 +15,11 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth = false}) {
   const [showPassword, setShowPassword] = useState(false)
   const password = albumDetails?.album?.password
 
+
   const handleRemoveAlbum = (url) => {
     setLoading(true)
     const albumDeleter = isAuth ? deleteAlbum(url) : deleteAlbumPublic(url, password);
+
     albumDeleter.then((resp) => {
       toast.success('Альбом удален', {
         position: toast.POSITION.TOP_RIGHT,
@@ -28,6 +31,7 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth = false}) {
       setLoading(false)
       console.log(err)
     })
+
   }
 
   const handleFullImageOpen = (index) => {
@@ -71,6 +75,8 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth = false}) {
     )
   }
 
+  console.log(albumDetails)
+
   return (
       <>
         <section className='canvas'>
@@ -87,10 +93,18 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth = false}) {
             <div className="date">{formatTime(Date.parse(albumDetails?.album?.create_date))}</div>
             <div className="storagePeriod">Срок хранения файлов <span className="days bold">{albumDetails?.album?.shelf_time} дней</span></div>
             <div className="password mt-05">
-              <span className="mr-1 link">Показать Пароль:</span>
+              <span className="mr-1">Пароль:</span>
               <span className="bold" onClick={() => {
                 setShowPassword(!showPassword)
-              }}>{showPassword ? albumDetails?.album?.password : '************'}</span>
+              }}>{showPassword ? albumDetails?.album?.password : '************'}
+              </span>
+
+              <Clipboard className="link bold ml-1" component='a' data-clipboard-text={albumDetails?.album?.password} onSuccess={() => {
+                toast.success('Скопировано', {
+                  position: toast.POSITION.TOP_RIGHT,
+                  autoClose: 2000
+                })
+              }}><i className="fa-solid fa-clone"></i></Clipboard>
             </div>
 
             <div className="row mt-05">
@@ -118,13 +132,14 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth = false}) {
             </div>
 
             <div className="row row_start mt-2">
-              <div className="btn active">Скачать альбом архивом</div>
+              <a href={`${BASE_URL}/download/${url}`} className="btn active">Скачать альбом архивом</a>
             </div>
 
             <div className="row row_start mt-2">
               <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {
                 handleRemoveAlbum(url)
-              }}><div className="btn danger">Удалить альбом</div>
+              }}>
+                <div className="btn danger">Удалить альбом</div>
               </DeleteDialog>
             </div>
 

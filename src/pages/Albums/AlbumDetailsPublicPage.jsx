@@ -3,6 +3,7 @@ import AlbumDetails from "../../components/Album/AlbumDetails.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {getAlbumDetailsPublic, getFullImage, getFullImagePublic} from "../../api/manager.js";
 import {Preloader} from "../../components/UI/Preloader/index.js";
+import {toast} from "react-toastify";
 
 function AlbumDetailsPublicPage() {
   const {url} = useParams()
@@ -16,16 +17,20 @@ function AlbumDetailsPublicPage() {
       setAlbumDetails(resp?.data)
       setLoading(false)
     }).catch(err => {
+      toast.error('Альбом не найден', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000
+      })
+
       navigate('/albums')
     })
   }, [])
 
-  const input = {albumDetails, url, setLoading}
 
   return (
       <>
         {loading && <Preloader/>}
-        <AlbumDetails {...input} />
+        <AlbumDetails {...{albumDetails, url, setLoading}} />
       </>)
 }
 

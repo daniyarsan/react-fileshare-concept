@@ -32,7 +32,6 @@ function App() {
   const {isAuth} = useSelector(state => state.user)
   const isAuthorized = isAuth && localStorage.getItem(AUTH_TOKEN)
 
-
   const getRoutes = (isAuth) => {
     if (!isAuth) {
       return (

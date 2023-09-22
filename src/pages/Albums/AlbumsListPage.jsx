@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {deleteAlbum, getAlbumsList} from "../../api/manager.js";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Preloader} from "../../components/UI/Preloader/index.js";
 import {toast} from "react-toastify";
 import {baseUrl, formatTime} from "../../service/helper.js";
@@ -10,6 +10,7 @@ import DeleteDialog from "../../components/UI/DeleteDialog.jsx";
 function AlbumsListPage() {
   const [loading, setLoading] = useState(true)
   const [albumsList, setAlbumsList] = useState()
+  const navigate = useNavigate()
 
   useEffect(() => {
     getAlbumsList().then(({data}) => {
@@ -19,8 +20,18 @@ function AlbumsListPage() {
   }, [])
 
   const handleRemoveAlbum = (url) => {
+    setLoading(true)
     deleteAlbum(url).then((resp) => {
-      window.location.reload()
+      toast.success('Альбом удален', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000
+      })
+      navigate('/albums')
+      setLoading(false)
+    }).catch(err => {
+      console.log(err)
+      setLoading(false)
+
     })
   }
 
