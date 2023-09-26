@@ -1,5 +1,5 @@
 import React from 'react'
-import {formatBytes} from "../../service/helper.js";
+import {formatBytes} from "../../service/utility.js";
 
 export const PricingCard = ({title, description, price, size, shelf_time, files}) => {
   return (

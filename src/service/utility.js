@@ -1,4 +1,5 @@
 import moment from "moment/moment.js";
+import {number} from "yup";
 
 export const formatBytes = (bytes, decimals = 2) => {
   if (!+bytes) return '0 Bytes'
@@ -17,4 +18,9 @@ export const baseUrl = () => {
   var url = window.location.href
   var arr = url.split("/");
   return arr[0] + "//" + arr[2]
+}
+
+export const hoursToDays = (hours) => {
+  if (hours < 0) return '∞'
+  return Math.floor(hours/24) + 'дней'
 }

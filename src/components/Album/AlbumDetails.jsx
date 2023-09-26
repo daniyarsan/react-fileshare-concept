@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Link, useNavigate} from "react-router-dom";
 import {deleteAlbum, deleteAlbumPublic, getFullImage, getFullImagePublic} from "../../api/manager.js";
-import {baseUrl, formatTime} from "../../service/helper.js";
+import {baseUrl, formatTime} from "../../service/utility.js";
 import {toast} from "react-toastify";
 import Modal from "../UI/Modal/Modal.jsx";
 import Clipboard from 'react-clipboard.js';

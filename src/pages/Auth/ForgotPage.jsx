@@ -61,8 +61,8 @@ function ForgotPage(props) {
             <h3 className="bolder">Пароль успешно создан</h3>
           </div>
           <p className="mt-1">
-            <span className="text-orange">Резервный код так же был сброшен. Пожалуйста сохраните новый токен. </span>
-            В случае если Вы забыли или потеряли данные для входа. Администраторам и пользователям следует хранить резервный код в безопасном месте
+            <span className="text-orange">Код восстановления был сброшен. Пожалуйста сохраните новый токен. </span>
+            Пожалуйста сохраните новый код и храните его в безопасном месте. В случае если Вы забыли или потеряли данные для входа - свяжитесь с поддержкой.
           </p>
 
           <Clipboard className="row row_center mt-2" component='a' data-clipboard-text={recoveryCode} onSuccess={() => {
@@ -105,8 +105,8 @@ function ForgotPage(props) {
                     <SuccessView/> :
                     (
                         <div>
-                          <h3 className="bolder mt-6">Восстановление доступа</h3>
-                          <p className="small bold text-grey">Введите Ваши данные для восстановления доступа</p>
+                          <h3 className="bolder mt-6">Восстановление аккаунта</h3>
+                          <p className="small bold text-grey">После создания нового пароля, появляется новый код восстановления аккаунта</p>
 
                           <Formik
                               initialValues={initialValues}

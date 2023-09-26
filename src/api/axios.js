@@ -24,10 +24,10 @@ requester.interceptors.response.use(
 
     async (error) => {
       if (localStorage.getItem(AUTH_TOKEN)) {
+        console.log(error.response?.status)
 
-        if (error.response?.status > 401 && error.response?.status < 499) {
+        if (error.response?.status > 400 && error.response?.status < 499) {
           const {refresh_token} = JSON.parse(localStorage.getItem(AUTH_TOKEN))
-
           const axiosInstance = axios.create({
             baseURL: BASE_API_URL,
             headers: {Authorization: `Bearer ${refresh_token}`}

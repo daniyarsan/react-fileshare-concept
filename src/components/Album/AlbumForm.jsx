@@ -37,24 +37,22 @@ function AlbumForm({album, submitHandler, showCurrentImagesBlock = false}) {
           return (
               <Form className="flex pdd-md-wrapper">
                 <div className="col-1@sx col-2-5@m pdd-md-hor mt-3">
-                  <div className="link">Выбрать видимость альбома</div>
-
                   <div className="row row_sb">
-                    <h1 className="bolder">Создание альбома</h1>
+                    <h1 className="bolder">Создание альбома или записки</h1>
                   </div>
 
                   <div className="mt-1">
                     <div className="row">
                       <div className='icon-block'><i className="fa-solid fa-pen-line"></i></div>
-                      <p>Придумайте название, добавьте описание и/или <span className="bold text-dark">прикрепите файлы</span> для создания альбома.</p>
+                      <p>Укажите заголовок (не обязательно), добавьте описание и <span className="bold text-dark">прикрепите файлы</span> для создания альбома. Для создания записки достаточно только описания</p>
                     </div>
                     <div className="row mt-1">
                       <div className='icon-block'><i className="fa-solid fa-lock-hashtag"></i></div>
-                      <p>При необходимости <span className="bold text-dark">добавьте описание и пароль</span> к каждому файлу, установите срок жизни ссылки.</p>
+                      <p>Каждый альбом возможно скачать <span className="bold text-dark">архивом с паролем</span> Пароль генерируется автоматически</p>
                     </div>
                     <div className="row mt-1">
                       <div className='icon-block'><i className="fa-solid fa-link"></i></div>
-                      <p><span className="bold text-dark">Делитесь ссылкой</span> для просмотра или скачивания архива.</p>
+                      <p><span className="bold text-dark">Делитесь ссылкой</span> для просмотра или скачивания архива в 1 клик.</p>
                     </div>
                   </div>
                   <div className="mt-2">
@@ -82,10 +80,9 @@ function AlbumForm({album, submitHandler, showCurrentImagesBlock = false}) {
 
                   { oldFiles && showCurrentImagesBlock(oldFiles) }
 
-                  <h1 className="bolder">Вложенные в альбом файлы</h1>
+                  <h1 className="bolder">Вложенные в альбом файлы -> Добавить изображение</h1>
                   <p className="mt-1">
-                    Вы можете отправить каждый загруженный файл отдельно, не предоставляя доступ ко всему альбому. После создания перейдите в раздел мои
-                    альбомы, выберите необходимый файл и поделитесь им. (только для зарегистрированных пользователей)
+                    При загрузке удаляются все метаданные изображениий и генерируются случайные названия. Доступные форматы изображений .jpg .png. Количество загруженных файлов в альбом ограничены активным тарифом.
                   </p>
 
 

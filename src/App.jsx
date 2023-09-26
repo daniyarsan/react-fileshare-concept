@@ -46,7 +46,7 @@ function App() {
               <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
 
-            <Route element={<Default className="row row_col row_sb bgPeach" />}>
+            <Route element={<Default className="row row_col row_sb" />}>
               <Route path="/plans" element={<PricingPage/>}></Route>
             </Route>
           </>

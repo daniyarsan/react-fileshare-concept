@@ -3,7 +3,7 @@ import {deleteAlbum, getAlbumsList} from "../../api/manager.js";
 import {Link, useNavigate} from "react-router-dom";
 import {Preloader} from "../../components/UI/Preloader/index.js";
 import {toast} from "react-toastify";
-import {baseUrl, formatTime} from "../../service/helper.js";
+import {baseUrl, formatTime} from "../../service/utility.js";
 import Clipboard from 'react-clipboard.js';
 import DeleteDialog from "../../components/UI/DeleteDialog.jsx";
 

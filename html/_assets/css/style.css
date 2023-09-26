@@ -688,6 +688,7 @@ body {
     position: relative;
     border-radius: 12px;
     background-color: #fff;
+    border: 1px solid #d7d7d7;
 }
 
 .cards .card .close {

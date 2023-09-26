@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {formatTime} from "../../service/helper.js";
+import {formatTime} from "../../service/utility.js";
 
 export const _ImageRow = ({file, index, remove}) => {
   const [preview, setPreview] = useState()

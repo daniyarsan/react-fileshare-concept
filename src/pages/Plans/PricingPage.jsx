@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import {getPricing, getTariff} from "../../api/manager.js";
 import {Preloader} from "../../components/UI/Preloader/index.js";
-import {PricingBlock} from "../../components/Pricing/PricingBlock.jsx";
+import {Pricing} from "../../components/Pricing/Pricing.jsx";
 import Faq from "../../components/Pricing/Faq.jsx";
 import {toast} from "react-toastify";
 import {useSelector} from "react-redux";
 import {AUTH_TOKEN} from "../../api/const.js";
 import {useNavigate} from "react-router-dom";
+
 
 function PricingPage() {
   const navigate = useNavigate()
@@ -66,7 +67,7 @@ function PricingPage() {
 
         <div className='canvas'>
           <div className='container'>
-            <PricingBlock {...{monthlyPlans, yearlyPlans, setLoading, userData, handlePurchase}} />
+            <Pricing {...{monthlyPlans, yearlyPlans, setLoading, userData, handlePurchase}} />
           </div>
           <hr/>
           <Faq data={faq}/>

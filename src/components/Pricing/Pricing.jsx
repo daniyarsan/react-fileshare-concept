@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
-import {formatBytes} from "../../service/helper.js";
+import {formatBytes, hoursToDays} from "../../service/utility.js";
+import TextToList from "../UI/TextToList/TextToList.jsx";
 
-export const PricingBlock = ({monthlyPlans, yearlyPlans, userData, handlePurchase}) => {
+export const Pricing = ({monthlyPlans, yearlyPlans, userData, handlePurchase}) => {
   const [isMonthly, setIsMonthly] = useState(true)
 
   const PricingCard = ({title, description, size, price, shelf_time, files, option}) => {
@@ -20,9 +21,9 @@ export const PricingBlock = ({monthlyPlans, yearlyPlans, userData, handlePurchas
             <div className="list">
               <p>Стоимость {Math.floor(price)}$</p>
               <p>Загрузка файла до {formatBytes(size * 1048576)}</p>
-              <p>Срок хранения файлов до {shelf_time} дней</p>
+              <p>Срок хранения файлов до {hoursToDays(shelf_time)}</p>
               <hr/>
-              <p>{description}</p>
+              <p><TextToList text={description} /> </p>
             </div>
 
             {

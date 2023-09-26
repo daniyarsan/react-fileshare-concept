@@ -5,7 +5,7 @@ import {object, string} from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {recoverToken} from "../../api/manager.js";
 import {toast} from "react-toastify";
-import {baseUrl} from "../../service/helper.js";
+import {baseUrl} from "../../service/utility.js";
 import Clipboard from 'react-clipboard.js';
 
 function GeneratePage(props) {

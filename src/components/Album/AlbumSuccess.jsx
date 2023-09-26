@@ -1,5 +1,5 @@
 import React from 'react'
-import {baseUrl} from "../../service/helper.js";
+import {baseUrl} from "../../service/utility.js";
 import {toast} from "react-toastify";
 import {deleteAlbum, deleteAlbumPublic} from "../../api/manager.js";
 import {useNavigate} from "react-router-dom";

@@ -27,10 +27,15 @@ export const Dashboard = ({userData}) => {
           <div></div>
         </div>
 
+        <hr/>
+
         <div className="mt-2">
           <h1 className="bolder center">Мои тарифы</h1>
-          <div className="cards lk flex row-1@xs row-1-3@m mt-2 pdd-md-wrapper">
+
+          <div className="cards lk flex row-1@xs row-1-3@m pdd-md-wrapper">
+            <div></div>
             <PricingCard {...userData?.tariff} />
+            <div></div>
           </div>
           <div className="row row-1@xs row-1-3@m pdd-md-wrapper">
             <div></div>
