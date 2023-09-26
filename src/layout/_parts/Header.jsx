@@ -33,7 +33,7 @@ function Header() {
               </Link>
 
               <div className="addFile">
-                <Link to='/album/create'>
+                <Link to='/album/create' onClick={() => window.location.reload()}>
                   <div className="button">
                     <i className="fa-solid fa-plus faa-xl"></i>
                   </div>

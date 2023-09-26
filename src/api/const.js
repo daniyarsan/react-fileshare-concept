@@ -1,6 +1,6 @@
-export const BASE_URL = import.meta.env.VITE_API_URL
-export const FRONT_URL = window.location.hostname
-export const BASE_API_URL = BASE_URL + '/api'
+export const BASE_URL = window.location.hostname === 'localhost' ? import.meta.env.VITE_API_URL : '/api'
+
+export const BASE_API_URL = BASE_URL + '/'
 
 /* USER PROFILE */
 export const REGISTER = '/user/register'
