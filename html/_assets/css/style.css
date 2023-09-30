@@ -50,9 +50,9 @@ body {
     color: #222;
 }
 
-.pricingPage h1 {
-    font-size: 48px;
-}
+/*.pricingPage h1 {*/
+/*    font-size: 48px;*/
+/*}*/
 
 div.bgPeach .card {
     border-radius: 26px;
@@ -137,11 +137,11 @@ div.bgPeach hr {
 }
 
 .timer.custom-alert .icon-close:hover {
-    color: #ff8100;
+    color: #E68722;
 }
 
 a.link:hover {
-    color: #ff8100;
+    color: #E68722;
 }
 
 .link {
@@ -155,7 +155,7 @@ a.link:hover {
 }
 
 .link:hover {
-    color: #ff8100;
+    color: #E68722;
 }
 
 .link:has(i) {
@@ -262,7 +262,7 @@ p {
 }
 
 .text-orange {
-    color: #ff8100;
+    color: #E68722;
 }
 
 .text-grey p {
@@ -313,11 +313,11 @@ input, select {
 }
 
 input:focus {
-    border: 1px solid #ff8100;
+    border: 1px solid #E68722;
 }
 
 input:target {
-    border: 1px solid #ff8100;
+    border: 1px solid #E68722;
 }
 
 input[type=checkbox] {
@@ -432,7 +432,7 @@ textarea {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     height: 55px;
-    padding: 0px 24px;
+    padding: 0 20px;
     -ms-flex-line-pack: center;
     align-content: center;
     -webkit-box-pack: center;
@@ -445,9 +445,9 @@ textarea {
 }
 
 .btn[active], .btn.active {
-    background-color: #222;
+    background-color: #E68722;
     color: #fff;
-    border: 1px solid #222;
+    border: 1px solid #E68722;
     cursor: pointer;
 }
 
@@ -456,7 +456,7 @@ textarea {
 }
 
 .btn.main {
-    background-color: #ff8100;
+    background-color: #E68722;
     color: #fff;
 }
 
@@ -590,7 +590,7 @@ body {
     transition: 120ms -webkit-transform ease-in-out;
     transition: 120ms transform ease-in-out;
     transition: 120ms transform ease-in-out, 120ms -webkit-transform ease-in-out;
-    background-color: #ff8100;
+    background-color: #E68722;
     border-radius: 2px;
 }
 
@@ -652,7 +652,7 @@ body {
 }
 
 .accept-rules p a {
-    color: #ff8100;
+    color: #E68722;
 }
 
 .breadcrumb a {
@@ -1066,7 +1066,7 @@ dialog p a:visited {
         -webkit-box-pack: center;
         -ms-flex-pack: center;
         justify-content: center;
-        background-color: #ff8100;
+        background-color: #E68722;
         color: #fff;
         border-radius: 100px;
         width: 50px;
@@ -1081,9 +1081,9 @@ dialog p a:visited {
     }
 
     .pricingPage h1 {
-        font-size: 33px;
-        line-height: 5vh;
+        /*line-height: 5vh;*/
     }
+
 }
 
 @media (min-width: 960px) {
@@ -1157,16 +1157,17 @@ dialog p a:visited {
         top: 60px;
     }
     .addFile .button {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
+        display: none;
+        /*display: -webkit-box;*/
+        /*display: -ms-flexbox;*/
+        /*display: flex;*/
         -webkit-box-align: center;
         -ms-flex-align: center;
         align-items: center;
         -webkit-box-pack: center;
         -ms-flex-pack: center;
         justify-content: center;
-        background-color: #ff8100;
+        background-color: #E68722;
         color: #fff;
         position: fixed;
         right: 40px;
@@ -1176,16 +1177,16 @@ dialog p a:visited {
         width: 60px;
         height: 60px;
         font-size: 18px;
-        -webkit-box-shadow: 0px 0px 7px #ff8100;
-        box-shadow: 0px 0px 7px #ff8100;
+        -webkit-box-shadow: 0px 0px 7px #E68722;
+        box-shadow: 0px 0px 7px #E68722;
         cursor: pointer;
         -webkit-transition: all ease 1s;
         transition: all ease 1s;
     }
 
     .addFile .button:hover {
-        -webkit-box-shadow: 0px 0px 30px #ff8100;
-        box-shadow: 0px 0px 30px #ff8100;
+        -webkit-box-shadow: 0px 0px 30px #E68722;
+        box-shadow: 0px 0px 30px #E68722;
         color: #fff;
     }
 
@@ -1207,7 +1208,7 @@ dialog p a:visited {
     }
 
     .nav .menu a:hover {
-        color: #ff8100;
+        color: #E68722;
     }
 
     .nav .menu a.grey {
@@ -1215,7 +1216,7 @@ dialog p a:visited {
     }
 
     .nav .menu a.grey:hover {
-        color: #ff8100;
+        color: #E68722;
     }
 }
 

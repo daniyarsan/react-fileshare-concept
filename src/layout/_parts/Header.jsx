@@ -33,7 +33,7 @@ function Header() {
               </Link>
 
               <div className="addFile">
-                <Link to='/album/create' onClick={() => window.location.reload()}>
+                <Link to='/album/create'>
                   <div className="button">
                     <i className="fa-solid fa-plus faa-xl"></i>
                   </div>
@@ -49,21 +49,18 @@ function Header() {
                   <Link to='/login' className="hide-sm ml-2">Войти</Link>
               )}
 
-              <div className="row">
-                <a onClick={() => {
-                  isAuth ? navigate('/albums') : navigate('/login')
-                }}>
-                  <span className="hide-sm ml-2">{userData?.username}</span>
-                  <span className="hide-m"><i className="fa-solid fa-person"></i></span>
-                </a>
-
-                {isAuthorized && (
+              {isAuthorized && (
+                  <>
+                    <Link  to='/profile'>
+                      <span className="hide-sm ml-2">{userData?.username}</span>
+                      <span className="hide-m"><i className="fa-solid fa-person"></i></span>
+                    </Link>
                     <a className="ml-1 grey hide-sm" href="" onClick={() => {
                       dispatch(logout())
                       navigate('/')
                     }}>(выход)</a>
-                )}
-              </div>
+                  </>
+              )}
             </div>
           </div>
         </div>

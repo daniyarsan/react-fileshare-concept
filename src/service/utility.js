@@ -21,6 +21,11 @@ export const baseUrl = () => {
 }
 
 export const hoursToDays = (hours) => {
-  if (hours < 0) return '∞'
-  return Math.floor(hours/24) + 'дней'
+  if (hours < 0) {
+    return '∞'
+  }
+  else if (hours > 365) {
+    return Math.floor((hours/24) / 365) + ' года'
+  }
+  return Math.floor(hours/24) + ' дней'
 }

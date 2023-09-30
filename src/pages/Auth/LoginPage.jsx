@@ -18,10 +18,9 @@ export const LoginPage = (props) => {
       getUserStat().then(({data}) => {
         dispatch(setUserData(data))
         setLoading(false)
-        navigate('/')
       })
     })
-    formikHelpers.resetForm()
+    // formikHelpers.resetForm()
   }
 
   return (

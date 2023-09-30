@@ -35,98 +35,103 @@ function AlbumForm({album, submitHandler, showCurrentImagesBlock = false}) {
           }, [album])
 
           return (
-              <Form className="flex pdd-md-wrapper">
-                <div className="col-1@sx col-2-5@m pdd-md-hor mt-3">
-                  <div className="row row_sb">
-                    <h1 className="bolder">Создание альбома или записки</h1>
-                  </div>
+              <Form>
+                <div className="flex pdd-md-wrapper">
+                  <div className="col-1@sx col-2-5@m pdd-md-hor mt-3">
+                    <div className="row row_sb">
+                      <h1 className="bolder">Создание альбома или записки</h1>
+                    </div>
 
-                  <div className="mt-1">
-                    <div className="row">
-                      <div className='icon-block'><i className="fa-solid fa-pen-line"></i></div>
-                      <p>Укажите заголовок (не обязательно), добавьте описание и <span className="bold text-dark">прикрепите файлы</span> для создания альбома. Для создания записки достаточно только описания</p>
-                    </div>
-                    <div className="row mt-1">
-                      <div className='icon-block'><i className="fa-solid fa-lock-hashtag"></i></div>
-                      <p>Каждый альбом возможно скачать <span className="bold text-dark">архивом с паролем</span> Пароль генерируется автоматически</p>
-                    </div>
-                    <div className="row mt-1">
-                      <div className='icon-block'><i className="fa-solid fa-link"></i></div>
-                      <p><span className="bold text-dark">Делитесь ссылкой</span> для просмотра или скачивания архива в 1 клик.</p>
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <div className="title">
-                      <Field className='col-1@xs' type="text" name="name" placeholder="Заголовок"/>
-                      <ErrorMessage className="text-danger" name="name" component="small"/>
-                    </div>
-                    <div className="limit mt-1 relative">
-                      <Field component={SelectField} name="period" placeholder='Выберите период' options={[
-                        {value: 1, label: '1 день'},
-                        {value: 3, label: '3 дня'},
-                        {value: 7, label: '7 дней'},
-                        {value: 14, label: '14 дней'},
-                        {value: 30, label: '30 дней'},
-                        {value: 90, label: '90 дней'},
-                      ]}/>
-                      <ErrorMessage className="text-danger" name="period" component="small"/>
-                    </div>
                     <div className="mt-1">
-                      <Field as='textarea' name="description" type="text" placeholder="Описание к альбому…"/>
+                      <div className="row">
+                        <div className='icon-block'><i className="fa-solid fa-pen-line"></i></div>
+                        <p>Укажите заголовок (не обязательно), добавьте описание и <span className="bold text-dark">прикрепите файлы</span> для создания альбома. Для создания записки достаточно только описания.</p>
+                      </div>
+                      <div className="row mt-1">
+                        <div className='icon-block'><i className="fa-solid fa-lock-hashtag"></i></div>
+                        <p>Каждый альбом возможно скачать <span className="bold text-dark">архивом с паролем.</span> Пароль генерируется автоматически.</p>
+                      </div>
+                      <div className="row mt-1">
+                        <div className='icon-block'><i className="fa-solid fa-link"></i></div>
+                        <p><span className="bold text-dark">Делитесь ссылкой</span> для просмотра или скачивания архива в 1 клик.</p>
+                      </div>
+                    </div>
+                    <div className="mt-2">
+                      <div className="title">
+                        <Field className='col-1@xs' type="text" name="name" placeholder="Заголовок"/>
+                        <ErrorMessage className="text-danger" name="name" component="small"/>
+                      </div>
+                      <div className="limit mt-1 relative">
+                        <Field component={SelectField} name="period" placeholder='Выберите период' options={[
+                          {value: 1, label: '1 день'},
+                          {value: 3, label: '3 дня'},
+                          {value: 7, label: '7 дней'},
+                          {value: 14, label: '14 дней'},
+                          {value: 30, label: '30 дней'},
+                          {value: 90, label: '90 дней'},
+                        ]}/>
+                        <ErrorMessage className="text-danger" name="period" component="small"/>
+                      </div>
+                      <div className="mt-1">
+                        <Field as='textarea' name="description" type="text" placeholder="Описание к альбому…"/>
+                      </div>
                     </div>
                   </div>
+                  <div className="col-1@sx col-3-5@m pdd-md-hor set-height mt-3">
+
+                    { oldFiles && showCurrentImagesBlock(oldFiles) }
+
+                    <h1 className="bolder">Добавить изображение</h1>
+                    <p className="mt-1">
+                      При загрузке удаляются все метаданные изображений и генерируются случайные названия. Доступные форматы изображений .jpg .png. Количество загруженных файлов в альбом ограничены активным тарифом.
+                    </p>
+
+
+                    <FieldArray name='files'>
+
+                      {(fieldArrayProps) => {
+                        const {push, form} = fieldArrayProps;
+                        const {values} = form;
+                        const {files} = values;
+
+                        return (
+                            <>
+                              <div className="cards mt-2">
+                                {files.map((file, index) => (<_ImageRow key={index} index={index} {...fieldArrayProps} file={file}/>))}
+                              </div>
+
+                              <div className="row row_end mt-2">
+                                <button type='button'
+                                        className='col-1@xs btn outline'
+                                        onClick={() => {
+                                          fileRef.current.click()
+                                        }}>
+                                  <i className='fa fa-cloud-upload'></i>
+                                  Загрузить фото
+                                </button>
+
+                                <input ref={fileRef} type="file" hidden multiple='multiple' onChange={(event) => {
+                                  const currentTargetFiles = event.currentTarget.files
+                                  // setFieldValue('files', Object.values(currentTargetFiles).map(value => value))
+                                  Object.values(currentTargetFiles).map(currentTargetFile => {
+                                    push({image: currentTargetFile})
+                                  })
+                                }}/>
+
+                              </div>
+                            </>
+                        )
+                      }}
+                    </FieldArray>
+
+                  </div>
                 </div>
-                <div className="col-1@sx col-3-5@m pdd-md-hor set-height mt-3">
-
-                  { oldFiles && showCurrentImagesBlock(oldFiles) }
-
-                  <h1 className="bolder">Вложенные в альбом файлы -> Добавить изображение</h1>
-                  <p className="mt-1">
-                    При загрузке удаляются все метаданные изображениий и генерируются случайные названия. Доступные форматы изображений .jpg .png. Количество загруженных файлов в альбом ограничены активным тарифом.
-                  </p>
-
-
-                  <FieldArray name='files'>
-
-                    {(fieldArrayProps) => {
-                      const {push, form} = fieldArrayProps;
-                      const {values} = form;
-                      const {files} = values;
-
-                      return (
-                          <>
-                            <div className="cards mt-2">
-                              {files.map((file, index) => (<_ImageRow key={index} index={index} {...fieldArrayProps} file={file}/>))}
-                            </div>
-
-                            <div className="row row_end mt-2">
-                              <button type='button'
-                                      className='col-1@xs btn outline'
-                                      onClick={() => {
-                                        fileRef.current.click()
-                                      }}>
-                                <i className='fa fa-cloud-upload'></i>
-                                Загрузить фото
-                              </button>
-
-                              <input ref={fileRef} type="file" hidden multiple='multiple' onChange={(event) => {
-                                const currentTargetFiles = event.currentTarget.files
-                                // setFieldValue('files', Object.values(currentTargetFiles).map(value => value))
-                                Object.values(currentTargetFiles).map(currentTargetFile => {
-                                  push({image: currentTargetFile})
-                                })
-                              }}/>
-
-                            </div>
-                          </>
-                      )
-                    }}
-                  </FieldArray>
-
-                </div>
-
-                <div className="col-1@xs pdd-md-hor">
-                  <button type='submit' className={`col-1@xs btn mt-2 ${(isValid && dirty) ? 'active' : ''}`}>Сохранить</button>
+                <div className="flex row row_sb">
+                  <div className=""></div>
+                  <div className="col-1@xs col-2-5@m">
+                    <button type='submit' className={`col-1@xs btn mt-2 ${(isValid && dirty) ? 'active' : ''}`}>Получить ссылку</button>
+                  </div>
+                  <div className=""></div>
                 </div>
               </Form>
           )

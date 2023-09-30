@@ -2,7 +2,7 @@ import React from 'react'
 import {baseUrl} from "../../service/utility.js";
 import {toast} from "react-toastify";
 import {deleteAlbum, deleteAlbumPublic} from "../../api/manager.js";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Clipboard from 'react-clipboard.js';
 import {useSelector} from "react-redux";
 
@@ -91,7 +91,18 @@ function AlbumSuccess({name, password, create_date, shelf_time, url, view_count}
             </Clipboard>
 
             <div className="storagePeriod mt-1">Срок хранения файлов <span className="days bold">{shelf_time} дней</span></div>
-            <div className="col-1@xs btn mt-2 active">Поделиться</div>
+
+            <div className="mt-2 row row_center row_sb">
+              <Link to='/albums' className="col-1-2@xs btn mr-2 active">Мои альбомы</Link>
+              <Clipboard className="col-1-2@xs btn active" component='div' data-clipboard-text={`${baseUrl()}/album/${url}/${password}`} onSuccess={() => {
+                toast.success('Скопировано', {
+                  position: toast.POSITION.TOP_RIGHT,
+                  autoClose: 2000
+                })
+              }}>
+                Скопировать
+              </Clipboard>
+            </div>
 
             <div className="mt-2 row row_center row_col">
               <span className="link text-grey line" onClick={() => handleRemoveAlbum(url)}>Уничтожить альбом</span>

@@ -21,8 +21,9 @@ function PricingPage() {
   useEffect(() => {
     getPricing().then(resp => {
       const {month_pricing_options, year_pricing_options} = resp?.data
-      setMonthlyPlans(month_pricing_options)
-      setYearlyPlans(year_pricing_options)
+      setMonthlyPlans([month_pricing_options[0], month_pricing_options[2], month_pricing_options[1]])
+      setYearlyPlans([year_pricing_options[0], year_pricing_options[2], year_pricing_options[1]])
+
       setLoading(false)
     })
   }, [])
@@ -49,15 +50,15 @@ function PricingPage() {
   const faq = [
     {
       question: 'Как оплатить подписку?',
-      answer: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, labore rerum quis omnis quia quo nemo asperiores quidem vitae ex culpa facere, voluptate soluta id dicta, quae recusandae magnam optio'
+      answer: 'Оплатить подписку возможно цифровыми валютами: BTC, USDT. Выберите на месяц или год, затем нажмите "подключить" на подходящем тарифе.'
     },
     {
       question: 'Как отключить подписку?',
-      answer: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, labore rerum quis omnis quia quo nemo asperiores quidem vitae ex culpa facere, voluptate soluta id dicta, quae recusandae magnam optio'
+      answer: 'Не оплачивайте.'
     },
     {
-      question: 'Что будет, если я перестану платить подписку?',
-      answer: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, labore rerum quis omnis quia quo nemo asperiores quidem vitae ex culpa facere, voluptate soluta id dicta, quae recusandae magnam optio'
+      question: 'Что произойдет, когда отключается подписка?',
+      answer: 'С момента окончания подписки, аккаунт замораживается. В течении следующих 30 календарных дней, созданные Альбомы останутся активны. По истечении 30 дней автоматически активируется бесплатный тариф. Все Альбомы, превышающие лимит хранения бесплатного тарифа, будут безвозвратно удалены в порядке их загрузки.'
     }
   ]
 
@@ -68,9 +69,9 @@ function PricingPage() {
         <div className='canvas'>
           <div className='container'>
             <Pricing {...{monthlyPlans, yearlyPlans, setLoading, userData, handlePurchase}} />
+            <hr/>
+            <Faq data={faq}/>
           </div>
-          <hr/>
-          <Faq data={faq}/>
         </div>
       </>
   )

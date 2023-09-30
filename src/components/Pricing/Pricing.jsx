@@ -21,9 +21,9 @@ export const Pricing = ({monthlyPlans, yearlyPlans, userData, handlePurchase}) =
             <div className="list">
               <p>Стоимость {Math.floor(price)}$</p>
               <p>Загрузка файла до {formatBytes(size * 1048576)}</p>
-              <p>Срок хранения файлов до {hoursToDays(shelf_time)}</p>
+              <p>Срок хранения до {hoursToDays(shelf_time)}</p>
               <hr/>
-              <p><TextToList text={description} /> </p>
+              <div><TextToList text={description} /> </div>
             </div>
 
             {
@@ -42,9 +42,7 @@ export const Pricing = ({monthlyPlans, yearlyPlans, userData, handlePurchase}) =
 
   return (
       <div className="pricingPage">
-        <h1 className="bolder center">Выберите подходящий тариф</h1>
-        <h3 className="thin center">Активируйте тариф Бизнес <br/> <span className="bolder relative">{/*<TimerAlert />*/}бесплатно до 1 сентября</span>
-        </h3>
+        <h1 className="bolder center">Тарифы</h1>
 
         <div className="flex row_center row-1@xs row-1-3@m mt-3">
           <div></div>

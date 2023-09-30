@@ -56,8 +56,9 @@ function App() {
     return (
         <>
           <Route element={<Default className="row row_col row_sb" />}>
-            <Route path="/" element={<DashboardPage/>}></Route>
+            <Route path="/" element={<AlbumCreatePage/>}></Route>
             <Route path="/albums" element={<AlbumsListPage/>}></Route>
+            <Route path="/profile" element={<DashboardPage/>}></Route>
             <Route path="/album/create" element={<AlbumCreatePage/>}></Route>
             <Route path="/album/edit/:url" element={<AlbumEditPage/>}></Route>
             <Route path="/album/:url" element={<AlbumDetailsPage/>}></Route>
@@ -68,7 +69,7 @@ function App() {
             <Route path="*" element={<Navigate replace to="/" />} />
           </Route>
 
-          <Route element={<Default className="row row_col row_sb bgPeach" />}>
+          <Route element={<Default className="row row_col row_sb" />}>
             <Route path="/plans" element={<PricingPage/>}></Route>
           </Route>
         </>
