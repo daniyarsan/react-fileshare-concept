@@ -11,7 +11,7 @@ export const formatBytes = (bytes, decimals = 2) => {
 }
 
 export const formatTime = (timestamp, format = "MM/DD/YYYY HH:SS") => {
-  return moment.unix(timestamp/1000).format(format);
+  return moment.unix(timestamp / 1000).format(format);
 }
 
 export const baseUrl = () => {
@@ -21,11 +21,13 @@ export const baseUrl = () => {
 }
 
 export const hoursToDays = (hours) => {
+  console.log(hours)
+
   if (hours < 0) {
-    return '∞'
+    return 'Без срока'
+  } else if (hours >= 8760) {
+    return 'Срок хранения до ' + Math.floor((hours / 24) / 365) + ' года'
   }
-  else if (hours > 365) {
-    return Math.floor((hours/24) / 365) + ' года'
-  }
-  return Math.floor(hours/24) + ' дней'
+
+  return 'Срок хранения до ' + Math.floor(hours / 24) + ' дней'
 }

@@ -21,7 +21,7 @@ export const Pricing = ({monthlyPlans, yearlyPlans, userData, handlePurchase}) =
             <div className="list">
               <p>Стоимость {Math.floor(price)}$</p>
               <p>Загрузка файла до {formatBytes(size * 1048576)}</p>
-              <p>Срок хранения до {hoursToDays(shelf_time)}</p>
+              <p>{hoursToDays(shelf_time)}</p>
               <hr/>
               <div><TextToList text={description} /> </div>
             </div>
