@@ -30,9 +30,8 @@ function AlbumsListPage() {
       setLoading(false)
       window.location.reload(true)
     }).catch(err => {
-      console.log(err)
+      // console.log(err)
       setLoading(false)
-
     })
   }
 

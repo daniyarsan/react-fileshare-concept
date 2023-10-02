@@ -7,7 +7,8 @@ export const publicRequester = axios.create({
 
 const requester = axios.create({
   baseURL: BASE_API_URL,
-});
+})
+
 
 requester.interceptors.request.use((config) => {
   const tokenData = JSON.parse(localStorage.getItem(AUTH_TOKEN))
@@ -24,8 +25,6 @@ requester.interceptors.response.use(
 
     async (error) => {
       if (localStorage.getItem(AUTH_TOKEN)) {
-        console.log(error.response?.status)
-
         if (error.response?.status > 400 && error.response?.status < 499) {
           const {refresh_token} = JSON.parse(localStorage.getItem(AUTH_TOKEN))
           const axiosInstance = axios.create({
@@ -34,7 +33,9 @@ requester.interceptors.response.use(
           })
           axiosInstance.post(REFRESH, {}).then(({data}) => {
             localStorage.setItem(AUTH_TOKEN, JSON.stringify({refresh_token, access_token: data.token}));
-          }).catch(err => {console.log(err)});
+          }).catch(err => {
+            // console.log(err)
+          });
 
           // return axiosInstance(error.config);
         } else {

@@ -21,7 +21,7 @@ function AlbumSuccess({name, password, create_date, shelf_time, url, view_count}
       navigate('/albums')
 
     }).catch(err => {
-      console.log(err)
+      // console.log(err)
     })
   }
 
@@ -90,7 +90,7 @@ function AlbumSuccess({name, password, create_date, shelf_time, url, view_count}
               </div>
             </Clipboard>
 
-            <div className="storagePeriod mt-1">Срок хранения файлов <span className="days bold">{shelf_time} дней</span></div>
+            <div className="storagePeriod mt-1">Срок хранения файлов <span className="days bold">{shelf_time / 24} {(shelf_time / 24) > 1 ? 'дня' : 'день'}</span></div>
 
             <div className="mt-2 row row_center row_sb">
               <Link to='/albums' className="col-1-2@xs btn mr-2 active">Мои альбомы</Link>

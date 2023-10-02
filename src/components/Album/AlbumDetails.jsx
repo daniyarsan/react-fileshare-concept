@@ -7,7 +7,7 @@ import Modal from "../UI/Modal/Modal.jsx";
 import Clipboard from 'react-clipboard.js';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import DeleteDialog from "../UI/DeleteDialog.jsx";
-import {BASE_URL} from "../../api/const.js"; // Import css
+import {API_URL, BASE_URL} from "../../api/const.js"; // Import css
 
 function AlbumDetails({url, albumDetails, setLoading, isAuth = false}) {
   const navigate = useNavigate()
@@ -29,7 +29,7 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth = false}) {
 
     }).catch(err => {
       setLoading(false)
-      console.log(err)
+      // console.log(err)
     })
 
   }
@@ -43,7 +43,7 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth = false}) {
       const modalContent = <img src={`data:image/jpeg;base64,${data.data}`}/>
       setModalContent(modalContent)
     }).catch(err => {
-      console.log(err)
+      // console.log(err)
     })
 
 
@@ -74,8 +74,6 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth = false}) {
         </div>
     )
   }
-
-  console.log(albumDetails)
 
   return (
       <>
@@ -132,7 +130,7 @@ function AlbumDetails({url, albumDetails, setLoading, isAuth = false}) {
             </div>
 
             <div className="row row_start mt-2">
-              <a href={`${BASE_URL}/download/${url}`} className="btn active">Скачать альбом архивом</a>
+              <a href={`//${API_URL}/download/${url}`} className="btn active">Скачать альбом архивом</a>
             </div>
 
             <div className="row row_start mt-2">

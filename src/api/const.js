@@ -1,4 +1,5 @@
 export const BASE_URL = window.location.hostname === 'localhost' ? import.meta.env.VITE_API_URL : '/api'
+export const API_URL = 'api.megapics.pm'
 
 export const BASE_API_URL = BASE_URL + '/'
 
@@ -24,6 +25,8 @@ export const ALBUM_FULL_IMAGE_PUBLIC = '/album/shared/fetch'  // /{url}/{passwor
 export const ALBUM_CREATE = '/album/upload'
 export const ALBUM_CREATE_ANON = '/album/anon/upload'
 export const ALBUM_UPDATE_BY_ID = '/album/update'
+
+export const DOWNLOAD = '/download' // /{url}
 
 /* TARIFF */
 export const TARIFF_PRICING = '/tariff/pricing'

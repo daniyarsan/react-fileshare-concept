@@ -63,12 +63,12 @@ function AlbumForm({album, submitHandler, showCurrentImagesBlock = false}) {
                       </div>
                       <div className="limit mt-1 relative">
                         <Field component={SelectField} name="period" placeholder='Выберите период' options={[
-                          {value: 1, label: '1 день'},
-                          {value: 3, label: '3 дня'},
-                          {value: 7, label: '7 дней'},
-                          {value: 14, label: '14 дней'},
-                          {value: 30, label: '30 дней'},
-                          {value: 90, label: '90 дней'},
+                          {value: 24, label: '1 день'},
+                          {value: 3 * 24, label: '3 дня'},
+                          {value: 7 * 24, label: '7 дней'},
+                          {value: 14 * 24, label: '14 дней'},
+                          {value: 30 * 24, label: '30 дней'},
+                          {value: 90 * 24, label: '90 дней'},
                         ]}/>
                         <ErrorMessage className="text-danger" name="period" component="small"/>
                       </div>

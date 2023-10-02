@@ -31,7 +31,7 @@ export const registration = createAsyncThunk('user/registration', async (data, t
     }
     return response?.data
   } catch (err) {
-    console.log(err)
+    // console.log(err)
     return thunkAPI.rejectWithValue(err.response?.data)
   }
 
@@ -84,7 +84,7 @@ const userSlice = createSlice({
         })
 
         .addCase(registration.rejected, (state, {payload}) => {
-          console.log('rejected')
+          // console.log('rejected')
           state.loading = false
           toast.error(payload?.msg, {
             position: toast.POSITION.TOP_RIGHT,
