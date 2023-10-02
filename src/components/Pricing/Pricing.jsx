@@ -31,7 +31,7 @@ export const Pricing = ({monthlyPlans, yearlyPlans, userData, handlePurchase}) =
                 <button className="btn btn-submit row row_col row_center col-1@xs mt-2" onClick={() => {
                   handlePurchase(option, !isMonthly)}}>
                   <p>Подключить за {Math.floor(price)} $/мес</p>
-                  {!isMonthly && (<p className="thin small">При оплате за год + год бесплатно</p>)}
+                  {!isMonthly && (<p className="thin small">При оплате за год</p>)}
                 </button>)
             }
           </div>

@@ -20,7 +20,6 @@ export const LoginPage = (props) => {
         setLoading(false)
       })
     })
-    // formikHelpers.resetForm()
   }
 
   return (

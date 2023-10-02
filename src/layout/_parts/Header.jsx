@@ -52,7 +52,7 @@ function Header() {
               {isAuthorized && (
                   <>
                     <Link  to='/profile'>
-                      <span className="hide-sm ml-2">{userData?.username}</span>
+                      <span className="hide-sm ml-2"><i className="fa-solid fa-user"></i> {userData?.username}</span>
                       <span className="hide-m"><i className="fa-solid fa-person"></i></span>
                     </Link>
                     <a className="ml-1 grey hide-sm" href="" onClick={() => {

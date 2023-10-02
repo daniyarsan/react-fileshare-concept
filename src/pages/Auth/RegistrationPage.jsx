@@ -20,7 +20,6 @@ function RegistrationPage(props) {
       }
       setLoading(false)
     })
-    formikHelpers.resetForm()
   }
 
 
