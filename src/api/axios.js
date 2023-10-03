@@ -15,7 +15,7 @@ requester.interceptors.request.use((config) => {
   if (tokenData) {
     config.headers["Authorization"] = `Bearer ${tokenData.access_token}`
   }
-  return config;
+  return config
 })
 
 requester.interceptors.response.use(
@@ -33,7 +33,7 @@ requester.interceptors.response.use(
           })
           axiosInstance.post(REFRESH, {}).then(({data}) => {
             localStorage.setItem(AUTH_TOKEN, JSON.stringify({refresh_token, access_token: data.token}));
-          }).catch(err => {
+          }).catch((err) => {
             // console.log(err)
           });
 

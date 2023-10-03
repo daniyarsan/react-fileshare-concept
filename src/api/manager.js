@@ -48,8 +48,8 @@ export const getTariff = async (option, use_year_discount) => {
 export const deleteAlbum = async (url) => {
     return await requester.post(`${ALBUM_DELETE}`, {url})
 }
-export const getFullImage = async (data) => {
-    return await requester.post(`${ALBUM_FULL_IMAGE}`, data)
+export const getFullImage = async (index, url) => {
+    return await requester.post(`${ALBUM_FULL_IMAGE}`, {index: index, url: url} )
 }
 
 /* PUBLIC REQUESTS */

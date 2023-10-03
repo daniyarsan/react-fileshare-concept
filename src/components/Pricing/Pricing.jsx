@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import {formatBytes, hoursToDays} from "../../service/utility.js";
+import {formatBytes} from "../../service/utility.js";
+import {hoursToDays} from "../../service/TimeConverter.js";
 import TextToList from "../UI/TextToList/TextToList.jsx";
 
 export const Pricing = ({monthlyPlans, yearlyPlans, userData, handlePurchase}) => {
@@ -21,7 +22,7 @@ export const Pricing = ({monthlyPlans, yearlyPlans, userData, handlePurchase}) =
             <div className="list">
               <p>Стоимость {Math.floor(price)}$</p>
               <p>Загрузка файла до {formatBytes(size * 1048576)}</p>
-              <p>{hoursToDays(shelf_time)}</p>
+              <p>{shelf_time > 0 && 'Срок хранения до '}{hoursToDays(shelf_time)}</p>
               <hr/>
               <div><TextToList text={description} /> </div>
             </div>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {formatTime} from "../../service/utility.js";
+import {formatTime} from "../../service/TimeConverter.js";
 
 export const _ImageRow = ({file, index, remove}) => {
   const [preview, setPreview] = useState()

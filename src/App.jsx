@@ -1,12 +1,7 @@
 import {AUTH_TOKEN} from "./api/const.js";
 import {useDispatch, useSelector} from "react-redux";
-
 import {Route, Routes, Navigate} from "react-router-dom";
-import '../html/_assets/css/style.css'
-import '../html/_assets/css/structure.css'
-import '../html/_assets/fonts/inter/stylesheet.css'
-import '../html/_assets/fonts/awesome/css/stylesheet.css'
-import "react-toastify/dist/ReactToastify.css";
+
 import Default from "./layout/Default.jsx";
 import RegistrationPage from "./pages/Auth/RegistrationPage.jsx";
 import {LoginPage} from "./pages/Auth/LoginPage.jsx";
@@ -21,6 +16,13 @@ import ResetPage from "./pages/Auth/ResetPage.jsx";
 import AlbumEditPage from "./pages/Albums/AlbumEditPage.jsx";
 import AlbumCreatePage from "./pages/Albums/AlbumCreatePage.jsx";
 import AlbumDetailsPublicPage from "./pages/Albums/AlbumDetailsPublicPage.jsx";
+
+import '../html/_assets/css/style.css'
+import '../html/_assets/css/structure.css'
+import '../html/_assets/fonts/inter/stylesheet.css'
+import '../html/_assets/fonts/awesome/css/stylesheet.css'
+import "react-toastify/dist/ReactToastify.css";
+
 import {logout} from "./store/slices/userSlice.js";
 
 function App() {

@@ -30,7 +30,7 @@ export const Dashboard = ({userData}) => {
         <hr/>
 
         <div className="mt-2">
-          <h1 className="bolder center">Мои тарифы</h1>
+          <h1 className="bolder center">Мой тариф</h1>
 
           <div className="cards lk flex row-1@xs row-1-3@m pdd-md-wrapper">
             <div></div>

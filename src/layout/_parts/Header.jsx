@@ -18,15 +18,15 @@ function Header() {
         <div className="container">
           <div className="row row_center row_sb h100">
             <div className="logo upp hide-sm">
-              <Link to={`/`}>
+              <a href='/'>
                 <span className="bolder">Soft</span><span className="light">Dropbox</span>
-              </Link>
+              </a>
             </div>
             <div className="menu row row_center">
-              <Link to='/'>
+              <a href='/'>
                 <span className="hide-sm ml-2">Главная</span>
                 <span className="hide-m"><i className="fa-solid fa-house"></i></span>
-              </Link>
+              </a>
               <Link to='/plans'>
                 <span className="hide-sm ml-2">Тарифы</span>
                 <span className="hide-m"><i className="fa-solid fa-crown"></i></span>
