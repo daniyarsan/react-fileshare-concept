@@ -103,7 +103,7 @@ function AlbumForm({album, setLoading}) {
                         <ErrorMessage className="text-danger" name="name" component="small"/>
                       </div>
                       <div className="limit mt-1 relative">
-                        <Field component={PeriodSelectField} name="period" placeholder='Срок хранения' limitDays={userData.tariff.shelf_time / 24}/>
+                        <Field component={PeriodSelectField} name="period" placeholder='Срок хранения' limitDays={userData.tariff?.shelf_time ? userData.tariff.shelf_time / 24 : 30 }/>
                         <ErrorMessage className="text-danger" name="period" component="small"/>
                       </div>
                       <div className="mt-1">

@@ -6,6 +6,7 @@ import {Link, useNavigate} from "react-router-dom";
 import Clipboard from 'react-clipboard.js';
 import {useSelector} from "react-redux";
 import DeleteDialog from "../UI/DeleteDialog.jsx";
+import Promotion from "../Promotion/Promotion.jsx";
 
 function AlbumSuccess({name, password, create_date, shelf_time, url, view_count}) {
   const navigate = useNavigate()
@@ -14,7 +15,6 @@ function AlbumSuccess({name, password, create_date, shelf_time, url, view_count}
   const handleRemoveAlbum = (url) => {
     const albumDeleter = isAuth ? deleteAlbum(url) : deleteAlbumPublic(url, password);
     albumDeleter.then((resp) => {
-
       toast.success('Альбом удален', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
@@ -24,39 +24,6 @@ function AlbumSuccess({name, password, create_date, shelf_time, url, view_count}
     }).catch(err => {
       // console.log(err)
     })
-  }
-
-  const Promotion = (...props) => {
-    return (
-        <div className="promotion">
-          <div className="row row_col">
-            <h4 className="title bolder text-dark">Зарегистрируйтесь и пользуйтесь тарифом Бизнес бесплатно. Время ограничено!</h4>
-            <div className="timer row center">
-              <div className="row row_center">
-                <div className="">
-                  <h1>74</h1>
-                  <p className="bolder small text-dark">дн</p>
-                </div>
-                <div className="ml-1">
-                  <h1 className="thin">: 05 :</h1>
-                  <p className="small text-dark light">час</p>
-                </div>
-                <div className="ml-1">
-                  <h1 className="thin">12</h1>
-                  <p className="small text-dark light">мин</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <ul><li>Хранение данных "Без срока"</li><li> Доступны альбомы</li><li> Загрузка до 50 фото в один альбом</li><li> Общая память хранения до 1тб, больше - пока через поддержку</li><li> Добавляется функция одноразовой ссылки</li><li> Возможность редактировать альбомы</li></ul>
-          <div className="row row_end mt-1">
-            <div className="row row_center">
-              <p className="text-dark link line small ml-2">Получить </p>
-              <i className="text-orange fa-duotone fa-gift ml-1"></i>
-            </div>
-          </div>
-        </div>
-    )
   }
 
   return (

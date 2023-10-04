@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {Link, useNavigate} from "react-router-dom";
-import {deleteAlbum, deleteAlbumPublic, getFullImage, getFullImagePublic} from "../../api/manager.js";
 import {baseUrl} from "../../service/utility.js";
 import {formatTime, secondsToDays} from "../../service/TimeConverter.js";
 import {toast} from "react-toastify";
 import Modal from "../UI/Modal/Modal.jsx";
 import Clipboard from 'react-clipboard.js';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import DeleteDialog from "../UI/DeleteDialog.jsx";
 import {API_URL} from "../../api/const.js"; // Import css
 
 function AlbumDetails({url, albumDetails, setLoading, fullImageOpenHandler}) {
@@ -69,8 +66,11 @@ function AlbumDetails({url, albumDetails, setLoading, fullImageOpenHandler}) {
         <div className="row row_center row_sb mt-2">
           <h1 className="bolder">{albumDetails?.album?.name}</h1>
         </div>
-        <div className="date">{formatTime(Date.parse(albumDetails?.album?.create_date))}</div>
-        <div className="storagePeriod">Срок хранения файлов <span className="days bold">{secondsToDays(albumDetails?.album?.time_to_delete)}</span></div>
+        <div className="date">
+          <span className="mr-1">Создан:</span>
+          <span className="mr-1">{formatTime(Date.parse(albumDetails?.album?.create_date))}</span>
+        </div>
+        <div className="storagePeriod">Срок хранения файлов <span className="days bold">{secondsToDays(albumDetails?.album?.time_to_delete)} дня</span></div>
         <div className="password mt-05">
           <span className="mr-1">Пароль:</span>
           <span className="bold" onClick={() => {

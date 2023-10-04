@@ -31,6 +31,7 @@ export const DOWNLOAD = '/download' // /{url}
 /* TARIFF */
 export const TARIFF_PRICING = '/tariff/pricing'
 export const TARIFF_ACTIVATE = '/tariff/activate'
+export const TARIFF_OFFER = '/tariff/offer'
 
 /* CONSTANTS */
 export const AUTH_TOKEN = 'AUTH_TOKEN'

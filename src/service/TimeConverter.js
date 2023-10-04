@@ -15,11 +15,22 @@ export const hoursToDays = (hours) => {
   return Math.floor(hours / 24) + ' ' + getNoun(Math.floor(hours / 24), 'день', 'дня', 'дней')
 }
 
-export const secondsToDays = (seconds) => {
-  return hoursToDays(seconds / 3600)
+
+export const secondsToDays = (totalSeconds) => {
+  const totalMinutes = Math.floor(totalSeconds / 60);
+  return Math.floor(totalMinutes / 60 / 24);
 }
 
+export const secondsToHours = (totalSeconds) => {
+  const totalMinutes = Math.floor(totalSeconds / 60);
+  return Math.floor((totalMinutes / 60 ) % 24)
 
+}
+
+export const secondsToMinutes = (totalSeconds) => {
+  const totalMinutes = Math.floor(totalSeconds / 60);
+  return totalMinutes % 60;
+}
 
 
 function getNoun(number, one, two, five) {
