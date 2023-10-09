@@ -8,11 +8,15 @@ import {toast} from "react-toastify";
 import AlbumSuccess from "./AlbumSuccess.jsx";
 import {useSelector} from "react-redux";
 import PeriodSelectField from "../UI/PeriodSelectField/PeriodSelectField.jsx";
+import {AUTH_TOKEN, BASE_API_URL, REFRESH} from "../../api/const.js";
+import axios from "axios";
 
 function AlbumForm({album, setLoading}) {
   
   const [albumUploadResult, setAlbumUploadResult] = useState()
   const {isAuth, userData} = useSelector(state => state.user)
+
+  console.log(userData)
 
   const initialValues = {
     name: '',
@@ -40,24 +44,29 @@ function AlbumForm({album, setLoading}) {
 
     const createAlbumFunc = isAuth ? createAlbum : createAlbumPublic
 
-    createAlbumFunc(formData).then(({data}) => {
+    createAlbumFunc(formData).then(({status, data}) => {
       setLoading(false)
-      setAlbumUploadResult(data)
-      toast.success('Альбом успешно создан', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000
-      })
-    }).catch(({response}) => {
-      setLoading(false)
-
-      if (response.data?.code == 12) {
-        toast.error('На бесплатном тарифе доступна загрузка до 2 фотографий за раз', {
+      if (status >= 400 && status <= 499) {
+        if (data?.code == 12) {
+          toast.error('На бесплатном тарифе доступна загрузка до 2 фотографий за раз', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 2000
+          })
+        }
+      } else {
+        setAlbumUploadResult(data)
+        toast.success('Альбом успешно создан', {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 2000
         })
       }
+
+    }).catch((data) => {
+      console.log(data)
+      setLoading(false)
     })
   }
+
 
   return  (
       albumUploadResult ? <AlbumSuccess {...albumUploadResult} /> :
@@ -103,7 +112,7 @@ function AlbumForm({album, setLoading}) {
                         <ErrorMessage className="text-danger" name="name" component="small"/>
                       </div>
                       <div className="limit mt-1 relative">
-                        <Field component={PeriodSelectField} name="period" placeholder='Срок хранения' limitDays={userData.tariff?.shelf_time ? userData.tariff.shelf_time / 24 : 30 }/>
+                        <Field component={PeriodSelectField} name="period" placeholder='Срок хранения' limitDays={30 }/>
                         <ErrorMessage className="text-danger" name="period" component="small"/>
                       </div>
                       <div className="mt-1">
