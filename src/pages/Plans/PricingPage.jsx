@@ -4,13 +4,15 @@ import {Preloader} from "../../components/UI/Preloader/index.js";
 import {Pricing} from "../../components/Pricing/Pricing.jsx";
 import Faq from "../../components/Pricing/Faq.jsx";
 import {toast} from "react-toastify";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AUTH_TOKEN} from "../../api/const.js";
 import {useNavigate} from "react-router-dom";
+import {update} from "../../store/slices/userSlice.js";
 
 
 function PricingPage() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
   const [yearlyPlans, setYearlyPlans] = useState([])
   const [monthlyPlans, setMonthlyPlans] = useState([])
@@ -19,11 +21,12 @@ function PricingPage() {
   const isAuthorized = isAuth && localStorage.getItem(AUTH_TOKEN)
 
   useEffect(() => {
+    dispatch(update())
+
     getPricing().then(resp => {
       const {month_pricing_options, year_pricing_options} = resp?.data
       setMonthlyPlans([month_pricing_options[0], month_pricing_options[2], month_pricing_options[1]])
       setYearlyPlans([year_pricing_options[0], year_pricing_options[2], year_pricing_options[1]])
-
       setLoading(false)
     })
   }, [])
@@ -61,6 +64,8 @@ function PricingPage() {
       answer: 'С момента окончания подписки, аккаунт замораживается. В течении следующих 30 календарных дней, созданные Альбомы останутся активны. По истечении 30 дней автоматически активируется бесплатный тариф. Все Альбомы, превышающие лимит хранения бесплатного тарифа, будут безвозвратно удалены в порядке их загрузки.'
     }
   ]
+
+  console.log(userData)
 
   return (
       <>
