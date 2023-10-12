@@ -1,17 +1,64 @@
-import React, {useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {formatBytes} from "../../service/utility.js";
 import {hoursToDays} from "../../service/TimeConverter.js";
 import TextToList from "../UI/TextToList/TextToList.jsx";
+import {getPricing, getTariff} from "../../api/manager.js";
+import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
+import {AuthContext} from "../../contexts/AuthProvider.jsx";
+import {TARIFF_ACTIVATE, TARIFF_PRICING} from "../../api/const.js";
+import {RequestContext} from "../../contexts/RequestProvider.jsx";
+import requester from "../../api/axios.js";
 
-export const Pricing = ({monthlyPlans, yearlyPlans, userData, handlePurchase}) => {
+export const Pricing = (props) => {
+  const navigate = useNavigate()
+
+  const {currentUser} = useContext(AuthContext);
+  const {requester} = useContext(RequestContext);
+
   const [isMonthly, setIsMonthly] = useState(true)
+  const [yearlyPlans, setYearlyPlans] = useState([])
+  const [monthlyPlans, setMonthlyPlans] = useState([])
 
-  const PricingCard = ({title, description, size, price, shelf_time, files, option}) => {
+
+  useEffect(() => {
+    requester.get(`${TARIFF_PRICING}`).then(({data}) => {
+      const {month_pricing_options, year_pricing_options} = data
+      setMonthlyPlans([month_pricing_options[0], month_pricing_options[2], month_pricing_options[1]])
+      setYearlyPlans([year_pricing_options[0], year_pricing_options[2], year_pricing_options[1]])
+      // setLoading(false)
+    })
+
+  }, [])
+
+
+  const handlePurchase = (option, yearlyDiscount) => {
+    // setLoading(true)
+
+    if (!currentUser.isAuthorized) {
+      navigate('/login')
+      return
+    }
+
+    requester.post(`${TARIFF_ACTIVATE}`, {option, yearlyDiscount}).then(({data}) => {
+      // setLoading(false)
+      window.location.replace(data.url)
+    }).catch(({resp}) => {
+      // setLoading(false)
+      toast.error(resp?.data?.msg, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000
+      })
+    })
+  }
+
+
+  const PricingCard = ({title, description, size, price, shelf_time, option}) => {
 
     return (
         <div className="pdd-md">
 
-          <div className={`card pdd-lg ${userData.tariff?.option == option && 'active'}`}>
+          <div className={`card pdd-lg ${currentUser.hasTariff(option) && 'active'}`}>
 
             <div className="row row_sb">
               <p className="bold text-dark">{title}</p>
@@ -24,16 +71,17 @@ export const Pricing = ({monthlyPlans, yearlyPlans, userData, handlePurchase}) =
               <p>Загрузка файла до {formatBytes(size * 1048576)}</p>
               <p>{shelf_time > 0 && 'Срок хранения до '}{hoursToDays(shelf_time)}</p>
               <hr/>
-              <div><TextToList text={description} /> </div>
+              <div><TextToList text={description}/></div>
             </div>
 
             {
-              userData.tariff?.option == option ? (<button className='btn btn-submit row row_col row_center col-1@xs mt-2' disabled='disabled'>Подключено</button>) : (
-                <button className="btn btn-submit row row_col row_center col-1@xs mt-2" onClick={() => {
-                  handlePurchase(option, !isMonthly)}}>
-                  <p>Подключить за {Math.floor(price)} $/мес</p>
-                  {!isMonthly && (<p className="thin small">При оплате за год</p>)}
-                </button>)
+              currentUser.hasTariff(option)
+                  ? (<button className='btn btn-submit row row_col row_center col-1@xs mt-2' disabled='disabled'>Подключено</button>)
+                  : (<button className="btn btn-submit row row_col row_center col-1@xs mt-2" onClick={() => {
+                        handlePurchase(option, !isMonthly)
+                      }}><p>Подключить за {Math.floor(price)} $/мес</p> {!isMonthly && (<p className="thin small">При оплате за год</p>)}
+                      </button>
+                  )
             }
           </div>
         </div>
@@ -83,11 +131,13 @@ export const Pricing = ({monthlyPlans, yearlyPlans, userData, handlePurchase}) =
         </div>
 
         <div className="cards flex row-1@xs row-1-3@m mt-2 pdd-md-wrapper">
+
           {
             (isMonthly ? monthlyPlans : yearlyPlans).map(item => {
               return <PricingCard key={item.option} {...item} />
             })
           }
+
         </div>
       </div>
   )

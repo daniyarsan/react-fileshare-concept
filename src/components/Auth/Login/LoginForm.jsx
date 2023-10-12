@@ -1,13 +1,19 @@
 import PropTypes from 'prop-types'
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import {object, string} from "yup";
 import {VALIDATION_MIN_PASSWORD_LENGTH} from "../../../api/const.js";
 import Links from "../../../pages/Auth/_parts/Links.jsx";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {Link} from "react-router-dom";
+import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 
-export const LoginForm = ({onSubmit}) => {
+export const LoginForm = () => {
+  const { user, loginAction } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false)
+
+  const onSubmit = (input, formikHelpers) => {
+    loginAction(input)
+  }
 
   const initialValues = {
     username: '',

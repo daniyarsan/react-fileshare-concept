@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import Links from "./_parts/Links.jsx";
-import {useSelector} from "react-redux";
 import {object, ref, string} from "yup";
 import {VALIDATION_MIN_PASSWORD_LENGTH} from "../../api/const.js";
 import {ErrorMessage, Field, Form, Formik} from "formik";
@@ -15,7 +14,7 @@ function ForgotPage(props) {
   const [loading, setLoading] = useState(false)
   const [recoveryCode, setRecoveryCode] = useState(null)
   const [showPassword, setShowPassword] = useState(false)
-  const userData = useSelector(state => state.user)
+  // const userData = useSelector(state => state.user)
   const navigate = useNavigate()
 
   const initialValues = {

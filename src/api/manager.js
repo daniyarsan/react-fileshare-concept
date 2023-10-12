@@ -8,8 +8,7 @@ import {
     TARIFF_PRICING,
     RECOVER_PASSWORD_BY_TOKEN,
     RECOVER_TOKEN,
-    RESET_PASSWORD,
-    USER_STAT, TARIFF_ACTIVATE, ALBUM_CREATE_ANON, ALBUM_FULL_IMAGE_PUBLIC, ALBUM_DELETE_PUBLIC, AUTH_TOKEN, TARIFF_OFFER
+    RESET_PASSWORD, TARIFF_ACTIVATE, ALBUM_CREATE_ANON, ALBUM_FULL_IMAGE_PUBLIC, ALBUM_DELETE_PUBLIC, TARIFF_OFFER, USER_STAT
 } from "./const.js";
 import requester, {multipartRequester, publicRequester} from "./axios.js";
 
@@ -25,7 +24,7 @@ export const recoverPasswordByToken = async (data) => {
 export const recoverToken = async (data) => {
     return await requester.post(`${RECOVER_TOKEN}`, data)
 }
-export const getUserStat = async () => {
+export const getProfileData = async () => {
     return await requester.get(`${USER_STAT}`)
 }
 export const getAlbumsList = async () => {

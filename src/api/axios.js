@@ -9,7 +9,6 @@ const requester = axios.create({
   baseURL: BASE_API_URL,
 })
 
-
 requester.interceptors.request.use((config) => {
   const tokenData = JSON.parse(localStorage.getItem(AUTH_TOKEN))
   if (tokenData) {

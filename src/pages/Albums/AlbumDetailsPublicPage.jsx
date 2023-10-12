@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import AlbumDetails from "../../components/Album/AlbumDetails.jsx";
+import AlbumDetails from "../../components/Album/AlbumDetails/AlbumDetails.jsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {deleteAlbum, deleteAlbumPublic, getAlbumDetailsPublic, getFullImage, getFullImagePublic} from "../../api/manager.js";
 import {Preloader} from "../../components/UI/Preloader/index.js";
 import {toast} from "react-toastify";
-import AlbumDetailsLoading from "../../components/Album/AlbumDetailsLoading.jsx";
+import AlbumDetailsLoading from "../../components/Album/AlbumDetails/AlbumDetailsLoading.jsx";
 
 function AlbumDetailsPublicPage() {
   const {url} = useParams()

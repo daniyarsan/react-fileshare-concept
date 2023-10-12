@@ -1,8 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Link} from "react-router-dom";
 import {PricingCard} from "./PricingCard.jsx";
+import {AuthContext} from "../../contexts/AuthProvider.jsx";
 
-export const Dashboard = ({userData}) => {
+export const Dashboard = () => {
+
+  const { currentUser } = useContext(AuthContext);
+
 
   return (
       <div className="container">
@@ -14,7 +18,7 @@ export const Dashboard = ({userData}) => {
             </div>
             <div className="mt-2">
               <div className="bold small">Логин</div>
-              <div className="input">{userData.username}</div>
+              <div className="input">{currentUser.username}</div>
               <div className="row row_end">
                 <Link to='/reset' className="small text-dark link line">Сменить пароль</Link>
               </div>
@@ -34,7 +38,7 @@ export const Dashboard = ({userData}) => {
 
           <div className="cards lk flex row-1@xs row-1-3@m pdd-md-wrapper">
             <div></div>
-            <PricingCard {...userData?.tariff} />
+            <PricingCard {...currentUser?.tariff} />
             <div></div>
           </div>
           <div className="row row-1@xs row-1-3@m pdd-md-wrapper">
@@ -53,9 +57,7 @@ export const Dashboard = ({userData}) => {
             <div></div>
           </div>
         </div>
-
       </div>
-
   )
 }
 

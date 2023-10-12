@@ -31,6 +31,7 @@
     "reduxjs-toolkit-persist": "^7.2.1",
     "sass": "^1.62.0",
     "scss": "^0.2.4",
+    "state-pool": "^0.10.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {

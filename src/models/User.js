@@ -1,36 +1,26 @@
-import requester from "../api/axios.js";
+export class User {
+  DEFAULT_SHELF_DAYS = 30
 
-class User {
-
-  static USER_STAT = '/user/stat'
-
+  isAuthorized
+  files_size
   username
   tariff
-  expiration_date
   files_cnt
-  files_size
+  expiration_date
 
-  constructor(obj = null) {
-    const defaultFields = {
-      "expiration_date": "",
-      "files_cnt": 0,
-      "files_size": 0,
-      "username": "",
-      "tariff": {}
-    }
-
-    if (obj) {
-      Object.keys(defaultFields).forEach(key => defaultFields[key] = obj[key]);
-    }
-    Object.assign(this, defaultFields);
+  constructor(rawObj) {
+    Object.assign(this, rawObj);
   }
 
+  getTariffShelfDays() {
+    return this?.tariff ? this.tariff.shelf_time / 24 : this.DEFAULT_SHELF_DAYS
+  }
 
+  getFilesize() {
+    return this.files_size
+  }
 
-  /* STATICs or ASYNCs */
-  static async requestApi() {
-    return await requester.get(`${this.USER_STAT}`)
+  hasTariff(option) {
+    return this.tariff ? this.tariff.option == option : false
   }
 }
-
-export default User

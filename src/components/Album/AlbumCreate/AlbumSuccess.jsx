@@ -1,20 +1,20 @@
 import React from 'react'
-import {baseUrl} from "../../service/utility.js";
+import {baseUrl} from "../../../service/utility.js";
 import {toast} from "react-toastify";
-import {deleteAlbum, deleteAlbumPublic} from "../../api/manager.js";
+import {deleteAlbum, deleteAlbumPublic} from "../../../api/manager.js";
 import {Link, useNavigate} from "react-router-dom";
 import Clipboard from 'react-clipboard.js';
-import {useSelector} from "react-redux";
-import DeleteDialog from "../UI/DeleteDialog.jsx";
-import Promotion from "../Promotion/Promotion.jsx";
-import {getNoun} from "../../service/TimeConverter.js";
+import DeleteDialog from "../../UI/DeleteDialog.jsx";
+import Promotion from "../../Promotion/Promotion.jsx";
+import {getNoun} from "../../../service/TimeConverter.js";
 
 function AlbumSuccess({name, password, create_date, shelf_time, url, view_count}) {
   const navigate = useNavigate()
-  const {isAuth} = useSelector(state => state.user)
+  // const {isAuth} = useSelector(state => state.user)
 
   const handleRemoveAlbum = (url) => {
-    const albumDeleter = isAuth ? deleteAlbum(url) : deleteAlbumPublic(url, password);
+    // const albumDeleter = isAuth ? deleteAlbum(url) : deleteAlbumPublic(url, password);
+
     albumDeleter.then((resp) => {
       toast.success('Альбом удален', {
         position: toast.POSITION.TOP_RIGHT,
