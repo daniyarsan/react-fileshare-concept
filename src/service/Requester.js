@@ -87,8 +87,6 @@ export class Requester {
 
     axiosInstance.post(REFRESH, {}).then(({data}) => {
       const user = JSON.parse(localStorage.getItem('user'))
-      console.log(user)
-
       localStorage.setItem("user", JSON.stringify({...user, accessToken: data.token}))
     })
   }

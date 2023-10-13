@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import CountDown from "./CountDown.jsx";
-import {getPromotionTariff} from "../../api/manager.js";
+import {TARIFF_OFFER} from "../../api/const.js";
+import {RequestContext} from "../../contexts/RequestProvider.jsx";
 
 
 const Promotion = () => {
   const [timestamp, setTimestamp] = useState()
+  const {requester} = useContext(RequestContext)
 
   useEffect(() => {
-    getPromotionTariff().then(({data}) => {
+    requester.get(`${TARIFF_OFFER}`).then(({data}) => {
       setTimestamp(data?.remaining_time)
     }).catch(err => {
       console.log(err)

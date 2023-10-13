@@ -5,12 +5,10 @@ import {toast} from "react-toastify";
 import Modal from "../../UI/Modal/Modal.jsx";
 import Clipboard from 'react-clipboard.js';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import {ALBUM_DELETE_PUBLIC, ALBUM_DETAILS_PUBLIC, ALBUM_FULL_IMAGE_PUBLIC, API_URL} from "../../../api/const.js";
+import {ALBUM_DETAILS_PUBLIC, ALBUM_FULL_IMAGE_PUBLIC, API_URL} from "../../../api/const.js";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
-import DeleteDialog from "../../UI/DeleteDialog.jsx";
 import store from "../../../store/store.js";
-import {publicRequester} from "../../../api/axios.js";
 
 function AlbumPublic() {
   const {url} = useParams()
@@ -36,7 +34,7 @@ function AlbumPublic() {
   useEffect(() => {
     setLoader(true)
 
-    publicRequester.get(`${ALBUM_DETAILS_PUBLIC}/${url}/${password}`).then(resp => {
+    requester.get(`${ALBUM_DETAILS_PUBLIC}/${url}/${password}`).then(resp => {
       setAlbumDetails(resp?.data)
     }).catch(err => {
       toast.error('Альбом не найден', {
