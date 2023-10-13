@@ -30,7 +30,6 @@ function AlbumPublic() {
     document.addEventListener("keydown", escFunction, false)
   }, [])
 
-
   useEffect(() => {
     setLoader(true)
 

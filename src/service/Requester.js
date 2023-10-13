@@ -77,8 +77,6 @@ export class Requester {
     )
   }
 
-
-
   _renewToken() {
     const axiosInstance = axios.create({
       baseURL: BASE_API_URL,

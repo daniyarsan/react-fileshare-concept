@@ -62,6 +62,6 @@ store.persist({
 
 store.setState("user", {}, {persist: true})
 store.setState("pendingPayment", true)
-store.setState("loader", false)
+store.setState("loader", true)
 
 export default store;

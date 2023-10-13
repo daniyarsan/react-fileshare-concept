@@ -1,6 +1,6 @@
 import {Route, Routes, Navigate} from "react-router-dom";
 
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 
 import Default from "./layout/Default.jsx";
 import RegistrationPage from "./pages/Auth/RegistrationPage.jsx";
@@ -18,9 +18,6 @@ import AlbumDetailsPublicPage from "./pages/Albums/AlbumDetailsPublicPage.jsx";
 import {AuthContext} from "./contexts/AuthProvider.jsx";
 
 
-
-export const RouteContext = React.createContext();
-export const RequestContext = React.createContext();
 
 function Routing() {
   const { currentUser } = useContext(AuthContext);
