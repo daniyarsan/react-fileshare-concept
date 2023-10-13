@@ -12,16 +12,21 @@ import DeleteDialog from "../../UI/DeleteDialog.jsx";
 import store from "../../../store/store.js";
 
 function AlbumDetails({url}) {
-  const [loader, setLoader] = store.useState("loader");
+  const [loader, setLoader] = store.useState("loader")
+
   const {requester} = useContext(RequestContext);
   const navigate = useNavigate()
   const [modalContent, setModalContent] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [albumDetails, setAlbumDetails] = useState()
 
+
   useEffect(() => {
+    setLoader(true)
+
     requester.post(`${ALBUM_DETAILS}`, {url}).then(resp => {
       setAlbumDetails(resp?.data)
+    }).finally(() => {
       setLoader(false)
     })
   }, [])

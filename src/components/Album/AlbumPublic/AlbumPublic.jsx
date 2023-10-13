@@ -38,32 +38,17 @@ function AlbumPublic() {
 
     publicRequester.get(`${ALBUM_DETAILS_PUBLIC}/${url}/${password}`).then(resp => {
       setAlbumDetails(resp?.data)
-      setLoader(false)
     }).catch(err => {
       toast.error('Альбом не найден', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
       })
       navigate('/albums')
-    })
-  }, [])
-
-
-  const handleRemoveAlbum = (url) => {
-    setLoader(true)
-
-    publicRequester.get(`${ALBUM_DELETE_PUBLIC}/${url}/${password}`).then((resp) => {
-      toast.success('Альбом удален', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000
-      })
-      navigate('/albums')
-
-    }).finally(err => {
+    }).finally(() => {
       setLoader(false)
     })
-  }
 
+  }, [])
 
   const handleFullImageOpen = (index) => {
     setLoader(true)

@@ -13,7 +13,11 @@ export class User {
   }
 
   getTariffShelfDays() {
-    return this?.tariff?.shelf_time != -1 ? this.tariff.shelf_time / 24 : this.DEFAULT_SHELF_DAYS
+    if (this.tariff || this?.tariff?.shelf_time != -1) {
+      return this.DEFAULT_SHELF_DAYS
+    }
+
+    return this?.tariff.shelf_time / 24
   }
 
   getFilesize() {
@@ -21,6 +25,6 @@ export class User {
   }
 
   hasTariff(option) {
-    return this.tariff ? this.tariff.option == option : false
+    return this?.tariff ? this.tariff.option == option : false
   }
 }

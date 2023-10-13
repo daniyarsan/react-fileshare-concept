@@ -7,11 +7,8 @@ export const RequestContext = createContext();
 export const RequestProvider = ({ children }) => {
   /* CONTEXT STATES */
   const [user,] = store.useState("user")
-  console.log(user)
-
 
   const requester = new Requester(user.accessToken, user.refreshToken)
-
 
   return (
       <RequestContext.Provider value={{ requester }}>
