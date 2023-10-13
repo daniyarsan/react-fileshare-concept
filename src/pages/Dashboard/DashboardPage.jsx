@@ -3,11 +3,8 @@ import {Dashboard} from "../../components/Dashboard/Dashboard.jsx";
 
 function DashboardPage() {
 
-  return (
-      <section className='canvas'>
-        <Dashboard />
-      </section>
-  )
+  return <Dashboard/>
+
 }
 
 export default DashboardPage

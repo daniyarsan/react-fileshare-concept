@@ -16,10 +16,11 @@ function Header() {
               </a>
             </div>
             <div className="menu row row_center">
-              <Link to='/'>
+              <a href='/'>
                 <span className="hide-sm ml-2">Главная</span>
                 <span className="hide-m"><i className="fa-solid fa-house"></i></span>
-              </Link>
+              </a>
+
               <Link to='/plans'>
                 <span className="hide-sm ml-2">Тарифы</span>
                 <span className="hide-m"><i className="fa-solid fa-crown"></i></span>

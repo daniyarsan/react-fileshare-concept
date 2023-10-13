@@ -6,13 +6,7 @@ function AlbumEditPage() {
   const {url} = useParams()
 
 
-  return (
-      <section className="canvas create-albom">
-        <div className="container">
-          <AlbumEdit url={url} />
-        </div>
-      </section>
-  )
+  return <AlbumEdit url={url} />
 }
 
 export default AlbumEditPage

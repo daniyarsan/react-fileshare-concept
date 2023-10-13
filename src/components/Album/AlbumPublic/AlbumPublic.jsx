@@ -5,39 +5,22 @@ import {toast} from "react-toastify";
 import Modal from "../../UI/Modal/Modal.jsx";
 import Clipboard from 'react-clipboard.js';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import {ALBUM_DELETE, ALBUM_DETAILS, ALBUM_FULL_IMAGE, API_URL} from "../../../api/const.js";
-import {Link, useNavigate} from "react-router-dom";
+import {ALBUM_DELETE_PUBLIC, ALBUM_DETAILS_PUBLIC, ALBUM_FULL_IMAGE_PUBLIC, API_URL} from "../../../api/const.js";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import DeleteDialog from "../../UI/DeleteDialog.jsx";
 import store from "../../../store/store.js";
+import {publicRequester} from "../../../api/axios.js";
 
-function AlbumDetails({url}) {
-  const [loader, setLoader] = store.useState("loader");
-  const {requester} = useContext(RequestContext);
+function AlbumPublic() {
+  const {url} = useParams()
+  const {password} = useParams()
+  const [loader, setLoader] = store.useState("loader")
+  const {requester} = useContext(RequestContext)
   const navigate = useNavigate()
   const [modalContent, setModalContent] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [albumDetails, setAlbumDetails] = useState()
-
-  useEffect(() => {
-    requester.post(`${ALBUM_DETAILS}`, {url}).then(resp => {
-      setAlbumDetails(resp?.data)
-      setLoader(false)
-    })
-  }, [])
-
-
-  const handleRemoveAlbum = (url) => {
-    setLoader(true)
-    requester.post(`${ALBUM_DELETE}`, {url}).then((resp) => {
-      toast.success('Альбом удален', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000
-      })
-      navigate('/albums')
-    })
-  }
-
 
   /* On Escape close modal */
   const escFunction = (ev) => {
@@ -46,12 +29,46 @@ function AlbumDetails({url}) {
     }
   }
   useEffect(() => {
-    document.addEventListener("keydown", escFunction, false);
-  }, []);
+    document.addEventListener("keydown", escFunction, false)
+  }, [])
+
+
+  useEffect(() => {
+    setLoader(true)
+
+    publicRequester.get(`${ALBUM_DETAILS_PUBLIC}/${url}/${password}`).then(resp => {
+      setAlbumDetails(resp?.data)
+      setLoader(false)
+    }).catch(err => {
+      toast.error('Альбом не найден', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000
+      })
+      navigate('/albums')
+    })
+  }, [])
+
+
+  const handleRemoveAlbum = (url) => {
+    setLoader(true)
+
+    publicRequester.get(`${ALBUM_DELETE_PUBLIC}/${url}/${password}`).then((resp) => {
+      toast.success('Альбом удален', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000
+      })
+      navigate('/albums')
+
+    }).finally(err => {
+      setLoader(false)
+    })
+  }
+
 
   const handleFullImageOpen = (index) => {
     setLoader(true)
-    requester.post(`${ALBUM_FULL_IMAGE}`, {index, url}).then(({data}) => {
+
+    requester.get(`${ALBUM_FULL_IMAGE_PUBLIC}/${url}/${password}/${index}`).then(({data}) => {
       setLoader(false)
       const modalContent = <img src={`data:image/jpeg;base64,${data.data}`}/>
       setModalContent(modalContent)
@@ -85,16 +102,11 @@ function AlbumDetails({url}) {
   }
 
   return (
-      <div className='album-details'>
+      <div className='album-public'>
         <div className="breadcrumb row mt-3">
           <Link to="/albums">Мои альбомы | </Link>
           <Link to='#'>{albumDetails?.album?.name}</Link>
         </div>
-
-        <div className="row row_end row_sb mt-2">
-          <Link to={`/album/edit/${url}`} className="bold sm"><i></i>Редактировать альбом</Link>
-        </div>
-
 
         <div className="row row_center row_sb mt-2">
           <h1 className="bolder">{albumDetails?.album?.name}</h1>
@@ -103,9 +115,7 @@ function AlbumDetails({url}) {
           <span className="mr-1">Создан:</span>
           <span className="mr-1">{formatTime(Date.parse(albumDetails?.album?.create_date))}</span>
         </div>
-        <div className="storagePeriod">Срок хранения файлов <span
-            className="days bold">{secondsToDays(albumDetails?.album?.time_to_delete)} {getNoun(Math.floor(secondsToDays(albumDetails?.album?.time_to_delete)), 'день', 'дня', 'дней')}</span>
-        </div>
+        <div className="storagePeriod">Срок хранения файлов <span className="days bold">{secondsToDays(albumDetails?.album?.time_to_delete)} {getNoun(Math.floor(secondsToDays(albumDetails?.album?.time_to_delete)), 'день', 'дня', 'дней')}</span></div>
         <div className="password mt-05">
           <span className="mr-1">Пароль:</span>
           <span className="bold" onClick={() => {
@@ -152,15 +162,8 @@ function AlbumDetails({url}) {
 
         {modalContent && <Modal closeEvent={() => setModalContent(false)}>{modalContent}</Modal>}
 
-        <div className="row row_start mt-2">
-          <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {
-            handleRemoveAlbum(url)
-          }}>
-            <div className="btn danger">Удалить альбом</div>
-          </DeleteDialog>
-        </div>
       </div>
   )
 }
 
-export default AlbumDetails
+export default AlbumPublic

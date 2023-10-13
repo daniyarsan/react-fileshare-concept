@@ -6,13 +6,11 @@ import Faq from "../../components/Faq/Faq.jsx";
 function PricingPage() {
 
   return (
-      <div className='canvas'>
-        <div className='container'>
-          <Pricing />
-          <hr/>
-          <Faq />
-        </div>
-      </div>
+      <>
+        <Pricing/>
+        <hr/>
+        <Faq/>
+      </>
   )
 }
 

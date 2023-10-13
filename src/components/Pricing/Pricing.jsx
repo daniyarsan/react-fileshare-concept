@@ -2,19 +2,18 @@ import React, {useContext, useEffect, useState} from 'react'
 import {formatBytes} from "../../service/utility.js";
 import {hoursToDays} from "../../service/TimeConverter.js";
 import TextToList from "../UI/TextToList/TextToList.jsx";
-import {getPricing, getTariff} from "../../api/manager.js";
-import {useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
 import {AuthContext} from "../../contexts/AuthProvider.jsx";
 import {TARIFF_ACTIVATE, TARIFF_PRICING} from "../../api/const.js";
 import {RequestContext} from "../../contexts/RequestProvider.jsx";
-import requester from "../../api/axios.js";
+import store from "../../store/store.js";
+import {useNavigate} from "react-router-dom";
 
 export const Pricing = (props) => {
   const navigate = useNavigate()
-
   const {currentUser} = useContext(AuthContext);
   const {requester} = useContext(RequestContext);
+  const [loader, setLoader] = store.useState("loader");
+  const [pendingPayment, setPendingPayment] = store.useState("pendingPayment");
 
   const [isMonthly, setIsMonthly] = useState(true)
   const [yearlyPlans, setYearlyPlans] = useState([])
@@ -22,33 +21,32 @@ export const Pricing = (props) => {
 
 
   useEffect(() => {
+    setLoader(true)
+
     requester.get(`${TARIFF_PRICING}`).then(({data}) => {
       const {month_pricing_options, year_pricing_options} = data
       setMonthlyPlans([month_pricing_options[0], month_pricing_options[2], month_pricing_options[1]])
       setYearlyPlans([year_pricing_options[0], year_pricing_options[2], year_pricing_options[1]])
-      // setLoading(false)
+      setLoader(false)
     })
 
   }, [])
 
 
   const handlePurchase = (option, yearlyDiscount) => {
-    // setLoading(true)
+    setLoader(true)
 
     if (!currentUser.isAuthorized) {
+      setLoader(false)
       navigate('/login')
       return
     }
 
-    requester.post(`${TARIFF_ACTIVATE}`, {option, yearlyDiscount}).then(({data}) => {
-      // setLoading(false)
+    requester.post(`${TARIFF_ACTIVATE}`, {option, use_year_discount: yearlyDiscount}).then(({data}) => {
+      setPendingPayment(true)
       window.location.replace(data.url)
-    }).catch(({resp}) => {
-      // setLoading(false)
-      toast.error(resp?.data?.msg, {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000
-      })
+    }).finally(() => {
+      setLoader(false)
     })
   }
 

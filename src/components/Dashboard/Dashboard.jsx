@@ -9,7 +9,7 @@ export const Dashboard = () => {
 
 
   return (
-      <div className="container">
+      <>
         <div className="mt-3 flex row-1@xs row-1-3@m">
           <div></div>
           <div className="pdd-md">
@@ -57,7 +57,7 @@ export const Dashboard = () => {
             <div></div>
           </div>
         </div>
-      </div>
+      </>
   )
 }
 

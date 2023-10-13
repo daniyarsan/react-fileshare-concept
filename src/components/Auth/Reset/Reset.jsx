@@ -6,10 +6,12 @@ import {toast} from "react-toastify";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import {useNavigate} from "react-router-dom";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
+import store from "../../../store/store.js";
 
 const Reset = () => {
   const { currentUser } = useContext(AuthContext);
   const {requester} = useContext(RequestContext);
+  const [loader, setLoader] = store.useState("loader");
 
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
@@ -33,11 +35,10 @@ const Reset = () => {
   })
 
   const onSubmit = (data, formikHelpers) => {
-    // setLoading(true)
+    setLoader(true)
 
     requester.post(`${RESET_PASSWORD}`, {new_password: data.new_password, old_password: data.password}).then(({data}) => {
-      // setLoading(false)
-      console.log(data)
+      setLoader(false)
 
       toast.success('Пароль сохранен успешно', {
         position: toast.POSITION.TOP_RIGHT,

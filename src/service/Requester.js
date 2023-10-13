@@ -62,10 +62,10 @@ export class Requester {
             return
           }
 
-          toast.error(error?.message, {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 2000
-          })
+          // toast.error(error?.message, {
+          //   position: toast.POSITION.TOP_RIGHT,
+          //   autoClose: 2000
+          // })
 
           toast.error(error?.response?.data?.msg, {
             position: toast.POSITION.TOP_RIGHT,
@@ -78,9 +78,8 @@ export class Requester {
   }
 
 
-  _renewToken() {
-    console.log('renewing')
 
+  _renewToken() {
     const axiosInstance = axios.create({
       baseURL: BASE_API_URL,
       headers: {Authorization: `Bearer ${this.refreshToken}`}
@@ -88,8 +87,7 @@ export class Requester {
 
     axiosInstance.post(REFRESH, {}).then(({data}) => {
       const user = JSON.parse(localStorage.getItem('user'))
-      console.log(user)
-      this.accessToken = data.token
+      localStorage.setItem("user", JSON.stringify({...user, accessToken: data.token}))
     })
   }
 

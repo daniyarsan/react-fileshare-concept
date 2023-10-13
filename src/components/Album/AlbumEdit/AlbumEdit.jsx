@@ -6,16 +6,20 @@ import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {ALBUM_DETAILS, ALBUM_UPDATE_BY_ID} from "../../../api/const.js";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
+import store from "../../../store/store.js";
 
 function AlbumEdit({url}) {
   const {requester} = useContext(RequestContext)
   const navigate = useNavigate()
   const [removedImages, setRemovedImages] = useState([])
   const [album, setAlbum] = useState()
+  const [loader, setLoader] = store.useState("loader");
 
   useEffect(() => {
+    setLoader(true)
+
     requester.post(`${ALBUM_DETAILS}`, {url}).then(resp => {
-      // setLoading(false)
+      setLoader(false)
       setAlbum(resp?.data)
     })
   }, [])
@@ -34,8 +38,7 @@ function AlbumEdit({url}) {
   })
 
   const submitHandler = (data, formikHelpers) => {
-    // setLoading(true)
-
+    setLoader(true)
 
     const formData = new FormData();
     formData.append('name', data.name);
@@ -49,7 +52,7 @@ function AlbumEdit({url}) {
     formData.append('url', album.album.url);
 
     requester.postMultipart(`${ALBUM_UPDATE_BY_ID}`, formData).then((resp) => {
-      // setLoading(false)
+      setLoader(false)
       toast.success('Альбом успешно обновлен', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
@@ -57,8 +60,6 @@ function AlbumEdit({url}) {
       navigate('/albums')
     })
   }
-
-
 
 
   const showCurrentImagesBlock = (files) => {

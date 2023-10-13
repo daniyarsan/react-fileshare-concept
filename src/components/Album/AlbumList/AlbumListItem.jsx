@@ -7,13 +7,14 @@ import {baseUrl} from "../../../service/utility.js";
 import {toast} from "react-toastify";
 import {ALBUM_DELETE} from "../../../api/const.js";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
+import store from "../../../store/store.js";
 
 const AlbumListItem = ({name, url, create_date, shelf_time, password, view_count, ...rest}) => {
   const {requester} = useContext(RequestContext);
-  const navigate = useNavigate()
+  const [loader, setLoader] = store.useState("loader");
 
   const handleRemoveAlbum = (url) => {
-    // setLoading(true)
+    setLoader(true)
 
     requester.post(`${ALBUM_DELETE}`, {url}).then((resp) => {
       toast.success('Альбом удален', {
@@ -22,6 +23,8 @@ const AlbumListItem = ({name, url, create_date, shelf_time, password, view_count
       })
 
       window.location.reload('/albums')
+    }).finally(() => {
+      setLoader(false)
     })
   }
 

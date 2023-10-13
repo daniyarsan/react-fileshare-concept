@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useEffect} from "react";
-import store from "../store/storeUser.js";
+import store from "../store/store.js";
 import {RequestContext} from "./RequestProvider.jsx";
 import {LOGIN, USER_STAT} from "../api/const.js";
 import {User} from "../models/User.js";
@@ -11,11 +11,15 @@ export const AuthProvider = ({children}) => {
 
   /* CONTEXT STATES */
   const [user, setUser, updateUser] = store.useState("user");
+  const [pendingPayment, setPendingPayment] = store.useState("pendingPayment");
+
 
   /* CONTEXT ACTIONS */
-  const updateProfile = (data) => {
-    updateUser(user => {
-      Object.keys(data).forEach(key => user[key] = data[key])
+  const updateAction = () => {
+    requester.get(`${USER_STAT}`).then(({data}) => {
+      updateUser(user => {
+        Object.keys(data).forEach(key => user[key] = data[key])
+      })
     })
   }
 
@@ -32,16 +36,18 @@ export const AuthProvider = ({children}) => {
         setUser(userData)
       })
     })
-
   }
 
   const logoutAction = () => {setUser({})}
 
-
+  if (pendingPayment) {
+    updateAction()
+    setPendingPayment(false)
+  }
   const currentUser = new User(user)
 
   return (
-      <AuthContext.Provider value={{currentUser, loginAction, logoutAction, updateProfile}}>
+      <AuthContext.Provider value={{currentUser, loginAction, logoutAction}}>
         {children}
       </AuthContext.Provider>
   )

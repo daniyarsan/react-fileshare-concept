@@ -1,39 +1,44 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {Link} from "react-router-dom";
 import {object, string} from "yup";
-import {recoverToken} from "../../../api/manager.js";
-import {toast} from "react-toastify";
 import Success from "./Success.jsx";
-import requester from "../../../api/axios.js";
 import {RECOVER_TOKEN} from "../../../api/const.js";
+import {RequestContext} from "../../../contexts/RequestProvider.jsx";
+import store from "../../../store/store.js";
 
 const Generate = () => {
+  const {requester} = useContext(RequestContext)
   const [recoveryCode, setRecoveryCode] = useState(null)
   const [showPassword, setShowPassword] = useState(false)
+  const [loader, setLoader] = store.useState("loader");
 
   const initialValues = {
     password: ''
   }
+
   const validation = object({
     password: string().required('Обязательное поле')
   })
 
-
   const onSubmit = (data, formikHelpers) => {
-    // setLoading(true)
+    setLoader(true)
+
     requester.post(`${RECOVER_TOKEN}`, {password: data.password}).then(({data}) => {
-      // setLoading(false)
       setRecoveryCode(data?.code)
+    }).finally(() => {
+      setLoader(false)
     })
 
     formikHelpers.resetForm()
   }
 
 
+  if (recoveryCode) {
+    return <Success {...{recoveryCode}} />
+  }
 
-
-  return recoveryCode ? <Success {...{recoveryCode}} /> : (
+  return (
       <div>
         <div className="row row_center row_sb mt-6">
           <h3 className="bolder">Создайте резервный код</h3>

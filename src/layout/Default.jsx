@@ -3,13 +3,23 @@ import React from 'react'
 import Header from "./_parts/Header.jsx";
 import Footer from "./_parts/Footer.jsx";
 import {ToastContainer} from "react-toastify";
+import {Preloader} from "../components/UI/Preloader/index.js";
+import store from "../store/store.js";
 
-function Default({className, ...props}) {
+function Default({className}) {
+
+  const [loader, setLoader] = store.useState("loader");
 
   return (
+
       <div className={className}>
+        {loader && (<Preloader/>)}
         <Header/>
-        <Outlet/>
+        <section className="canvas">
+          <div className="container">
+            <Outlet/>
+          </div>
+        </section>
         <Footer/>
         <ToastContainer/>
       </div>
