@@ -13,7 +13,6 @@ export const Pricing = (props) => {
   const {currentUser} = useContext(AuthContext);
   const {requester} = useContext(RequestContext);
   const [loader, setLoader] = store.useState("loader");
-  const [pendingPayment, setPendingPayment] = store.useState("pendingPayment");
 
   const [isMonthly, setIsMonthly] = useState(true)
   const [yearlyPlans, setYearlyPlans] = useState([])
@@ -43,7 +42,6 @@ export const Pricing = (props) => {
     }
 
     requester.post(`${TARIFF_ACTIVATE}`, {option, use_year_discount: yearlyDiscount}).then(({data}) => {
-      setPendingPayment(true)
       window.location.replace(data.url)
     }).finally(() => {
       setLoader(false)

@@ -39,11 +39,14 @@ export const AuthProvider = ({children}) => {
   }
 
   const logoutAction = () => {setUser({})}
-
-  if (pendingPayment) {
-    updateAction()
-    setPendingPayment(false)
+  
+  if (user.isAuthorized) {
+    if (pendingPayment) {
+      updateAction()
+      setPendingPayment(false)
+    }
   }
+
   const currentUser = new User(user)
 
   return (

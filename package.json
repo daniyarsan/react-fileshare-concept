@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.3.6",
     "classnames": "^2.3.2",
     "faker": "^6.6.6",
@@ -21,14 +20,10 @@
     "react-confirm-alert": "^3.0.6",
     "react-dom": "^18.2.0",
     "react-notifications": "^1.7.4",
-    "react-redux": "^8.0.5",
     "react-router": "^6.15.0",
     "react-router-dom": "^6.10.0",
     "react-select": "^5.7.4",
     "react-toastify": "^9.1.3",
-    "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.4.2",
-    "reduxjs-toolkit-persist": "^7.2.1",
     "sass": "^1.62.0",
     "scss": "^0.2.4",
     "state-pool": "^0.10.0",
