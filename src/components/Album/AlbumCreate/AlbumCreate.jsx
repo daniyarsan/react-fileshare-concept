@@ -15,8 +15,12 @@ function AlbumCreate() {
   const {requester} = useContext(RequestContext);
   const { currentUser } = useContext(AuthContext);
   const [albumUploadResult, setAlbumUploadResult] = useState()
-  const [loader, setLoader] = store.useState("loader");
+  const { setLoader } = useContext(AuthContext);
 
+  useEffect(() => {
+    setLoader(false)
+
+  }, []);
   const initialValues = {
     name: '',
     description: '',

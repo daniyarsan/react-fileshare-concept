@@ -3,12 +3,6 @@ import store from "../../store/store.js";
 
 function Footer() {
 
-  const [loader, setLoader] = store.useState("loader");
-
-  useEffect(() => {
-    setLoader(false)
-  }, [])
-
   return (
       <div className="footer">
         <div className="container">

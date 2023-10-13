@@ -7,13 +7,14 @@ import {useNavigate} from "react-router-dom";
 import {ALBUM_DETAILS, ALBUM_UPDATE_BY_ID} from "../../../api/const.js";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import store from "../../../store/store.js";
+import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 
 function AlbumEdit({url}) {
   const {requester} = useContext(RequestContext)
   const navigate = useNavigate()
   const [removedImages, setRemovedImages] = useState([])
   const [album, setAlbum] = useState()
-  const [loader, setLoader] = store.useState("loader");
+  const { setLoader } = useContext(AuthContext);
 
   useEffect(() => {
     setLoader(true)

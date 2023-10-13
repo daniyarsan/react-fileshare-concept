@@ -9,11 +9,13 @@ import {ALBUM_DETAILS_PUBLIC, ALBUM_FULL_IMAGE_PUBLIC, API_URL} from "../../../a
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import store from "../../../store/store.js";
+import {AuthContext} from "../../../contexts/AuthProvider.jsx";
+import AlbumDetailsLoading from "../AlbumDetails/AlbumDetailsLoading.jsx";
 
 function AlbumPublic() {
+  const { loader, setLoader } = useContext(AuthContext);
   const {url} = useParams()
   const {password} = useParams()
-  const [loader, setLoader] = store.useState("loader")
   const {requester} = useContext(RequestContext)
   const navigate = useNavigate()
   const [modalContent, setModalContent] = useState(false)
@@ -83,12 +85,12 @@ function AlbumPublic() {
     )
   }
 
+  if (loader) {
+    return <AlbumDetailsLoading />
+  }
+
   return (
       <div className='album-public'>
-        <div className="breadcrumb row mt-3">
-          <Link to="/albums">Мои альбомы | </Link>
-          <Link to='#'>{albumDetails?.album?.name}</Link>
-        </div>
 
         <div className="row row_center row_sb mt-2">
           <h1 className="bolder">{albumDetails?.album?.name}</h1>

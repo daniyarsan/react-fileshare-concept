@@ -10,9 +10,11 @@ import {Link, useNavigate} from "react-router-dom";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import DeleteDialog from "../../UI/DeleteDialog.jsx";
 import store from "../../../store/store.js";
+import {AuthContext} from "../../../contexts/AuthProvider.jsx";
+import AlbumDetailsLoading from "./AlbumDetailsLoading.jsx";
 
 function AlbumDetails({url}) {
-  const [loader, setLoader] = store.useState("loader")
+  const { loader, setLoader } = useContext(AuthContext);
 
   const {requester} = useContext(RequestContext);
   const navigate = useNavigate()
@@ -87,6 +89,10 @@ function AlbumDetails({url}) {
           </div>
         </div>
     )
+  }
+
+  if (loader) {
+    return <AlbumDetailsLoading />
   }
 
   return (

@@ -5,10 +5,12 @@ import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import {REGISTER} from "../../../api/const.js";
 import {toast} from "react-toastify";
 import store from "../../../store/store.js";
+import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 
 const Registration = () => {
   const {requester} = useContext(RequestContext);
-  const [loader, setLoader] = store.useState("loader");
+  const { setLoader } = useContext(AuthContext);
+
 
   const [recoveryCode, setRecoveryCode] = useState(null)
 

@@ -12,7 +12,7 @@ export const Pricing = (props) => {
   const navigate = useNavigate()
   const {currentUser} = useContext(AuthContext);
   const {requester} = useContext(RequestContext);
-  const [loader, setLoader] = store.useState("loader");
+  const { setLoader } = useContext(AuthContext);
 
   const [isMonthly, setIsMonthly] = useState(true)
   const [yearlyPlans, setYearlyPlans] = useState([])

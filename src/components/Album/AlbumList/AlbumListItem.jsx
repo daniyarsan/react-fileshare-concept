@@ -8,10 +8,11 @@ import {toast} from "react-toastify";
 import {ALBUM_DELETE} from "../../../api/const.js";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import store from "../../../store/store.js";
+import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 
 const AlbumListItem = ({name, url, create_date, shelf_time, password, view_count, ...rest}) => {
   const {requester} = useContext(RequestContext);
-  const [loader, setLoader] = store.useState("loader");
+  const { setLoader } = useContext(AuthContext);
 
   const handleRemoveAlbum = (url) => {
     setLoader(true)

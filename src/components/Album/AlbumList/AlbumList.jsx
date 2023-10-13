@@ -3,12 +3,13 @@ import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import {ALBUMS_LIST} from "../../../api/const.js";
 import AlbumListItem from "./AlbumListItem.jsx";
 import store from "../../../store/store.js";
+import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 
 
 const AlbumList = () => {
   const {requester} = useContext(RequestContext);
   const [albumsList, setAlbumsList] = useState()
-  const [loader, setLoader] = store.useState("loader");
+  const { setLoader } = useContext(AuthContext);
 
   useEffect(() => {
     setLoader(true)

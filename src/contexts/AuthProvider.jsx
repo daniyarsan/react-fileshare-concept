@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useEffect} from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
 import store from "../store/store.js";
 import {RequestContext} from "./RequestProvider.jsx";
 import {LOGIN, USER_STAT} from "../api/const.js";
@@ -12,6 +12,7 @@ export const AuthProvider = ({children}) => {
   /* CONTEXT STATES */
   const [user, setUser, updateUser] = store.useState("user");
   const [pendingPayment, setPendingPayment] = store.useState("pendingPayment");
+  const [loader, setLoader] = useState(false);
 
 
   /* CONTEXT ACTIONS */
@@ -50,7 +51,7 @@ export const AuthProvider = ({children}) => {
   const currentUser = new User(user)
 
   return (
-      <AuthContext.Provider value={{currentUser, loginAction, logoutAction}}>
+      <AuthContext.Provider value={{currentUser, loginAction, logoutAction, loader, setLoader}}>
         {children}
       </AuthContext.Provider>
   )

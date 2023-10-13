@@ -17,7 +17,7 @@ function AlbumSuccessPublic({albumUploadResult, setAlbumUploadResult}) {
   const navigate = useNavigate()
   const {currentUser} = useContext(AuthContext)
   const {requester} = useContext(RequestContext);
-  const [loader, setLoader] = store.useState("loader");
+  const { setLoader } = useContext(AuthContext);
 
   const handleRemoveAlbum = (url) => {
     setLoader(true)

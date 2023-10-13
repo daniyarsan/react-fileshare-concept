@@ -6,12 +6,13 @@ import Success from "./Success.jsx";
 import {RECOVER_TOKEN} from "../../../api/const.js";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import store from "../../../store/store.js";
+import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 
 const Generate = () => {
   const {requester} = useContext(RequestContext)
   const [recoveryCode, setRecoveryCode] = useState(null)
   const [showPassword, setShowPassword] = useState(false)
-  const [loader, setLoader] = store.useState("loader");
+  const { setLoader } = useContext(AuthContext)
 
   const initialValues = {
     password: ''

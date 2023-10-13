@@ -8,8 +8,8 @@ import Success from "./Success.jsx";
 import store from "../../../store/store.js";
 
 const Forgot = () => {
-  const {currentUser} = useContext(AuthContext);
-  const [loader, setLoader] = store.useState("loader");
+  const {currentUser} = useContext(AuthContext)
+  const { setLoader } = useContext(AuthContext)
 
   const {requester} = useContext(RequestContext);
   const [recoveryCode, setRecoveryCode] = useState(null)

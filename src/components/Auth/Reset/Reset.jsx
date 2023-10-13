@@ -11,7 +11,7 @@ import store from "../../../store/store.js";
 const Reset = () => {
   const { currentUser } = useContext(AuthContext);
   const {requester} = useContext(RequestContext);
-  const [loader, setLoader] = store.useState("loader");
+  const { setLoader } = useContext(AuthContext);
 
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
