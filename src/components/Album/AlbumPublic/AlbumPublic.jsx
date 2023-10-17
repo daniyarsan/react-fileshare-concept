@@ -8,19 +8,20 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import {ALBUM_DETAILS_PUBLIC, ALBUM_FULL_IMAGE_PUBLIC, API_URL} from "../../../api/const.js";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
-import store from "../../../store/store.js";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import AlbumDetailsLoading from "../AlbumDetails/AlbumDetailsLoading.jsx";
+import {Album} from "../../../models/Album.js";
 
 function AlbumPublic() {
   const { loader, setLoader } = useContext(AuthContext);
   const {url} = useParams()
   const {password} = useParams()
   const {requester} = useContext(RequestContext)
-  const navigate = useNavigate()
   const [modalContent, setModalContent] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [albumDetails, setAlbumDetails] = useState()
+  const [images, setImages] = useState()
+  const [description, setDescription] = useState()
 
   /* On Escape close modal */
   const escFunction = (ev) => {
@@ -35,15 +36,10 @@ function AlbumPublic() {
   useEffect(() => {
     setLoader(true)
 
-    requester.get(`${ALBUM_DETAILS_PUBLIC}/${url}/${password}`).then(resp => {
-      setAlbumDetails(resp?.data)
-    }).catch(err => {
-      toast.error('Альбом не найден', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000
-      })
-      navigate('/albums')
-    }).finally(() => {
+    requester.get(`${ALBUM_DETAILS_PUBLIC}/${url}/${password}`).then(({data}) => {
+      setImages(data.images)
+      setAlbumDetails(new Album(data?.album))
+      setDescription(data.description)
       setLoader(false)
     })
 
@@ -51,7 +47,6 @@ function AlbumPublic() {
 
   const handleFullImageOpen = (index) => {
     setLoader(true)
-
     requester.get(`${ALBUM_FULL_IMAGE_PUBLIC}/${url}/${password}/${index}`).then(({data}) => {
       setLoader(false)
       const modalContent = <img src={`data:image/jpeg;base64,${data.data}`}/>
@@ -85,7 +80,7 @@ function AlbumPublic() {
     )
   }
 
-  if (loader) {
+  if (loader || !albumDetails) {
     return <AlbumDetailsLoading />
   }
 
@@ -93,21 +88,21 @@ function AlbumPublic() {
       <div className='album-public'>
 
         <div className="row row_center row_sb mt-2">
-          <h1 className="bolder">{albumDetails?.album?.name}</h1>
+          <h1 className="bolder">{albumDetails.name}</h1>
         </div>
         <div className="date">
           <span className="mr-1">Создан:</span>
-          <span className="mr-1">{formatTime(Date.parse(albumDetails?.album?.create_date))}</span>
+          <span className="mr-1">{albumDetails.getCreatedDate()}</span>
         </div>
-        <div className="storagePeriod">Срок хранения файлов <span className="days bold">{secondsToDays(albumDetails?.album?.time_to_delete)} {getNoun(Math.floor(secondsToDays(albumDetails?.album?.time_to_delete)), 'день', 'дня', 'дней')}</span></div>
+        <div className="storagePeriod">Срок хранения файлов: <span className="days bold">{albumDetails.getStorageDaysWithNoun()}</span></div>
         <div className="password mt-05">
           <span className="mr-1">Пароль:</span>
           <span className="bold" onClick={() => {
             setShowPassword(!showPassword)
-          }}>{showPassword ? albumDetails?.album?.password : '************'}
+          }}>{showPassword ? albumDetails?.password : '************'}
               </span>
 
-          <Clipboard className="link bold ml-1" component='a' data-clipboard-text={albumDetails?.album?.password} onSuccess={() => {
+          <Clipboard className="link bold ml-1" component='a' data-clipboard-text={albumDetails?.password} onSuccess={() => {
             toast.success('Скопировано', {
               position: toast.POSITION.TOP_RIGHT,
               autoClose: 2000
@@ -117,31 +112,29 @@ function AlbumPublic() {
 
         <div className="row mt-05">
           <span className="mr-1">Ссылка на альбом:</span>
-          <Clipboard className="link bold ml-1" component='a' data-clipboard-text={`${baseUrl()}/album/${url}/${albumDetails?.album?.password}`} onSuccess={() => {
+          <Clipboard className="link bold ml-1" component='a' data-clipboard-text={albumDetails.getAlbumFullUrlWithPassword()} onSuccess={() => {
             toast.success('Скопировано', {
               position: toast.POSITION.TOP_RIGHT,
               autoClose: 2000
             })
           }}>
-            <div id="shareLink" className="bold text-overflow">{`${baseUrl()}/album/${url}`} <i className="fa-solid fa-clone"></i></div>
+            <div id="shareLink" className="bold text-overflow">{albumDetails.getAlbumFullUrl()} <i className="fa-solid fa-clone"></i></div>
           </Clipboard>
         </div>
 
         <div className="description mt-1">
           <span className="bold">Описание</span>
-          <p>{albumDetails?.description}</p>
+          <p>{description}</p>
         </div>
 
         <div className="cards flex row-1-2@xs row-1-4@s row-1-6@m mt-2 pdd-sm-wrapper">
-
-          {albumDetails?.images.map((image, index) => {
+          {images && images.map((image, index) => {
             return <ImageCard key={index} index={index} image={image.data}/>
           })}
-
         </div>
 
         <div className="row row_start mt-2">
-          <a href={`//${API_URL}/api/album/anon/download/${url}`} className="btn active">Скачать альбом архивом</a>
+          <a href={albumDetails.getFileDownloadUrl()} className="btn active">Скачать альбом архивом</a>
         </div>
 
         {modalContent && <Modal closeEvent={() => setModalContent(false)}>{modalContent}</Modal>}

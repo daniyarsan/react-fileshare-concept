@@ -11,8 +11,7 @@ import {AuthContext} from "../../../contexts/AuthProvider.jsx"
 import store from "../../../store/store.js"
 import {RequestContext} from "../../../contexts/RequestProvider.jsx"
 
-function AlbumSuccessPublic({albumUploadResult, setAlbumUploadResult}) {
-  const {name, password, create_date, shelf_time, url, view_count} = albumUploadResult
+function AlbumSuccessPublic({createdAlbum, setCreatedAlbum}) {
 
   const navigate = useNavigate()
   const {currentUser} = useContext(AuthContext)
@@ -42,26 +41,23 @@ function AlbumSuccessPublic({albumUploadResult, setAlbumUploadResult}) {
             <h1 className="bolder mt-6">Успешно</h1>
             <p className="small bold text-grey">Зарегистрирутесь, чтобы иметь доступ ко всем созданным альбомам</p>
 
-            <Clipboard className="row row_center mt-1" component='a' data-clipboard-text={`${baseUrl()}/album/${url}/${password}`} onSuccess={() => {
+            <Clipboard className="row row_center mt-1" component='a' data-clipboard-text={createdAlbum.getAlbumFullUrl()} onSuccess={() => {
               toast.success('Скопировано', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000
               })
             }}>
-              <div id="shareLink" className="bold text-overflow">{`${baseUrl()}/album/${url}/${password}`}</div>
+              <div id="shareLink" className="bold text-overflow">{createdAlbum.getAlbumFullUrl()}</div>
               <div className="link bold ml-1 text-orange">
                 <i className="fa-solid fa-clone"></i>
               </div>
             </Clipboard>
 
-            <div className="storagePeriod mt-1">Срок хранения файлов <span
-                className="days bold">{shelf_time / 24} {getNoun(Math.floor((shelf_time / 24)), 'день', 'дня', 'дней')}</span></div>
+            <div className="storagePeriod mt-1">Срок хранения файлов <span className="days bold">{createdAlbum.getStorageDaysWithNoun()}</span></div>
 
             <div className="mt-2 row row_center row_sb">
-              {currentUser.isAuthorized ? <Link to='/albums' className="col-1-2@xs btn mr-2 active">Мои альбомы</Link> :
-                  <Link to='/registration' className="col-1-2@xs btn mr-2 active">Регистрация</Link>}
-
-              <Clipboard className="col-1-2@xs btn active" component='div' data-clipboard-text={`${baseUrl()}/album/${url}/${password}`} onSuccess={() => {
+              {currentUser.isAuthorized ? <Link to='/albums' className="col-1-2@xs btn mr-2 active">Мои альбомы</Link> : <Link to='/registration' className="col-1-2@xs btn mr-2 active">Регистрация</Link>}
+              <Clipboard className="col-1-2@xs btn active" component='div' data-clipboard-text={createdAlbum.getAlbumFullUrl()} onSuccess={() => {
                 toast.success('Скопировано', {
                   position: toast.POSITION.TOP_RIGHT,
                   autoClose: 2000
@@ -72,9 +68,7 @@ function AlbumSuccessPublic({albumUploadResult, setAlbumUploadResult}) {
             </div>
 
             <div className="mt-2 row row_center row_col">
-              <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {
-                handleRemoveAlbum(url)
-              }}>
+              <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {handleRemoveAlbum(createdAlbum.url)}}>
                 <span className="link text-grey line">Уничтожить альбом</span>
               </DeleteDialog>
 

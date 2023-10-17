@@ -1,6 +1,6 @@
 import moment from "moment/moment.js";
 
-export const formatTime = (timestamp, format = "MM/DD/YYYY HH:SS") => {
+export const formatTime = (timestamp, format = "MM/DD/YYYY") => {
   return moment.unix(timestamp / 1000).format(format);
 }
 
@@ -9,9 +9,8 @@ export const hoursToDays = (hours) => {
     return 'Без срока'
 
   } else if (hours >= 8760) {
-    return Math.floor((hours / 24) / 365) + ' ' + getNoun(Math.floor((hours / 24) / 365), 'года', 'года', 'лет')
+    return Math.floor((hours / 24) / 365) + ' ' + getNoun(Math.floor((hours / 24) / 365), 'год', 'года', 'лет')
   }
-
   return Math.floor(hours / 24) + ' ' + getNoun(Math.floor(hours / 24), 'день', 'дня', 'дней')
 }
 

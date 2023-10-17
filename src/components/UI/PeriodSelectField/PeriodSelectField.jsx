@@ -4,13 +4,21 @@ import {hoursToDays} from "../../../service/TimeConverter.js";
 
 function PeriodSelectField({limitDays, ...props}) {
 
-  const optionValues = [1, 3, 7, 14, 30, 90]
+  let optionValues = [1, 3, 7, 14, 30, 90, 180, 270, 365]
 
-  const options = optionValues.filter(item => item <= limitDays).map(item => {
+  if (limitDays > -1) {
+    optionValues = optionValues.filter(item => item <= limitDays)
+  }
+
+  optionValues = optionValues.map(item => {
     return {value: item * 24, label: hoursToDays(item * 24)}
   })
 
-  return <SelectField {...props} options={options}/>
+  if (limitDays == -1) {
+    optionValues.push({value: -1, label: 'Без срока'})
+  }
+
+  return <SelectField {...props} options={optionValues}/>
 }
 
 export default PeriodSelectField;

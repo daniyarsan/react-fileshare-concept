@@ -8,13 +8,13 @@ import PeriodSelectField from "../../UI/PeriodSelectField/PeriodSelectField.jsx"
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import {ALBUM_CREATE, ALBUM_CREATE_ANON} from "../../../api/const.js";
-import store from "../../../store/store.js";
 import AlbumSuccessPublic from "./AlbumSuccessPublic.jsx";
+import {Album} from "../../../models/Album.js";
 
 function AlbumCreate() {
   const {requester} = useContext(RequestContext);
   const { currentUser } = useContext(AuthContext);
-  const [albumUploadResult, setAlbumUploadResult] = useState()
+  const [createdAlbum, setCreatedAlbum] = useState()
   const { setLoader } = useContext(AuthContext);
 
   useEffect(() => {
@@ -47,20 +47,21 @@ function AlbumCreate() {
     })
 
     requester.postMultipart(`${currentUser.isAuthorized ? ALBUM_CREATE : ALBUM_CREATE_ANON}`, formData).then(({data}) => {
-      setAlbumUploadResult(data)
+      setCreatedAlbum(new Album(data))
       
       toast.success('Альбом успешно создан', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
       })
-    }).finally(() => {
       setLoader(false)
     })
   }
 
-  if (albumUploadResult) {
-    return currentUser.isAuthorized ? <AlbumSuccess albumUploadResult={albumUploadResult} setAlbumUploadResult={setAlbumUploadResult} /> : <AlbumSuccessPublic albumUploadResult={albumUploadResult} setAlbumUploadResult={setAlbumUploadResult} />
+  if (createdAlbum) {
+    return currentUser.isAuthorized ? <AlbumSuccess createdAlbum={createdAlbum} setCreatedAlbum={setCreatedAlbum} /> : <AlbumSuccessPublic createdAlbum={createdAlbum} setCreatedAlbum={setCreatedAlbum} />
   }
+
+  console.log(currentUser)
 
   return  (
       <div className="create-albom">

@@ -10,7 +10,8 @@ import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import store from "../../../store/store.js";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 
-const AlbumListItem = ({name, url, create_date, shelf_time, password, view_count, ...rest}) => {
+const AlbumListItem = ({album}) => {
+
   const {requester} = useContext(RequestContext);
   const { setLoader } = useContext(AuthContext);
 
@@ -33,12 +34,12 @@ const AlbumListItem = ({name, url, create_date, shelf_time, password, view_count
       <div className="card-wrapper pdd-sm">
         <div className="card card-body">
           <div className="row row_sb">
-            <h5 className="text-overflow">{name}</h5>
+            <h5 className="text-overflow">{album.name}</h5>
             <div className="row row_center">
-              <Link to={`/album/edit/${url}`} className="ml-1">
+              <Link to={`/album/edit/${album.url}`} className="ml-1">
                 <i className='fa-solid fa-pencil'></i>
               </Link>
-              <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {handleRemoveAlbum(url)}}>
+              <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {handleRemoveAlbum(album.url)}}>
                 <div className="remove link">
                   <i className="fa-solid fa-trash-xmark"></i>
                 </div>
@@ -46,12 +47,12 @@ const AlbumListItem = ({name, url, create_date, shelf_time, password, view_count
 
             </div>
           </div>
-          <div className="date sm mt-05">{formatTime(Date.parse(create_date))}</div>
-          <div className="storagePeriod sm">Просмотров: <span className="days bold">{view_count}</span></div>
+          <div className="date sm mt-05">{album.getCreatedDate()}</div>
+          <div className="storagePeriod sm">Просмотров: <span className="days bold">{album.view_count}</span></div>
 
-          <div className="storagePeriod sm">Срок хранения: <span className="days bold">{shelf_time} дней</span></div>
+          <div className="storagePeriod sm">Срок хранения: <span className="days bold">{album.getStorageDaysWithNoun()}</span></div>
 
-          <Clipboard className="share row row_center row_sb mt-05 sm" component='a' data-clipboard-text={`${baseUrl()}/album/${url}`}
+          <Clipboard className="share row row_center row_sb mt-05 sm" component='a' data-clipboard-text={album.getAlbumFullUrl()}
                      onSuccess={() => {
                        toast.success('Скопировано', {
                          position: toast.POSITION.TOP_RIGHT,
@@ -60,14 +61,14 @@ const AlbumListItem = ({name, url, create_date, shelf_time, password, view_count
                      }}>
 
             <div className="bold text-overflow">
-              {`${baseUrl()}/album/${url}`}
+              {album.getAlbumFullUrl()}
             </div>
             <div className="link bold ml-1"><i className="fa-solid fa-clone"></i></div>
           </Clipboard>
 
           {/*<AlbumImages/>*/}
 
-          <Link to={`/album/${url}`} className="btn btn-default col-1@xs mt-1">Открыть</Link>
+          <Link to={`/album/${album.url}`} className="btn btn-default col-1@xs mt-1">Открыть</Link>
         </div>
       </div>
   )

@@ -6,7 +6,6 @@ import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {ALBUM_DETAILS, ALBUM_UPDATE_BY_ID} from "../../../api/const.js";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
-import store from "../../../store/store.js";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 
 function AlbumEdit({url}) {
@@ -43,7 +42,9 @@ function AlbumEdit({url}) {
 
     const formData = new FormData();
     formData.append('name', data.name);
-    formData.append('description', data.description);
+    formData.append('description', data.description)
+    formData.append('period', data.period)
+
     data.files.forEach(item => {
       formData.append('files', item.image)
     })
@@ -109,7 +110,9 @@ function AlbumEdit({url}) {
             const {oldFiles} = values
 
             useEffect(() => {
+
               album?.album && setFieldValue('name', album?.album.name)
+              album?.album && setFieldValue('period', album?.album.shelf_time)
               album?.album && setFieldValue('description', album?.description)
               album?.album && setFieldValue('oldFiles', album?.images.map(item => ({image: item})))
             }, [album])

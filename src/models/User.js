@@ -13,11 +13,11 @@ export class User {
   }
 
   getTariffShelfDays() {
-    if (this.tariff || this?.tariff?.shelf_time != -1) {
+    if (!this.tariff) {
       return this.DEFAULT_SHELF_DAYS
     }
 
-    return this?.tariff.shelf_time / 24
+    return Math.floor(this?.tariff?.shelf_time / 24)
   }
 
   getFilesize() {
