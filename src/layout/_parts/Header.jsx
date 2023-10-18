@@ -40,20 +40,26 @@ function Header() {
               </Link>
 
               {!currentUser.isAuthorized && (
-                  <Link to='/login' className="hide-sm ml-2">Войти</Link>
+                  <Link  to='/login'>
+                    <span className="hide-m"><i className="fa-solid fa-person"></i></span>
+                  </Link>
               )}
 
               {currentUser.isAuthorized && (
-                  <>
-                    <Link  to='/profile'>
-                      <span className="hide-sm ml-2"><i className="fa-solid fa-user"></i> {currentUser?.username}</span>
-                      <span className="hide-m"><i className="fa-solid fa-person"></i></span>
-                    </Link>
-                    <a className="ml-1 grey hide-sm" onClick={() => {
-                      logoutAction()
-                      // navigate('/')
-                    }}>(выход)</a>
-                  </>
+                  <Link  to='/profile'>
+                    <span className="hide-sm ml-2"><i className="fa-solid fa-user"></i> {currentUser?.username}</span>
+                    <span className="hide-m"><i className="fa-solid fa-person"></i></span>
+                  </Link>
+              )}
+
+              {!currentUser.isAuthorized && (
+                  <Link to='/login' className="hide-sm ml-2">Войти</Link>
+              )}
+              {currentUser.isAuthorized && (
+                  <a className="ml-1 grey hide-sm" onClick={() => {
+                    logoutAction()
+                    // navigate('/')
+                  }}>(выход)</a>
               )}
             </div>
           </div>
