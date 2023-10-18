@@ -51,13 +51,16 @@ const AlbumList = () => {
         </div>
         <h1 className="bolder">Мои альбомы</h1>
 
-        <div className="mt-3 flex row-1@xs row-1-3@m">
-          <div></div>
-          <div className="pdd-md">
-            <p>Нет созданных альбомов...</p>
-          </div>
-          <div></div>
-        </div>
+        {!albumsList || albumsList.length == 0 && (
+            <div className="mt-3 flex row-1@xs row-1-3@m">
+              <div></div>
+              <div className="pdd-md">
+                <p>Нет созданных альбомов...</p>
+              </div>
+              <div></div>
+            </div>
+
+        )}
 
         <div className="cards flex row-1@xs row-1-2@s row-1-4@m pdd-sm-wrapper">
 
