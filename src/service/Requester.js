@@ -56,13 +56,8 @@ export class Requester {
         (response) => {return response},
         
         async (error) => {
-
-          console.log(error)
-
           if (error.response.status == 401) {
-            console.log(error.response)
-
-            // this._renewToken()
+            this._renewToken()
             return
           }
 
@@ -86,11 +81,10 @@ export class Requester {
       baseURL: BASE_API_URL,
       headers: {Authorization: `Bearer ${this.refreshToken}`}
     })
-
     axiosInstance.post(REFRESH, {}).then(({data}) => {
       const user = JSON.parse(localStorage.getItem('user'))
       localStorage.setItem("user", JSON.stringify({...user, accessToken: data.token}))
+      location.reload()
     })
   }
-
 }
