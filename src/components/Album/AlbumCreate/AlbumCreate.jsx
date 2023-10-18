@@ -3,18 +3,15 @@ import {ErrorMessage, Field, FieldArray, Form, Formik} from "formik";
 import {array, object, string} from "yup";
 import {_ImageRow} from "../_ImageRow.jsx";
 import {toast} from "react-toastify";
-import AlbumSuccess from "./AlbumSuccess.jsx";
 import PeriodSelectField from "../../UI/PeriodSelectField/PeriodSelectField.jsx";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import {ALBUM_CREATE, ALBUM_CREATE_ANON} from "../../../api/const.js";
-import AlbumSuccessPublic from "./AlbumSuccessPublic.jsx";
 import {Album} from "../../../models/Album.js";
 
-function AlbumCreate() {
+function AlbumCreate({setCreatedAlbum}) {
   const {requester} = useContext(RequestContext);
   const { currentUser } = useContext(AuthContext);
-  const [createdAlbum, setCreatedAlbum] = useState()
   const { setLoader } = useContext(AuthContext);
 
   useEffect(() => {
@@ -57,11 +54,6 @@ function AlbumCreate() {
     })
   }
 
-  if (createdAlbum) {
-    return currentUser.isAuthorized ? <AlbumSuccess createdAlbum={createdAlbum} setCreatedAlbum={setCreatedAlbum} /> : <AlbumSuccessPublic createdAlbum={createdAlbum} setCreatedAlbum={setCreatedAlbum} />
-  }
-
-  console.log(currentUser)
 
   return  (
       <div className="create-albom">

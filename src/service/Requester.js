@@ -60,7 +60,9 @@ export class Requester {
           console.log(error)
 
           if (error.response.status == 401) {
-            this._renewToken()
+            console.log(error.response)
+
+            // this._renewToken()
             return
           }
 

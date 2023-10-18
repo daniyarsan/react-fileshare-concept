@@ -42,13 +42,13 @@ function AlbumSuccess({createdAlbum, setCreatedAlbum}) {
             <h1 className="bolder mt-6">Успешно</h1>
             <p className="small bold text-grey">Зарегистрирутесь, чтобы иметь доступ ко всем созданным альбомам</p>
 
-            <Clipboard className="row row_center mt-1" component='a' data-clipboard-text={createdAlbum.getAlbumFullUrl()} onSuccess={() => {
+            <Clipboard className="row row_center mt-1" component='a' data-clipboard-text={createdAlbum.getAlbumPublicUrl()} onSuccess={() => {
               toast.success('Скопировано', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000
               })
             }}>
-              <div id="shareLink" className="bold text-overflow">{createdAlbum.getAlbumFullUrl()}</div>
+              <div id="shareLink" className="bold text-overflow">{createdAlbum.getAlbumPublicUrl()}</div>
               <div className="link bold ml-1 text-orange">
                 <i className="fa-solid fa-clone"></i>
               </div>
@@ -58,7 +58,7 @@ function AlbumSuccess({createdAlbum, setCreatedAlbum}) {
 
             <div className="mt-2 row row_center row_sb">
               {currentUser.isAuthorized ? <Link to='/albums' className="col-1-2@xs btn mr-2 active">Мои альбомы</Link> : <Link to='/registration' className="col-1-2@xs btn mr-2 active">Регистрация</Link>}
-              <Clipboard className="col-1-2@xs btn active" component='div' data-clipboard-text={createdAlbum.getAlbumFullUrl()} onSuccess={() => {
+              <Clipboard className="col-1-2@xs btn active" component='div' data-clipboard-text={createdAlbum.getAlbumPublicUrl()} onSuccess={() => {
                 toast.success('Скопировано', {
                   position: toast.POSITION.TOP_RIGHT,
                   autoClose: 2000

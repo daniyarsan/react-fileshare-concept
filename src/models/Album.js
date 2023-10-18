@@ -1,4 +1,4 @@
-import {formatTime, getNoun} from "../service/TimeConverter.js";
+import {convertSecondsToDaysHours, formatTime, getNoun} from "../service/TimeConverter.js";
 import {baseUrl} from "../service/utility.js";
 import {API_URL} from "../api/const.js";
 
@@ -32,11 +32,11 @@ export class Album {
     return formatTime(Date.parse(this.create_date))
   }
 
-  getAlbumFullUrl() {
+  getAlbumUrl() {
     return `${baseUrl()}/album/${this.url}`
   }
 
-  getAlbumFullUrlWithPassword() {
+  getAlbumPublicUrl() {
     return `${baseUrl()}/album/${this.url}/${this.password}`
   }
 
@@ -46,5 +46,9 @@ export class Album {
 
   getFileDownloadUrl() {
     return `//${API_URL}/api/album/anon/download/${this.url}`
+  }
+
+  getTimeToDeleteInHours() {
+    return convertSecondsToDaysHours(this.time_to_delete)
   }
 }

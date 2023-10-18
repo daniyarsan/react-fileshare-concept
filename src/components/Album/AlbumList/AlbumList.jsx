@@ -1,17 +1,21 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
-import {ALBUMS_LIST} from "../../../api/const.js";
+import {ALBUM_DELETE, ALBUMS_LIST} from "../../../api/const.js";
 import AlbumListItem from "./AlbumListItem.jsx";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import {Album} from "../../../models/Album.js";
+import {toast} from "react-toastify";
+import {useLocation, useNavigate} from "react-router-dom";
 
 
 const AlbumList = () => {
   const {requester} = useContext(RequestContext);
-  const { setLoader } = useContext(AuthContext);
+  const {state} = useLocation();
+  const navigate = useNavigate();
+  const {setLoader} = useContext(AuthContext);
   const [albumsList, setAlbumsList] = useState()
 
-  useEffect(() => {
+  const fetchAlbumList = () => {
     setLoader(true)
     requester.post(`${ALBUMS_LIST}`).then(({data}) => {
       const albumsList = data?.albums.map(item => {
@@ -21,7 +25,23 @@ const AlbumList = () => {
       setAlbumsList(albumsList)
       setLoader(false)
     })
+  }
+
+  useEffect(() => {
+    fetchAlbumList()
   }, [])
+
+
+  const handleRemoveAlbum = (url) => {
+    setLoader(true)
+    requester.post(`${ALBUM_DELETE}`, {url}).then((resp) => {
+      toast.success('Альбом удален', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000
+      })
+      fetchAlbumList()
+    })
+  }
 
 
   return (
@@ -31,13 +51,23 @@ const AlbumList = () => {
         </div>
         <h1 className="bolder">Мои альбомы</h1>
 
+        <div className="mt-3 flex row-1@xs row-1-3@m">
+          <div></div>
+          <div className="pdd-md">
+            <p>Нет созданных альбомов...</p>
+          </div>
+          <div></div>
+        </div>
+
         <div className="cards flex row-1@xs row-1-2@s row-1-4@m pdd-sm-wrapper">
+
+
           {albumsList && albumsList.map(album => {
-            return <AlbumListItem key={album.url} album={album} />
+            return <AlbumListItem key={album.url} album={album} handleRemoveAlbum={handleRemoveAlbum}/>
           })}
         </div>
       </div>
-  );
+);
 };
 
 export default AlbumList;

@@ -25,7 +25,6 @@ function AlbumDetails({url}) {
 
   useEffect(() => {
     setLoader(true)
-
     requester.post(`${ALBUM_DETAILS}`, {url}).then(({data}) => {
       setImages(data.images)
       setAlbumDetails(new Album(data?.album))
@@ -134,13 +133,13 @@ function AlbumDetails({url}) {
 
         <div className="row mt-05">
           <span className="mr-1">Ссылка на альбом:</span>
-          <Clipboard className="link bold ml-1" component='a' data-clipboard-text={albumDetails.getAlbumFullUrlWithPassword()} onSuccess={() => {
+          <Clipboard className="link bold ml-1" component='a' data-clipboard-text={albumDetails.getAlbumPublicUrl()} onSuccess={() => {
             toast.success('Скопировано', {
               position: toast.POSITION.TOP_RIGHT,
               autoClose: 2000
             })}}>
 
-            <div id="shareLink" className="bold text-overflow">{albumDetails.getAlbumFullUrl()} <i className="fa-solid fa-clone"></i></div>
+            <div id="shareLink" className="bold text-overflow">{albumDetails.getAlbumPublicUrl()} <i className="fa-solid fa-clone"></i></div>
           </Clipboard>
         </div>
 

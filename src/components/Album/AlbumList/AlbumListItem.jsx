@@ -1,34 +1,13 @@
 import React, {useContext, useState} from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import DeleteDialog from "../../UI/DeleteDialog.jsx";
-import {formatTime} from "../../../service/TimeConverter.js";
 import Clipboard from "react-clipboard.js";
-import {baseUrl} from "../../../service/utility.js";
 import {toast} from "react-toastify";
-import {ALBUM_DELETE} from "../../../api/const.js";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
-import store from "../../../store/store.js";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 
-const AlbumListItem = ({album}) => {
+const AlbumListItem = ({album, handleRemoveAlbum}) => {
 
-  const {requester} = useContext(RequestContext);
-  const { setLoader } = useContext(AuthContext);
-
-  const handleRemoveAlbum = (url) => {
-    setLoader(true)
-
-    requester.post(`${ALBUM_DELETE}`, {url}).then((resp) => {
-      toast.success('Альбом удален', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000
-      })
-
-      window.location.reload('/albums')
-    }).finally(() => {
-      setLoader(false)
-    })
-  }
 
   return (
       <div className="card-wrapper pdd-sm">
@@ -51,8 +30,9 @@ const AlbumListItem = ({album}) => {
           <div className="storagePeriod sm">Просмотров: <span className="days bold">{album.view_count}</span></div>
 
           <div className="storagePeriod sm">Срок хранения: <span className="days bold">{album.getStorageDaysWithNoun()}</span></div>
+          <div className="storagePeriod sm">Осталось: <span className="days bold">{album.getTimeToDeleteInHours()}</span></div>
 
-          <Clipboard className="share row row_center row_sb mt-05 sm" component='a' data-clipboard-text={album.getAlbumFullUrl()}
+          <Clipboard className="share row row_center row_sb mt-05 sm" component='a' data-clipboard-text={album.getAlbumPublicUrl()}
                      onSuccess={() => {
                        toast.success('Скопировано', {
                          position: toast.POSITION.TOP_RIGHT,
@@ -61,7 +41,7 @@ const AlbumListItem = ({album}) => {
                      }}>
 
             <div className="bold text-overflow">
-              {album.getAlbumFullUrl()}
+              {album.getAlbumPublicUrl()}
             </div>
             <div className="link bold ml-1"><i className="fa-solid fa-clone"></i></div>
           </Clipboard>

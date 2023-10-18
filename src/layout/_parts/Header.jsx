@@ -11,15 +11,15 @@ function Header() {
         <div className="container">
           <div className="row row_center row_sb h100">
             <div className="logo upp hide-sm">
-              <a href='/'>
+              <Link to='/'>
                 <span className="bolder">Soft</span><span className="light">Dropbox</span>
-              </a>
+              </Link>
             </div>
             <div className="menu row row_center">
-              <a href='/'>
+              <Link to='/' state={{ fresh: true }}>
                 <span className="hide-sm ml-2">Главная</span>
                 <span className="hide-m"><i className="fa-solid fa-house"></i></span>
-              </a>
+              </Link>
 
               <Link to='/plans'>
                 <span className="hide-sm ml-2">Тарифы</span>
