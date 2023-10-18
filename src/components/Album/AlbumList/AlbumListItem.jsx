@@ -40,10 +40,7 @@ const AlbumListItem = ({album, handleRemoveAlbum}) => {
                        })
                      }}>
 
-            <div className="bold text-overflow">
-              {album.getAlbumPublicUrl()}
-            </div>
-            <div className="link bold ml-1"><i className="fa-solid fa-clone"></i></div>
+            <button className="btn btn-default col-1@xs mt-1">Поделиться <i className="fa fa-solid fa-link"></i></button>
           </Clipboard>
 
           {/*<AlbumImages/>*/}

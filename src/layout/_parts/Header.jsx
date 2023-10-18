@@ -11,7 +11,7 @@ function Header() {
         <div className="container">
           <div className="row row_center row_sb h100">
             <div className="logo upp hide-sm">
-              <Link to='/'>
+              <Link to='/' state={{ fresh: true }}>
                 <span className="bolder">Soft</span><span className="light">Dropbox</span>
               </Link>
             </div>
@@ -27,7 +27,7 @@ function Header() {
               </Link>
 
               <div className="addFile">
-                <Link to='/album/create'>
+                <Link to='/' state={{ fresh: true }}>
                   <div className="button">
                     <i className="fa-solid fa-plus faa-xl"></i>
                   </div>
