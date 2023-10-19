@@ -50,6 +50,7 @@ function AlbumCreate({setCreatedAlbum}) {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
       })
+    }).finally(() => {
       setLoader(false)
     })
   }
