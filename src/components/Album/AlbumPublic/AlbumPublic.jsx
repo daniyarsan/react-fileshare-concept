@@ -1,21 +1,19 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {baseUrl} from "../../../service/utility.js";
-import {formatTime, getNoun, secondsToDays} from "../../../service/TimeConverter.js";
 import {toast} from "react-toastify";
 import Modal from "../../UI/Modal/Modal.jsx";
 import Clipboard from 'react-clipboard.js';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import {ALBUM_DETAILS_PUBLIC, ALBUM_FULL_IMAGE_PUBLIC, API_URL} from "../../../api/const.js";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {ALBUM_DETAILS_PUBLIC, ALBUM_FULL_IMAGE_PUBLIC} from "../../../api/const.js";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import AlbumDetailsLoading from "../AlbumDetails/AlbumDetailsLoading.jsx";
 import {Album} from "../../../models/Album.js";
 
-function AlbumPublic() {
+function AlbumPublic({url, password}) {
+  console.log(url)
+  console.log(password)
+
   const { loader, setLoader } = useContext(AuthContext);
-  const {url} = useParams()
-  const {password} = useParams()
   const {requester} = useContext(RequestContext)
   const [modalContent, setModalContent] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -67,11 +65,6 @@ function AlbumPublic() {
             </div>
           </div>
           <div className="row row_end row_center mt-1">
-            <div className="ml-1">
-              <i className="fa-solid fa-eye"></i>
-              <span className="bold"> 0</span>
-            </div>
-
             <div className="ml-1" onClick={() => handleFullImageOpen(index)}>
               <i className="link icon-open fa-solid fa-arrows-maximize"></i>
             </div>

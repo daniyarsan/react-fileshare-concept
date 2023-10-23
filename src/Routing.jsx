@@ -50,6 +50,7 @@ function Routing() {
             <Route path="/album/edit/:url" element={<AlbumEditPage/>}></Route>
             <Route path="/album/:url" element={<AlbumDetailsPage/>}></Route>
             <Route path="/album/:url/:password" element={<AlbumDetailsPublicPage/>}></Route>
+            <Route path="/album" element={<AlbumDetailsPublicPage/>}></Route>
             <Route path="/reset" element={<ResetPage/>}></Route>
             <Route path="/generate" element={<GeneratePage/>}></Route>
             <Route path="*" element={<Navigate replace to="/" />} />

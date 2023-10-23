@@ -79,10 +79,6 @@ function AlbumDetails({url}) {
             </div>
           </div>
           <div className="row row_end row_center mt-1">
-            <div className="ml-1">
-              <i className="fa-solid fa-eye"></i>
-              <span className="bold"> 0</span>
-            </div>
 
             <div className="ml-1" onClick={() => handleFullImageOpen(index)}>
               <i className="link icon-open fa-solid fa-arrows-maximize"></i>
