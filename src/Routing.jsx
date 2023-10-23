@@ -28,6 +28,7 @@ function Routing() {
           <Route element={<Default className="row row_col row_sb" />}>
             <Route path="/" element={<AlbumCreatePage/>}></Route>
             <Route path="/album/:url/:password" element={<AlbumDetailsPublicPage/>}></Route>
+            <Route path="/album" element={<AlbumDetailsPublicPage/>}></Route>
             <Route path="/login" element={<LoginPage/>}></Route>
             <Route path="/registration" element={<RegistrationPage/>}></Route>
             <Route path="/forgot" element={<ForgotPage/>}></Route>
