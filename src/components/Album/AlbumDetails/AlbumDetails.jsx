@@ -30,6 +30,8 @@ function AlbumDetails({url}) {
       setAlbumDetails(new Album(data?.album))
       setDescription(data.description)
       setLoader(false)
+    }).catch((err) => {
+      navigate('/')
     })
 
   }, [])
@@ -69,8 +71,8 @@ function AlbumDetails({url}) {
 
   const ImageCard = ({index, image}) => {
     return (
-        <div className="card-wrapper pdd-sm galleryItem">
-          <div className="card square ">
+        <div className="card-wrapper pdd-lg galleryItem">
+          <div className="square">
             <div>
               <i className="icon-close text-white fa-solid fa-xmark fa-xl"></i>
             </div>
@@ -78,7 +80,7 @@ function AlbumDetails({url}) {
               <img className="galleryImg pointer" onClick={() => handleFullImageOpen(index)} src={`data:image/jpeg;base64,${image}`}/>
             </div>
           </div>
-          <div className="row row_end row_center mt-1">
+          <div className="row row_end row_center">
 
             <div className="ml-1" onClick={() => handleFullImageOpen(index)}>
               <i className="link icon-open fa-solid fa-arrows-maximize"></i>
@@ -100,7 +102,7 @@ function AlbumDetails({url}) {
         </div>
 
         <div className="row row_end row_sb mt-2">
-          <Link to={albumDetails.getEditAlbumUri()} className="bold sm"><i></i>Редактировать альбом</Link>
+          <Link to={albumDetails.getEditAlbumUri()} className="btn btn-default bold sm"><i className='fa fa-pencil'></i> Редактировать альбом</Link>
         </div>
 
 

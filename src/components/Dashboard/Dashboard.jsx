@@ -14,11 +14,9 @@ export const Dashboard = () => {
           <div></div>
           <div className="pdd-md">
             <div className="row row_sb row_center">
-              <h1 className="bolder center">Личные данные</h1>
+              <h1 className="bolder center">Логин: {currentUser.username}</h1>
             </div>
             <div className="mt-2">
-              <div className="bold small">Логин</div>
-              <div className="input">{currentUser.username}</div>
               <div className="row row_end">
                 <Link to='/reset' className="small text-dark link line">Сменить пароль</Link>
               </div>
@@ -44,7 +42,7 @@ export const Dashboard = () => {
           <div className="row row-1@xs row-1-3@m pdd-md-wrapper">
             <div></div>
             <div className="pdd-md">
-              <Link className="btn col-1@xs main" to='/album/create'>Создать альбом</Link>
+              <Link to='/' className="btn col-1@xs main">Создать альбом</Link>
             </div>
             <div></div>
           </div>

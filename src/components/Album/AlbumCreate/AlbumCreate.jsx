@@ -11,8 +11,8 @@ import {Album} from "../../../models/Album.js";
 
 function AlbumCreate({setCreatedAlbum}) {
   const {requester} = useContext(RequestContext);
-  const { currentUser } = useContext(AuthContext);
-  const { setLoader } = useContext(AuthContext);
+  const {currentUser} = useContext(AuthContext);
+  const {setLoader} = useContext(AuthContext);
 
   useEffect(() => {
     setLoader(false)
@@ -25,6 +25,7 @@ function AlbumCreate({setCreatedAlbum}) {
     files: [],
   }
 
+  const SUPPORTED_FORMATS = ['.png', '.jpg', '.jpeg'];
   const validation = object({
     period: string().required('Обязательное поле'),
     files: array().of(object().shape({
@@ -45,7 +46,7 @@ function AlbumCreate({setCreatedAlbum}) {
 
     requester.postMultipart(`${currentUser.isAuthorized ? ALBUM_CREATE : ALBUM_CREATE_ANON}`, formData).then(({data}) => {
       setCreatedAlbum(new Album(data))
-      
+
       toast.success('Альбом успешно создан', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
@@ -56,7 +57,7 @@ function AlbumCreate({setCreatedAlbum}) {
   }
 
 
-  return  (
+  return (
       <div className="create-albom">
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={submitHandler}>
           {({errors, isValid, setFieldValue, values, dirty}) => {
@@ -130,7 +131,7 @@ function AlbumCreate({setCreatedAlbum}) {
                                     Загрузить фото
                                   </button>
 
-                                  <input ref={fileRef} type="file" hidden multiple='multiple' onChange={(event) => {
+                                  <input ref={fileRef} accept={SUPPORTED_FORMATS.join(',')} type="file" hidden multiple='multiple' onChange={(event) => {
                                     const currentTargetFiles = event.currentTarget.files
                                     Object.values(currentTargetFiles).map(currentTargetFile => {
                                       push({image: currentTargetFile})
