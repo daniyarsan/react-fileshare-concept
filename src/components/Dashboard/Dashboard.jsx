@@ -39,20 +39,16 @@ export const Dashboard = () => {
             <PricingCard {...currentUser?.tariff} />
             <div></div>
           </div>
-          <div className="row row-1@xs row-1-3@m pdd-md-wrapper">
-            <div></div>
+          <div className="row row-1@xs">
             <div className="pdd-md">
-              <Link to='/' className="btn col-1@xs main">Создать альбом</Link>
+              <Link to='/' className="btn col-1@xs col-1-3@m m-auto@m main">Создать альбом</Link>
             </div>
-            <div></div>
           </div>
 
-          <div className="row row-1@xs row-1-3@m pdd-md-wrapper">
-            <div></div>
+          <div className="row row-1@xs">
             <div className="pdd-md">
-              <Link to='/plans' className="btn col-1@xs active">Купить больше места</Link>
+              <Link to='/plans' className="btn col-1@xs col-1-3@m m-auto active">Купить больше места</Link>
             </div>
-            <div></div>
           </div>
         </div>
       </>

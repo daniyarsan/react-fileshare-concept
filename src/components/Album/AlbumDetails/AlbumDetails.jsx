@@ -68,10 +68,9 @@ function AlbumDetails({url}) {
     })
   }
 
-
   const ImageCard = ({index, image}) => {
     return (
-        <div className="card-wrapper pdd-lg galleryItem">
+        <div className="card-wrapper galleryItem">
           <div className="square">
             <div>
               <i className="icon-close text-white fa-solid fa-xmark fa-xl"></i>
@@ -81,7 +80,6 @@ function AlbumDetails({url}) {
             </div>
           </div>
           <div className="row row_end row_center">
-
             <div className="ml-1" onClick={() => handleFullImageOpen(index)}>
               <i className="link icon-open fa-solid fa-arrows-maximize"></i>
             </div>
@@ -101,10 +99,9 @@ function AlbumDetails({url}) {
           <Link to='#'>{albumDetails.name}</Link>
         </div>
 
-        <div className="row row_end row_sb mt-2">
-          <Link to={albumDetails.getEditAlbumUri()} className="btn btn-default bold sm"><i className='fa fa-pencil'></i> Редактировать альбом</Link>
+        <div className="row row-1@xs row_end mt-2">
+          <Link to={albumDetails.getEditAlbumUri()} className="btn col-1@xs col-1-3@m"><i className='fa fa-pencil'></i> Редактировать альбом</Link>
         </div>
-
 
         <div className="row row_center row_sb mt-2">
           <h1 className="bolder">{albumDetails.name}</h1>
@@ -146,27 +143,29 @@ function AlbumDetails({url}) {
           <p>{description}</p>
         </div>
 
-        <div className="cards flex row-1-2@xs row-1-4@s row-1-6@m mt-2 pdd-sm-wrapper">
+        <hr/>
 
+        <div className="cards flex row-1-2@xs row-1-4@s row-1-6@m mt-2 pdd-sm-wrapper">
           {images && images.map((image, index) => {
             return <ImageCard key={index} index={index} image={image.data}/>
           })}
-
         </div>
 
-        <div className="row row_start mt-2">
-          <a href={albumDetails.getFileDownloadUrl()} className="btn active">Скачать альбом архивом</a>
+        <hr/>
+
+        <div className="row row-1@xs mt-2">
+          <a href={albumDetails.getFileDownloadUrl()} className="btn active col-1@xs col-1-3@m"><i className='fa fa-download'></i> Скачать альбом архивом</a>
         </div>
 
-        {modalContent && <Modal closeEvent={() => setModalContent(false)}>{modalContent}</Modal>}
-
-        <div className="row row_start mt-2">
+        <div className="row row-1@xs mt-2">
           <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {
             handleRemoveAlbum(url)
           }}>
-            <div className="btn danger">Удалить альбом</div>
+            <div className="btn danger col-1@xs col-1-3@m"><i className='fa fa-trash'></i> Удалить альбом</div>
           </DeleteDialog>
         </div>
+
+        {modalContent && <Modal closeEvent={() => setModalContent(false)}>{modalContent}</Modal>}
       </div>
   )
 }

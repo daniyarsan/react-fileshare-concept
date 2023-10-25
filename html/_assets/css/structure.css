@@ -485,7 +485,6 @@ a {
         padding: 10px 10px;
     }
 
-
 }
 
 @media screen and (min-width: 640px) {
@@ -997,6 +996,13 @@ a {
         padding: 15px 15px;
     }
 
+    .m-auto\@m {
+        margin: 0 auto;
+    }
+
+    .m-right\@m {
+        float: right;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -1347,6 +1353,7 @@ a {
 .mt-6 {
     margin-top: 60px;
 }
+
 
 h1, h2, h3, h4, h5 {
     color: #222;
