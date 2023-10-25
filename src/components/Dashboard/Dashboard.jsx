@@ -47,7 +47,7 @@ export const Dashboard = () => {
 
           <div className="row row-1@xs">
             <div className="pdd-md">
-              <Link to='/plans' className="btn col-1@xs col-1-3@m m-auto active">Купить больше места</Link>
+              <Link to='/plans' className="btn col-1@xs col-1-3@m m-auto@m active">Купить больше места</Link>
             </div>
           </div>
         </div>
