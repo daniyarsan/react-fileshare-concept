@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDropzone} from "react-dropzone";
 import './DropZone.css'
+
 const DropZone = ({onDrop}) => {
   const {getRootProps, getInputProps, isDragActive} = useDropzone({
     accept: {

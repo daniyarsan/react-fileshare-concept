@@ -9,7 +9,7 @@
   initial-value: 0;
 }
 
-[role="progressbar"] {
+.progress-bar[role="progressbar"] {
   --percentage: var(--value);
   --primary: #369;
   --secondary: #adf;
@@ -24,7 +24,7 @@
   place-items: center;
 }
 
-[role="progressbar"]::before {
+.progress-bar[role="progressbar"]::before {
   content: "";
   position: absolute;
   top: 0;
@@ -38,7 +38,7 @@
   -webkit-mask-mode: alpha;
 }
 
-[role="progressbar"]::after {
+.progress-bar[role="progressbar"]::after {
   counter-reset: percentage var(--value);
   content: counter(percentage) '%';
   font-family: Helvetica, Arial, sans-serif;
