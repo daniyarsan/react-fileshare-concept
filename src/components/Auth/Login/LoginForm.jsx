@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import React, {useContext, useState} from 'react'
 import {object, string} from "yup";
 import {VALIDATION_MIN_PASSWORD_LENGTH} from "../../../api/const.js";

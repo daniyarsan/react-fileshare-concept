@@ -19,6 +19,7 @@
     "react-clipboard.js": "^2.0.16",
     "react-confirm-alert": "^3.0.6",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-notifications": "^1.7.4",
     "react-router": "^6.15.0",
     "react-router-dom": "^6.10.0",

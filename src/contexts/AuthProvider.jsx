@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useEffect, useState} from "react";
+import React, {createContext, useContext, useState} from "react";
 import store from "../store/store.js";
 import {RequestContext} from "./RequestProvider.jsx";
 import {LOGIN, USER_STAT} from "../api/const.js";

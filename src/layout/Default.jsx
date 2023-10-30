@@ -1,10 +1,9 @@
 import {Outlet} from "react-router-dom";
-import React, {useContext, useEffect} from 'react'
+import React, {useContext} from 'react'
 import Header from "./_parts/Header.jsx";
 import Footer from "./_parts/Footer.jsx";
 import {ToastContainer} from "react-toastify";
 import {Preloader} from "../components/UI/Preloader/index.js";
-import store from "../store/store.js";
 import {AuthContext} from "../contexts/AuthProvider.jsx";
 
 function Default({className}) {

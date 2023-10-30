@@ -4,7 +4,6 @@ import {RegistrationForm} from "./RegistrationForm.jsx";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import {REGISTER} from "../../../api/const.js";
 import {toast} from "react-toastify";
-import store from "../../../store/store.js";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 
 const Registration = () => {

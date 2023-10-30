@@ -1,6 +1,6 @@
-import React, {useContext, useEffect, useRef, useState} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {ErrorMessage, Field, FieldArray, Form, Formik} from "formik";
-import {array, object, string} from "yup";
+import {object, string} from "yup";
 import {_ImageRow} from "../_ImageRow.jsx";
 import {toast} from "react-toastify";
 import PeriodSelectField from "../../UI/PeriodSelectField/PeriodSelectField.jsx";
@@ -8,6 +8,7 @@ import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import {ALBUM_CREATE, ALBUM_CREATE_ANON} from "../../../api/const.js";
 import {Album} from "../../../models/Album.js";
+import DropZone from "../../UI/DropZone/DropZone.jsx";
 
 function AlbumCreate({setCreatedAlbum}) {
   const {requester} = useContext(RequestContext);
@@ -25,14 +26,9 @@ function AlbumCreate({setCreatedAlbum}) {
     files: [],
   }
 
-  const SUPPORTED_FORMATS = ['.png', '.jpg', '.jpeg'];
   const validation = object({
     period: string().required('Обязательное поле'),
-    files: array().of(object().shape({
-      image: string().required('Images should be added'),
-    }))
   })
-
   const submitHandler = (data, formikHelpers) => {
     setLoader(true)
 
@@ -40,8 +36,8 @@ function AlbumCreate({setCreatedAlbum}) {
     formData.append('name', data.name);
     formData.append('period', data.period);
     formData.append('description', data.description);
-    data.files.forEach(item => {
-      formData.append('files', item.image)
+    data.files.forEach(file => {
+      formData.append('files', file)
     })
 
     requester.postMultipart(`${currentUser.isAuthorized ? ALBUM_CREATE : ALBUM_CREATE_ANON}`, formData).then(({data}) => {
@@ -61,7 +57,6 @@ function AlbumCreate({setCreatedAlbum}) {
       <div className="create-albom">
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={submitHandler}>
           {({errors, isValid, setFieldValue, values, dirty}) => {
-            const fileRef = useRef()
 
             return (
                 <Form>
@@ -111,41 +106,25 @@ function AlbumCreate({setCreatedAlbum}) {
 
                       <FieldArray name='files'>
                         {(fieldArrayProps) => {
-                          const {push, form} = fieldArrayProps;
-                          const {values} = form;
-                          const {files} = values;
+                          const {form} = fieldArrayProps;
+                          const {files} = form.values;
 
                           return (
                               <>
                                 <div className="cards mt-2">
-                                  {files.map((file, index) => (<_ImageRow key={index} index={index} {...fieldArrayProps} file={file}/>))}
+                                  {files.map((file, index) => {
+                                    return <_ImageRow key={index} index={index} {...fieldArrayProps} file={file}/>
+                                  })}
                                 </div>
-
-                                <div className="row row_end mt-2">
-                                  <button type='button'
-                                          className='col-1@xs btn outline'
-                                          onClick={() => {
-                                            fileRef.current.click()
-                                          }}>
-                                    <i className='fa fa-cloud-upload'></i>
-                                    Загрузить фото
-                                  </button>
-
-                                  <input ref={fileRef} accept={SUPPORTED_FORMATS.join(',')} type="file" hidden multiple='multiple' onChange={(event) => {
-                                    const currentTargetFiles = event.currentTarget.files
-                                    Object.values(currentTargetFiles).map(currentTargetFile => {
-                                      push({image: currentTargetFile})
-                                    })
-                                  }}/>
-
-                                </div>
+                                <DropZone onDrop={acceptedFiles => {
+                                  setFieldValue("files", [...files, ...acceptedFiles]);
+                                }}/>
                               </>
-                          )
-                        }}
+                          )}}
                       </FieldArray>
-
                     </div>
                   </div>
+
                   <div className="flex row row_sb">
                     <div className=""></div>
                     <div className="col-1@xs col-2-5@m">

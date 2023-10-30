@@ -7,13 +7,14 @@ import {useNavigate} from "react-router-dom";
 import {ALBUM_DETAILS, ALBUM_UPDATE_BY_ID} from "../../../api/const.js";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
+import DropZone from "../../UI/DropZone/DropZone.jsx";
 
 function AlbumEdit({url}) {
   const {requester} = useContext(RequestContext)
   const navigate = useNavigate()
   const [removedImages, setRemovedImages] = useState([])
   const [album, setAlbum] = useState()
-  const { setLoader } = useContext(AuthContext);
+  const {setLoader} = useContext(AuthContext);
 
   useEffect(() => {
     setLoader(true)
@@ -32,9 +33,7 @@ function AlbumEdit({url}) {
   }
 
   const validation = object({
-    files: array().of(object().shape({
-      image: string().required('Images should be added'),
-    }))
+    files: array()
   })
 
   const submitHandler = (data, formikHelpers) => {
@@ -46,7 +45,7 @@ function AlbumEdit({url}) {
     formData.append('period', data.period)
 
     data.files.forEach(item => {
-      formData.append('files', item.image)
+      formData.append('files', item)
     })
 
     formData.append('files_to_delete', removedImages);
@@ -164,34 +163,19 @@ function AlbumEdit({url}) {
 
                       <FieldArray name='files'>
                         {(fieldArrayProps) => {
-                          const {push, form} = fieldArrayProps;
-                          const {values} = form;
-                          const {files} = values;
+                          const {form} = fieldArrayProps;
+                          const {files} = form.values;
 
                           return (
                               <>
                                 <div className="cards mt-2">
-                                  {files.map((file, index) => (<_ImageRow key={index} index={index} {...fieldArrayProps} file={file}/>))}
+                                  {files.map((file, index) => {
+                                    return <_ImageRow key={index} index={index} {...fieldArrayProps} file={file}/>
+                                  })}
                                 </div>
-
-                                <div className="row row_end mt-2">
-                                  <button type='button'
-                                          className='col-1@xs btn outline'
-                                          onClick={() => {
-                                            fileRef.current.click()
-                                          }}>
-                                    <i className='fa fa-cloud-upload'></i>
-                                    Загрузить фото
-                                  </button>
-
-                                  <input ref={fileRef} type="file" hidden multiple='multiple' onChange={(event) => {
-                                    const currentTargetFiles = event.currentTarget.files
-                                    Object.values(currentTargetFiles).map(currentTargetFile => {
-                                      push({image: currentTargetFile})
-                                    })
-                                  }}/>
-
-                                </div>
+                                <DropZone onDrop={acceptedFiles => {
+                                  setFieldValue("files", [...files, ...acceptedFiles]);
+                                }}/>
                               </>
                           )
                         }}

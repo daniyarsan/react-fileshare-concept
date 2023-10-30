@@ -3,8 +3,6 @@ import {Link} from "react-router-dom";
 import DeleteDialog from "../../UI/DeleteDialog.jsx";
 import Clipboard from "react-clipboard.js";
 import {toast} from "react-toastify";
-import {RequestContext} from "../../../contexts/RequestProvider.jsx";
-import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 
 const AlbumListItem = ({album, handleRemoveAlbum}) => {
 

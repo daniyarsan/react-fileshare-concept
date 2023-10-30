@@ -5,7 +5,7 @@ export const _ImageRow = ({file, index, remove}) => {
   const [preview, setPreview] = useState()
 
   const render = new FileReader()
-  render.readAsDataURL(file.image)
+  render.readAsDataURL(file)
   render.onload = () => {
     setPreview(render.result)
   }
@@ -16,7 +16,7 @@ export const _ImageRow = ({file, index, remove}) => {
           <img className="" src={preview} alt="preview"/>
         </div>
         <div className="col-7-12@xs img-meta">
-          <p className="small">{file.image?.lastModified && formatTime(file.image?.lastModified)} | {file.image?.name} </p>
+          <p className="small">{file?.lastModified && formatTime(file?.lastModified)} | {file?.name} </p>
         </div>
         <div className="col-2-12@xs img-action text-danger link" onClick={() => remove(index)}>Удалить</div>
       </div>
