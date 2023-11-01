@@ -14,7 +14,7 @@ export const PricingCard = ({title, description, price, size, shelf_time}) => {
           <div className="list mt-1">
             <p>Время хранения файлов {hoursToDays(shelf_time)}</p>
             <p>Стоимость - {Math.floor(price)}$</p>
-            <p>Доступно {formatBytes(size * 1048576)} ГБ</p>
+            <p>Доступно {formatBytes(size * 1048576)}</p>
           </div>
           <hr/>
           <div className='description'>
