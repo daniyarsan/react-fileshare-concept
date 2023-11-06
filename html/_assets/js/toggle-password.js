@@ -6,7 +6,6 @@ function togglePassword(el, ev) {
     target = ev.target;
     input = el.querySelector('.input-password');
     eye = el.querySelector('.eye');
-    console.log(target);
 
     if (target.classList.contains('fa-eye-slash')) {
         eye.classList.remove('fa-eye-slash');

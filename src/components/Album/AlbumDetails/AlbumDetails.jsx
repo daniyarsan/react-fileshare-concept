@@ -14,7 +14,6 @@ import {Album} from "../../../models/Album.js";
 function AlbumDetails({url}) {
   const { loader, setLoader } = useContext(AuthContext)
   const {requester} = useContext(RequestContext)
-
   const navigate = useNavigate()
   const [modalContent, setModalContent] = useState(false)
   const [showPassword, setShowPassword] = useState(false)

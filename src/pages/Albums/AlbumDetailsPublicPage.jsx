@@ -23,11 +23,6 @@ function AlbumDetailsPublicPage() {
     }
   }, []);
 
-
-  console.log(urlParam)
-  console.log(passwordParam)
-
-
   return <AlbumPublic {...{url: urlParam, password: passwordParam}} />
 }
 

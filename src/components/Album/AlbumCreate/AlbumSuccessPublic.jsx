@@ -18,7 +18,7 @@ function AlbumSuccessPublic({createdAlbum, setCreatedAlbum}) {
   const {requester} = useContext(RequestContext);
   const { setLoader } = useContext(AuthContext);
 
-  const handleRemoveAlbum = (url) => {
+  const handleRemoveAlbum = (url, password) => {
     setLoader(true)
 
     requester.get(`${ALBUM_DELETE_PUBLIC}/${url}/${password}`).then((resp) => {
@@ -27,7 +27,7 @@ function AlbumSuccessPublic({createdAlbum, setCreatedAlbum}) {
         autoClose: 2000
       })
       setLoader(false)
-      setAlbumUploadResult(null)
+      setCreatedAlbum(null)
       navigate('/')
     })
   }
@@ -68,7 +68,7 @@ function AlbumSuccessPublic({createdAlbum, setCreatedAlbum}) {
             </div>
 
             <div className="mt-2 row row_center row_col">
-              <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {handleRemoveAlbum(createdAlbum.url)}}>
+              <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {handleRemoveAlbum(createdAlbum.url, createdAlbum.password)}}>
                 <span className="link text-grey line">Уничтожить альбом</span>
               </DeleteDialog>
 

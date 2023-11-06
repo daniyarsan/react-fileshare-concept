@@ -8,11 +8,9 @@ import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import AlbumDetailsLoading from "../AlbumDetails/AlbumDetailsLoading.jsx";
 import {Album} from "../../../models/Album.js";
+import {useNavigate} from "react-router-dom";
 
 function AlbumPublic({url, password}) {
-  console.log(url)
-  console.log(password)
-
   const { loader, setLoader } = useContext(AuthContext);
   const {requester} = useContext(RequestContext)
   const [modalContent, setModalContent] = useState(false)
@@ -20,6 +18,8 @@ function AlbumPublic({url, password}) {
   const [albumDetails, setAlbumDetails] = useState()
   const [images, setImages] = useState()
   const [description, setDescription] = useState()
+  const navigate = useNavigate()
+
 
   /* On Escape close modal */
   const escFunction = (ev) => {
@@ -39,6 +39,8 @@ function AlbumPublic({url, password}) {
       setAlbumDetails(new Album(data?.album))
       setDescription(data.description)
       setLoader(false)
+    }).catch(err => {
+      navigate('/')
     })
 
   }, [])

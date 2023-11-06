@@ -26,7 +26,6 @@ function AlbumSuccess({createdAlbum, setCreatedAlbum}) {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
       })
-
       setLoader(false)
       setCreatedAlbum(null)
       navigate('/')

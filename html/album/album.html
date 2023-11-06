@@ -235,7 +235,6 @@
 
     function galleryItem(el, event) {
         // this.targetItem = event;
-        console.log(event.target)
         if (event.target.classList.contains('galleryImg') || event.target.classList.contains('icon-open')) {
             el.classList.add('show');
         } else if (event.target.classList.contains('icon-close')) {
@@ -255,7 +254,6 @@
         storage.select();
         storage.setSelectionRange(0, 99999);
         if (document.execCommand('copy')) {
-            console.log("COPY")
             link.removeChild(storage);
             alert.classList.remove('hidden');
             setTimeout(() => {

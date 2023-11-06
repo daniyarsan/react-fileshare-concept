@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {ErrorMessage, Field, FieldArray, Form, Formik} from "formik";
 import {object, string} from "yup";
 import {_ImageRow} from "../_ImageRow.jsx";
@@ -9,11 +9,23 @@ import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import {ALBUM_CREATE, ALBUM_CREATE_ANON} from "../../../api/const.js";
 import {Album} from "../../../models/Album.js";
 import DropZone from "../../UI/DropZone/DropZone.jsx";
+import AlbumSuccess from "./AlbumSuccess.jsx";
+import {useLocation} from "react-router-dom";
+import AlbumSuccessPublic from "./AlbumSuccessPublic.jsx";
 
-function AlbumCreate({setCreatedAlbum}) {
+function AlbumCreate() {
+
+  const [createdAlbum, setCreatedAlbum] = useState()
+  const location = useLocation()
   const {requester} = useContext(RequestContext);
   const {currentUser} = useContext(AuthContext);
   const {setLoader} = useContext(AuthContext);
+
+  useEffect(() => {
+    if (location.state?.fresh == true) {
+      setCreatedAlbum(null)
+    }
+  }, [location.state])
 
   useEffect(() => {
     setLoader(false)
@@ -42,7 +54,6 @@ function AlbumCreate({setCreatedAlbum}) {
 
     requester.postMultipart(`${currentUser.isAuthorized ? ALBUM_CREATE : ALBUM_CREATE_ANON}`, formData).then(({data}) => {
       setCreatedAlbum(new Album(data))
-
       toast.success('Альбом успешно создан', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
@@ -52,6 +63,13 @@ function AlbumCreate({setCreatedAlbum}) {
     })
   }
 
+  if (createdAlbum) {
+    return  currentUser.isAuthorized
+        ?
+        <AlbumSuccess createdAlbum={createdAlbum} setCreatedAlbum={setCreatedAlbum} />
+        :
+        <AlbumSuccessPublic createdAlbum={createdAlbum} setCreatedAlbum={setCreatedAlbum} />
+  }
 
   return (
       <div className="create-albom">
