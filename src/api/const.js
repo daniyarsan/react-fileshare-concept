@@ -1,5 +1,5 @@
 export const BASE_URL = window.location.hostname === 'localhost' ? import.meta.env.VITE_API_URL : '/api'
-export const API_URL = 'api.megapics.pm'
+export const API_URL = 'megapics.pm'
 
 export const BASE_API_URL = BASE_URL + '/'
 

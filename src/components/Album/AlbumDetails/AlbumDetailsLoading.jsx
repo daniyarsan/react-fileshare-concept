@@ -17,20 +17,17 @@ function AlbumDetailsLoading() {
 
         <div className="date" style={{width: '200px', height: '20px', margin: '5px 0px 5px 0px', background: '#dcdcdc', borderRadius: '20px'}}></div>
         <div className="storagePeriod">
-          <span className="mr-1">Cрок хранения:</span>
           <span className="bold" style={{display: "inline-block", width: '250px', height: '20px', margin: '5px 0px 5px 0px', background: '#dcdcdc', borderRadius: '20px'}}></span>
         </div>
         <div className="password mt-05">
-          <span className="mr-1">Пароль:</span>
           <span className="bold" style={{display: "inline-block", width: '250px', height: '20px', margin: '5px 0px 5px 0px', background: '#dcdcdc', borderRadius: '20px'}}></span>
         </div>
 
         <div className="row mt-05">
-          <span className="mr-1">Ссылка на альбом:</span>
           <span className="mr-1" style={{display: "inline-block", width: '300px', height: '20px', margin: '5px 0px 5px 0px', background: '#dcdcdc', borderRadius: '20px'}}></span>
         </div>
         <div className="description mt-1">
-          <span className="bold">Описание</span>
+          <span className="bold"></span>
           <div style={{width: '550px', height: '120px', margin: '5px 0px 5px 0px', background: '#dcdcdc', borderRadius: '20px'}}></div>
         </div>
 

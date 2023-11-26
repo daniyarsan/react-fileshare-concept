@@ -10,7 +10,7 @@ import AlbumDetailsLoading from "../AlbumDetails/AlbumDetailsLoading.jsx";
 import {Album} from "../../../models/Album.js";
 import {useNavigate} from "react-router-dom";
 
-function AlbumPublic({url, password}) {
+function AlbumPresentation({url, password}) {
   const { loader, setLoader } = useContext(AuthContext);
   const {requester} = useContext(RequestContext)
   const [modalContent, setModalContent] = useState(false)
@@ -114,7 +114,7 @@ function AlbumPublic({url, password}) {
               autoClose: 2000
             })
           }}>
-            <div id="shareLink" className="bold text-overflow">{albumDetails.getAlbumShowUrl()} <i className="fa-solid fa-clone"></i></div>
+            <div id="shareLink" className="bold text-overflow">{albumDetails.getAlbumShowUrlWithAsterics()} <i className="fa-solid fa-clone"></i></div>
           </Clipboard>
         </div>
 
@@ -139,4 +139,4 @@ function AlbumPublic({url, password}) {
   )
 }
 
-export default AlbumPublic
+export default AlbumPresentation

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {useNavigate, useParams} from "react-router-dom";
-import AlbumPublic from "../../components/Album/AlbumPublic/AlbumPublic.jsx";
+import AlbumPresentation from "../../components/Album/AlbumPublic/AlbumPresentation.jsx";
 import store from "../../store/store.js";
 
 
@@ -21,7 +21,7 @@ function AlbumPresentationPage() {
 
   const key = keysChain.find((key) =>  key.url === url)
 
-  return key && (<AlbumPublic {...{url: url, password: key.password}} />)
+  return key && (<AlbumPresentation {...{url: url, password: key.password}} />)
 }
 
 export default AlbumPresentationPage
