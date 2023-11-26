@@ -69,7 +69,7 @@ function AlbumDetails({url}) {
 
   const ImageCard = ({index, image}) => {
     return (
-        <div className="card-wrapper galleryItem">
+        <div className="galleryItem">
           <div className="square">
             <div>
               <i className="icon-close text-white fa-solid fa-xmark fa-xl"></i>
@@ -99,7 +99,7 @@ function AlbumDetails({url}) {
         </div>
 
         <div className="row row-1@xs row_end mt-2">
-          <Link to={albumDetails.getEditAlbumUri()} className="btn col-1@xs col-1-3@m"><i className='fa fa-pencil'></i> Редактировать альбом</Link>
+          <Link to={albumDetails.getAlbumEditUri()} className="btn col-1@xs col-1-3@m"><i className='fa fa-pencil'></i> Редактировать альбом</Link>
         </div>
 
         <div className="row row_center row_sb mt-2">
@@ -127,13 +127,13 @@ function AlbumDetails({url}) {
 
         <div className="row mt-05">
           <span className="mr-1">Ссылка на альбом:</span>
-          <Clipboard className="link bold ml-1" component='a' data-clipboard-text={albumDetails.getAlbumPublicUrl()} onSuccess={() => {
+          <Clipboard className="link bold ml-1" component='a' data-clipboard-text={albumDetails.getAlbumShowUrl()} onSuccess={() => {
             toast.success('Скопировано', {
               position: toast.POSITION.TOP_RIGHT,
               autoClose: 2000
             })}}>
 
-            <div id="shareLink" className="bold text-overflow">{albumDetails.getAlbumPublicUrl()} <i className="fa-solid fa-clone"></i></div>
+            <div id="shareLink" className="bold text-overflow">{albumDetails.getAlbumShowUrlWithAsterics()} <i className="fa-solid fa-clone"></i></div>
           </Clipboard>
         </div>
 
@@ -144,7 +144,7 @@ function AlbumDetails({url}) {
 
         <hr/>
 
-        <div className="cards flex row-1-2@xs row-1-4@s row-1-6@m mt-2 pdd-sm-wrapper">
+        <div className="flex row-1-2@xs row-1-4@s row-1-6@m mt-2 pdd-sm-wrapper">
           {images && images.map((image, index) => {
             return <ImageCard key={index} index={index} image={image.data}/>
           })}

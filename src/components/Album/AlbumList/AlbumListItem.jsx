@@ -30,7 +30,7 @@ const AlbumListItem = ({album, handleRemoveAlbum}) => {
           <div className="storagePeriod sm">Срок хранения: <span className="days bold">{album.getStorageDaysWithNoun()}</span></div>
           <div className="storagePeriod sm">Осталось: <span className="days bold">{album.getTimeToDeleteInHours()}</span></div>
 
-          <Clipboard className="share row row_center row_sb mt-05 sm" component='a' data-clipboard-text={album.getAlbumPublicUrl()}
+          <Clipboard className="share row row_center row_sb mt-05 sm" component='a' data-clipboard-text={album.getAlbumShowUrl()}
                      onSuccess={() => {
                        toast.success('Скопировано', {
                          position: toast.POSITION.TOP_RIGHT,

@@ -5,10 +5,8 @@ import {Link, useNavigate} from "react-router-dom"
 import Clipboard from 'react-clipboard.js'
 import DeleteDialog from "../../UI/DeleteDialog.jsx"
 import Promotion from "../../Promotion/Promotion.jsx"
-import {getNoun} from "../../../service/TimeConverter.js"
 import {ALBUM_DELETE_PUBLIC} from "../../../api/const.js"
 import {AuthContext} from "../../../contexts/AuthProvider.jsx"
-import store from "../../../store/store.js"
 import {RequestContext} from "../../../contexts/RequestProvider.jsx"
 
 function AlbumSuccessPublic({createdAlbum, setCreatedAlbum}) {
@@ -41,13 +39,13 @@ function AlbumSuccessPublic({createdAlbum, setCreatedAlbum}) {
             <h1 className="bolder mt-6">Успешно</h1>
             <p className="small bold text-grey">Зарегистрирутесь, чтобы иметь доступ ко всем созданным альбомам</p>
 
-            <Clipboard className="row row_center mt-1" component='a' data-clipboard-text={createdAlbum.getAlbumPublicUrl()} onSuccess={() => {
+            <Clipboard className="row row_center mt-1" component='a' data-clipboard-text={createdAlbum.getAlbumShowUrl()} onSuccess={() => {
               toast.success('Скопировано', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000
               })
             }}>
-              <div id="shareLink" className="bold text-overflow">{createdAlbum.getAlbumPublicUrl()}</div>
+              <div id="shareLink" className="bold text-overflow">{createdAlbum.getAlbumShowUrl()}</div>
               <div className="link bold ml-1 text-orange">
                 <i className="fa-solid fa-clone"></i>
               </div>
@@ -57,7 +55,7 @@ function AlbumSuccessPublic({createdAlbum, setCreatedAlbum}) {
 
             <div className="mt-2 row row_center row_sb">
               {currentUser.isAuthorized ? <Link to='/albums' className="col-1-2@xs btn mr-2 active">Мои альбомы</Link> : <Link to='/registration' className="col-1-2@xs btn mr-2 active">Регистрация</Link>}
-              <Clipboard className="col-1-2@xs btn active" component='div' data-clipboard-text={createdAlbum.getAlbumPublicUrl()} onSuccess={() => {
+              <Clipboard className="col-1-2@xs btn active" component='div' data-clipboard-text={createdAlbum.getAlbumShowUrl()} onSuccess={() => {
                 toast.success('Скопировано', {
                   position: toast.POSITION.TOP_RIGHT,
                   autoClose: 2000

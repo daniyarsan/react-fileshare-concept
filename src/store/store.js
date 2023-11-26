@@ -62,8 +62,6 @@ store.persist({
 
 store.setState("user", {}, {persist: true})
 store.setState("pendingPayment", true)
-
-store.setState("urlParam", '', {persist: true});
-store.setState("passwordParam", '', {persist: true});
+store.setState("keysChainStorage", [], {persist: true})
 
 export default store;

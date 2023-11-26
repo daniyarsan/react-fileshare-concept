@@ -36,11 +36,13 @@ export class Album {
     return `${baseUrl()}/album/${this.url}`
   }
 
-  getAlbumPublicUrl() {
-    return `${baseUrl()}/album/${this.url}/${this.password}`
+  getAlbumShowUrl() {
+    return `${baseUrl()}/show/${this.url}/${this.password}`
   }
-
-  getEditAlbumUri() {
+  getAlbumShowUrlWithAsterics() {
+    return `${baseUrl()}/show/${this.url}/**********`
+  }
+  getAlbumEditUri() {
     return `/album/edit/${this.url}`
   }
 

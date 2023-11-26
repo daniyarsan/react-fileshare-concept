@@ -10,6 +10,7 @@ import Routing from "./Routing.jsx";
 import {BrowserRouter} from "react-router-dom";
 import {AuthProvider} from "./contexts/AuthProvider.jsx";
 import {RequestProvider} from "./contexts/RequestProvider.jsx";
+import {ParamsProvider} from "./contexts/ParamsProvider.jsx";
 
 
 export const RouteContext = React.createContext();
@@ -20,9 +21,11 @@ function App() {
   return (
       <RequestProvider>
         <AuthProvider>
-          <BrowserRouter>
-            <Routing/>
-          </BrowserRouter>
+          <ParamsProvider>
+            <BrowserRouter>
+              <Routing/>
+            </BrowserRouter>
+          </ParamsProvider>
         </AuthProvider>
       </RequestProvider>
   )

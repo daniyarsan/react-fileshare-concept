@@ -8,6 +8,8 @@ export const Dashboard = () => {
 
   const { currentUser } = useContext(AuthContext);
 
+  console.log((currentUser.files_size * 100) / currentUser.tariff.size)
+
   return (
       <>
         <div className="mt-3 flex row-1@xs row-1-3@m">
@@ -20,7 +22,7 @@ export const Dashboard = () => {
             <div className="m-3">
               <div className="row row_center row_sb">
                 <div className="col-1@xs col-1-3@m m-auto@m">
-                  <ProgressBar value={(currentUser.files_size * 100) / currentUser.tariff.size}/>
+                  <ProgressBar value={Math.ceil((currentUser.files_size * 100) / currentUser.tariff.size)}/>
                 </div>
               </div>
 

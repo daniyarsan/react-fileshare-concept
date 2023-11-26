@@ -27,6 +27,7 @@ function AlbumPublic({url, password}) {
       setModalContent(false)
     }
   }
+
   useEffect(() => {
     document.addEventListener("keydown", escFunction, false)
   }, [])
@@ -57,8 +58,8 @@ function AlbumPublic({url, password}) {
 
   const ImageCard = ({index, image}) => {
     return (
-        <div className="card-wrapper pdd-sm galleryItem">
-          <div className="card square ">
+        <div className="pdd-sm galleryItem">
+          <div className="square ">
             <div>
               <i className="icon-close text-white fa-solid fa-xmark fa-xl"></i>
             </div>
@@ -107,13 +108,13 @@ function AlbumPublic({url, password}) {
 
         <div className="row mt-05">
           <span className="mr-1">Ссылка на альбом:</span>
-          <Clipboard className="link bold ml-1" component='a' data-clipboard-text={albumDetails.getAlbumPublicUrl()} onSuccess={() => {
+          <Clipboard className="link bold ml-1" component='a' data-clipboard-text={albumDetails.getAlbumShowUrl()} onSuccess={() => {
             toast.success('Скопировано', {
               position: toast.POSITION.TOP_RIGHT,
               autoClose: 2000
             })
           }}>
-            <div id="shareLink" className="bold text-overflow">{albumDetails.getAlbumPublicUrl()} <i className="fa-solid fa-clone"></i></div>
+            <div id="shareLink" className="bold text-overflow">{albumDetails.getAlbumShowUrl()} <i className="fa-solid fa-clone"></i></div>
           </Clipboard>
         </div>
 
@@ -122,7 +123,7 @@ function AlbumPublic({url, password}) {
           <p>{description}</p>
         </div>
 
-        <div className="cards flex row-1-2@xs row-1-4@s row-1-6@m mt-2 pdd-sm-wrapper">
+        <div className="flex row-1-2@xs row-1-4@s row-1-6@m mt-2 pdd-sm-wrapper">
           {images && images.map((image, index) => {
             return <ImageCard key={index} index={index} image={image.data}/>
           })}

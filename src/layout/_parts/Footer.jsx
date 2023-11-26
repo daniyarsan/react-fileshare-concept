@@ -11,7 +11,7 @@ function Footer() {
             <div>
               <div className="row row_center">
                 <div className="bold small mr-1">Telegram</div>
-                <a href="" target="_blank">
+                <a href="https://t.me/softbox" target="_blank">
                   <span className="link f-400">@softbox</span>
                   <i className="small link text-orange fa-solid fa-clone"></i>
                 </a>

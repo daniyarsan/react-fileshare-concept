@@ -53,7 +53,10 @@ function Header() {
               )}
 
               {!currentUser.isAuthorized && (
-                  <Link to='/login' className="hide-sm ml-2">Войти</Link>
+                  <>
+                    <Link to='/login' className="hide-sm ml-2">Войти</Link>
+                    <Link to='/registration' className="hide-sm ml-2">Регистрация</Link>
+                  </>
               )}
               {currentUser.isAuthorized && (
                   <a className="ml-1 grey hide-sm" onClick={() => {

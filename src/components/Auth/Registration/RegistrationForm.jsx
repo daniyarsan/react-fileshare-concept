@@ -77,9 +77,7 @@ export const RegistrationForm = ({onSubmit}) => {
                   <div className="accept-rules mt-2">
                     <label className="checkbox row">
                       <Field type="checkbox" name="termsAndConditions"/>
-                      <p className="small ml-1">Я принимаю
-                        <a href="src/components/Auth" className="link line">Условия обслуживания Softbox</a>. Из нашей
-                        <a href="src/components/Auth" className="link line">Политики конфеденциальности</a> Вы узнаете о том, как мы используем и защищаем Ваши данные.
+                      <p className="small ml-1">Я принимаю<Link to="/conditions" className="link line"> Условия обслуживания Softbox</Link>. Из нашей<Link to='/policy' className="link line"> Политики конфеденциальности</Link>. Вы узнаете о том, как мы используем и защищаем Ваши данные.
                       </p>
                     </label>
                   </div>
