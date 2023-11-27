@@ -23,6 +23,21 @@ import ConditionPage from "./pages/Auth/ConditionPage.jsx";
 
 function Routing() {
   const { currentUser } = useContext(AuthContext);
+  const { setLoader } = useContext(AuthContext);
+
+
+  useEffect(() => {
+    setLoader(true)
+    const onPageLoad = () => {
+      setLoader(false)
+    }
+    if (document.readyState === 'complete') {
+      onPageLoad();
+    } else {
+      window.addEventListener('load', onPageLoad, false);
+      return () => window.removeEventListener('load', onPageLoad);
+    }
+  }, [])
 
   if (!currentUser.isAuthorized) {
     return (

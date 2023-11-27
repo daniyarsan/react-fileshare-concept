@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 
 import '../html/_assets/css/style.css'
 import '../html/_assets/css/structure.css'
@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Routing from "./Routing.jsx";
 import {BrowserRouter} from "react-router-dom";
-import {AuthProvider} from "./contexts/AuthProvider.jsx";
+import {AuthContext, AuthProvider} from "./contexts/AuthProvider.jsx";
 import {RequestProvider} from "./contexts/RequestProvider.jsx";
 import {ParamsProvider} from "./contexts/ParamsProvider.jsx";
 

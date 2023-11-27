@@ -27,7 +27,7 @@ export const Faq = (props) => {
           }}>
             <h3>{question}</h3>
             <div className="icon">
-              {show ? (<i className="fa-duotone fa-arrow-down-to-line fa-lg"></i>) : (<i className="fa-duotone fa-arrow-up-to-line fa-lg"></i>)}
+              {show ? (<i className="fa-duotone fa-arrow-up-to-line fa-lg"></i>) : (<i className="fa-duotone fa-arrow-down-to-line fa-lg"></i>)}
             </div>
           </div>
           <div className={`mt-1 ${show ? '' : 'hidden'}`}>

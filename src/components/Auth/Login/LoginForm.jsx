@@ -11,7 +11,7 @@ export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
 
   const onSubmit = (input, formikHelpers) => {
-    loginAction(input)
+    loginAction(input, formikHelpers)
   }
 
   const initialValues = {

@@ -8,8 +8,6 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
   const {requester} = useContext(RequestContext);
-
-  /* CONTEXT STATES */
   const [user, setUser, updateUser] = store.useState("user");
   const [pendingPayment, setPendingPayment] = store.useState("pendingPayment");
   const [loader, setLoader] = useState(false);
@@ -24,18 +22,22 @@ export const AuthProvider = ({children}) => {
     })
   }
 
-  const loginAction = (data) => {
+  const loginAction = (data, formikHelpers) => {
+    setLoader(true)
     requester.post(`${LOGIN}`, data).then(({data}) => {
       requester.setToken(data.access_token)
-
       requester.get(`${USER_STAT}`).then((resp) => {
         const userData = resp.data
         userData.isAuthorized = true
         userData.accessToken = data.access_token
         userData.refreshToken = data.refresh_token
-
         setUser(userData)
       })
+    }).catch(err => {
+      console.log(err)
+      formikHelpers.resetForm()
+    }).finally(() =>{
+      setLoader(false)
     })
   }
 
