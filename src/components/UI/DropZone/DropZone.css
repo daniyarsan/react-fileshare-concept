@@ -1,5 +1,6 @@
 button.dropzone {
     text-wrap: inherit;
+    white-space: break-spaces;
 }
 
 .dropzone {
