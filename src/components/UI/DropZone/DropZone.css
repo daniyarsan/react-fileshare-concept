@@ -1,3 +1,7 @@
+button.dropzone {
+    text-wrap: inherit;
+}
+
 .dropzone {
     height: 150px;
     border: 1px dashed #c4c4c4;

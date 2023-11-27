@@ -12,7 +12,7 @@ const Promotion = () => {
     requester.get(`${TARIFF_OFFER}`).then(({data}) => {
       setTimestamp(data?.remaining_time)
     }).catch(err => {
-      console.log(err)
+      // console.log(err)
     })
   }, [])
 

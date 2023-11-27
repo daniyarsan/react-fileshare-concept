@@ -8,8 +8,6 @@ export const Dashboard = () => {
 
   const { currentUser } = useContext(AuthContext);
 
-  console.log((currentUser.files_size * 100) / currentUser.tariff.size)
-
   return (
       <>
         <div className="mt-3 flex row-1@xs row-1-3@m">

@@ -86,7 +86,7 @@ function AlbumPresentation({url, password}) {
         <div className="row row_center row_sb mt-2">
           <h1 className="bolder">{albumDetails.name}</h1>
         </div>
-        <div className="date">
+        <div className="date mt-2">
           <span className="mr-1">Создан:</span>
           <span className="mr-1">{albumDetails.getCreatedDate()}</span>
         </div>

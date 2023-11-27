@@ -22,6 +22,7 @@
   overflow: hidden;
   display: grid;
   place-items: center;
+  margin: 0 auto;
 }
 
 .progress-bar[role="progressbar"]::before {

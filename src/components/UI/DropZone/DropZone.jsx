@@ -13,7 +13,7 @@ const DropZone = ({onDrop}) => {
 
   return (
       <div {...getRootProps()} className="row row_end mt-2">
-        <button type='button' className={`col-1@xs btn outline dropzone ${isDragAccept ? 'accept' : ''} ${isDragReject ? 'reject' : ''}`}>
+        <button type='button' className={`col-1@xs btn outline dropzone${isDragAccept ? ' accept' : ''} ${isDragReject ? ' reject' : ''}`}>
           <i className='fa fa-cloud-upload'></i>
           <input {...getInputProps()} />
           {isDragActive ? 'Поддерживаемые форматы: jpeg, png' : 'Нажмите, или перетащите файлы чтобы Загрузить...'}
