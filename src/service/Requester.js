@@ -85,6 +85,8 @@ export class Requester {
       const user = JSON.parse(localStorage.getItem('user'))
       localStorage.setItem("user", JSON.stringify({...user, accessToken: data.token}))
       location.reload()
+    }).catch(err => {
+      console.log('Unable to renew')
     })
   }
 }

@@ -36,7 +36,6 @@ export const AuthProvider = ({children}) => {
     }).catch(err => {
       console.log(err)
       formikHelpers.resetForm()
-    }).finally(() =>{
       setLoader(false)
     })
   }
