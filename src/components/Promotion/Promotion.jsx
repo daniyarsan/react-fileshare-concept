@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import CountDown from "./CountDown.jsx";
 import {TARIFF_OFFER} from "../../api/const.js";
 import {RequestContext} from "../../contexts/RequestProvider.jsx";
+import {Link} from "react-router-dom";
 
 
 const Promotion = () => {
@@ -32,7 +33,7 @@ const Promotion = () => {
         </ul>
         <div className="row row_end mt-1">
           <div className="row row_center">
-            <p className="text-dark link line small ml-2">Получить </p>
+            <Link to='/registration' className="text-dark link line small ml-2">Получить </Link>
             <i className="text-orange fa-duotone fa-gift ml-1"></i>
           </div>
         </div>

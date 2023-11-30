@@ -17,7 +17,7 @@ import AlbumCreatePage from "./pages/Albums/AlbumCreatePage.jsx";
 import AlbumPresentationPage from "./pages/Albums/AlbumPresentationPage.jsx";
 import {AuthContext} from "./contexts/AuthProvider.jsx";
 import PolicyPage from "./pages/Auth/PolicyPage.jsx";
-import ConditionPage from "./pages/Auth/ConditionPage.jsx";
+import TermsPage from "./pages/Auth/TermsPage.jsx";
 
 
 
@@ -49,7 +49,7 @@ function Routing() {
             <Route path="/login" element={<LoginPage/>}></Route>
             <Route path="/registration" element={<RegistrationPage/>}></Route>
             <Route path="/policy" element={<PolicyPage/>}></Route>
-            <Route path="/conditions" element={<ConditionPage/>}></Route>
+            <Route path="/terms" element={<TermsPage/>}></Route>
             <Route path="/forgot" element={<ForgotPage/>}></Route>
             <Route path="*" element={<Navigate replace to="/" />} />
           </Route>
