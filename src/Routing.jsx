@@ -1,6 +1,6 @@
 import {Route, Routes, Navigate} from "react-router-dom";
 
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 
 import Default from "./layout/Default.jsx";
 import RegistrationPage from "./pages/Auth/RegistrationPage.jsx";
@@ -23,21 +23,19 @@ import TermsPage from "./pages/Auth/TermsPage.jsx";
 
 function Routing() {
   const { currentUser } = useContext(AuthContext);
-  const { setLoader } = useContext(AuthContext);
-
-
-  useEffect(() => {
-    setLoader(true)
-    const onPageLoad = () => {
-      setLoader(false)
-    }
-    if (document.readyState === 'complete') {
-      onPageLoad();
-    } else {
-      window.addEventListener('load', onPageLoad, false);
-      return () => window.removeEventListener('load', onPageLoad);
-    }
-  }, [])
+  // const { setLoader } = useContext(AuthContext);
+  // useEffect(() => {
+  //   setLoader(true)
+  //   const onPageLoad = () => {
+  //     setLoader(false)
+  //   }
+  //   if (document.readyState === 'complete') {
+  //     onPageLoad();
+  //   } else {
+  //     window.addEventListener('load', onPageLoad, false);
+  //     return () => window.removeEventListener('load', onPageLoad);
+  //   }
+  // }, [])
 
   if (!currentUser.isAuthorized) {
     return (

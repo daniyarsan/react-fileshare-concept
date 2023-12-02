@@ -35,14 +35,14 @@ function AlbumShow({url, password}) {
 
   useEffect(() => {
     setLoader(true)
-
     requester.get(`${ALBUM_DETAILS_PUBLIC}/${url}/${password}`).then(({data}) => {
       setImages(data.images)
       setAlbumDetails(new Album(data?.album))
       setDescription(data.description)
-      setLoader(false)
     }).catch(err => {
       navigate('/')
+    }).finally(() => {
+      setLoader(false)
     })
 
   }, [])
@@ -50,12 +50,11 @@ function AlbumShow({url, password}) {
   const handleFullImageOpen = (index) => {
     setLoader(true)
     requester.get(`${ALBUM_FULL_IMAGE_PUBLIC}/${url}/${password}/${index}`).then(({data}) => {
-      setLoader(false)
       const modalContent = <img src={`data:image/jpeg;base64,${data.data}`}/>
       setModalContent(modalContent)
+      setLoader(false)
     })
   }
-
 
   if (loader || !albumDetails) {
     return <AlbumDetailsLoading/>
