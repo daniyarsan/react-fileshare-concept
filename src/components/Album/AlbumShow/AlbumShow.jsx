@@ -9,9 +9,10 @@ import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import AlbumDetailsLoading from "../AlbumDetails/AlbumDetailsLoading.jsx";
 import {Album} from "../../../models/Album.js";
 import {useNavigate} from "react-router-dom";
+import {ImageCard} from "../../UI/Image/ImageCard.jsx";
 
-function AlbumPresentation({url, password}) {
-  const { loader, setLoader } = useContext(AuthContext);
+function AlbumShow({url, password}) {
+  const {loader, setLoader} = useContext(AuthContext);
   const {requester} = useContext(RequestContext)
   const [modalContent, setModalContent] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -56,28 +57,8 @@ function AlbumPresentation({url, password}) {
   }
 
 
-  const ImageCard = ({index, image}) => {
-    return (
-        <div className="pdd-sm galleryItem">
-          <div className="square ">
-            <div>
-              <i className="icon-close text-white fa-solid fa-xmark fa-xl"></i>
-            </div>
-            <div className="img-cover">
-              <img className="galleryImg pointer" onClick={() => handleFullImageOpen(index)} src={`data:image/jpeg;base64,${image}`}/>
-            </div>
-          </div>
-          <div className="row row_end row_center mt-1">
-            <div className="ml-1" onClick={() => handleFullImageOpen(index)}>
-              <i className="link icon-open fa-solid fa-arrows-maximize"></i>
-            </div>
-          </div>
-        </div>
-    )
-  }
-
   if (loader || !albumDetails) {
-    return <AlbumDetailsLoading />
+    return <AlbumDetailsLoading/>
   }
 
   return (
@@ -123,9 +104,9 @@ function AlbumPresentation({url, password}) {
           <p>{description}</p>
         </div>
 
-        <div className="flex row-1-2@xs row-1-4@s row-1-6@m mt-2 pdd-sm-wrapper">
+        <div className="flex row-1-2@xs row-1-4@s row-1-6@m mt-2">
           {images && images.map((image, index) => {
-            return <ImageCard key={index} index={index} image={image.data}/>
+            return <ImageCard key={index} handleFullImageOpen={() => handleFullImageOpen(index)} image={image.data}/>
           })}
         </div>
 
@@ -139,4 +120,4 @@ function AlbumPresentation({url, password}) {
   )
 }
 
-export default AlbumPresentation
+export default AlbumShow

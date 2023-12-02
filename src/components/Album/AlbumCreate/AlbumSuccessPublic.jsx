@@ -1,9 +1,8 @@
 import React, {useContext} from 'react'
-import {baseUrl} from "../../../service/utility.js"
 import {toast} from "react-toastify"
 import {Link, useNavigate} from "react-router-dom"
 import Clipboard from 'react-clipboard.js'
-import DeleteDialog from "../../UI/DeleteDialog.jsx"
+import DeleteDialog from "../../UI/DeleteDialog/DeleteDialog.jsx"
 import Promotion from "../../Promotion/Promotion.jsx"
 import {ALBUM_DELETE_PUBLIC} from "../../../api/const.js"
 import {AuthContext} from "../../../contexts/AuthProvider.jsx"

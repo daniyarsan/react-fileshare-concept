@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Link} from "react-router-dom";
-import DeleteDialog from "../../UI/DeleteDialog.jsx";
+import DeleteDialog from "../../UI/DeleteDialog/DeleteDialog.jsx";
 import Clipboard from "react-clipboard.js";
 import {toast} from "react-toastify";
 

@@ -6,10 +6,11 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import {ALBUM_DELETE, ALBUM_DETAILS, ALBUM_FULL_IMAGE, API_URL} from "../../../api/const.js";
 import {Link, useNavigate} from "react-router-dom";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
-import DeleteDialog from "../../UI/DeleteDialog.jsx";
+import DeleteDialog from "../../UI/DeleteDialog/DeleteDialog.jsx";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import AlbumDetailsLoading from "./AlbumDetailsLoading.jsx";
 import {Album} from "../../../models/Album.js";
+import {ImageCard} from "../../UI/Image/ImageCard.jsx";
 
 function AlbumDetails({url}) {
   const {loader, setLoader} = useContext(AuthContext)
@@ -47,7 +48,6 @@ function AlbumDetails({url}) {
     })
   }
 
-
   /* On Escape close modal */
   const escFunction = (ev) => {
     if (ev.key === "Escape") {
@@ -67,15 +67,6 @@ function AlbumDetails({url}) {
     })
   }
 
-  const ImageCard = ({index, image}) => {
-    return (
-        <div className="square">
-          <div className="img-cover">
-            <img className="galleryImg pointer" onClick={() => handleFullImageOpen(index)} src={`data:image/jpeg;base64,${image}`}/>
-          </div>
-        </div>
-    )
-  }
 
   if (loader || !albumDetails) {
     return <AlbumDetailsLoading/>
@@ -137,7 +128,7 @@ function AlbumDetails({url}) {
 
         <div className="flex row-1-2@xs row-1-4@s row-1-6@m mt-2">
           {images && images.map((image, index) => {
-            return <ImageCard key={index} index={index} image={image.data}/>
+            return <ImageCard key={index} handleFullImageOpen={() => handleFullImageOpen(index)} image={image.data}/>
           })}
         </div>
 

@@ -14,7 +14,7 @@ import PricingPage from "./pages/Pricing/PricingPage.jsx"
 import ResetPage from "./pages/Auth/ResetPage.jsx";
 import AlbumEditPage from "./pages/Albums/AlbumEditPage.jsx";
 import AlbumCreatePage from "./pages/Albums/AlbumCreatePage.jsx";
-import AlbumPresentationPage from "./pages/Albums/AlbumPresentationPage.jsx";
+import AlbumShowPage from "./pages/Albums/AlbumShowPage.jsx";
 import {AuthContext} from "./contexts/AuthProvider.jsx";
 import PolicyPage from "./pages/Auth/PolicyPage.jsx";
 import TermsPage from "./pages/Auth/TermsPage.jsx";
@@ -44,8 +44,8 @@ function Routing() {
         <Routes>
           <Route element={<Default className="row row_col row_sb" />}>
             <Route path="/" element={<AlbumCreatePage/>}></Route>
-            <Route path="/show/:url" element={<AlbumPresentationPage/>}></Route>
-            <Route path="/show/:url/:password" element={<AlbumPresentationPage/>}></Route>
+            <Route path="/show/:url" element={<AlbumShowPage/>}></Route>
+            <Route path="/show/:url/:password" element={<AlbumShowPage/>}></Route>
             <Route path="/login" element={<LoginPage/>}></Route>
             <Route path="/registration" element={<RegistrationPage/>}></Route>
             <Route path="/policy" element={<PolicyPage/>}></Route>
@@ -68,8 +68,8 @@ function Routing() {
             <Route path="/albums" element={<AlbumsListPage/>}></Route>
             <Route path="/album/edit/:url" element={<AlbumEditPage/>}></Route>
             <Route path="/album/:url" element={<AlbumDetailsPage/>}></Route>
-            <Route path="/show/:url/:password" element={<AlbumPresentationPage/>}></Route>
-            <Route path="/show/:url" element={<AlbumPresentationPage/>}></Route>
+            <Route path="/show/:url/:password" element={<AlbumShowPage/>}></Route>
+            <Route path="/show/:url" element={<AlbumShowPage/>}></Route>
             <Route path="/reset" element={<ResetPage/>}></Route>
             <Route path="/generate" element={<GeneratePage/>}></Route>
             <Route path="*" element={<Navigate replace to="/" />} />
