@@ -65,7 +65,7 @@ const Forgot = () => {
                   <div className="relative">
                     <div className="bold small">Резервный код</div>
                     <Field name="reserveCode" className='col-1@xs' type="text"/>
-                    <ErrorMessage className="text-grey" name="reserveCode" component="small"/>
+                    <ErrorMessage className="text-danger" name="reserveCode" component="small"/>
                   </div>
 
                   <div className="password">
@@ -78,7 +78,7 @@ const Forgot = () => {
                         <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
                       </a>
                     </div>
-                    <ErrorMessage className="text-grey" name="password" component="small"/>
+                    <ErrorMessage className="text-danger" name="password" component="small"/>
                   </div>
 
                   <div className="password">
@@ -91,7 +91,7 @@ const Forgot = () => {
                         <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
                       </a>
                     </div>
-                    <ErrorMessage className="text-grey" name="confirmPassword" component="small"/>
+                    <ErrorMessage className="text-danger" name="confirmPassword" component="small"/>
                   </div>
                   <button type="submit" className={`col-1@xs btn mt-2 ${(isValid && dirty) && 'active'}`}>Восстановить</button>
                 </div>

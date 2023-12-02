@@ -12,7 +12,7 @@ import AlbumDetailsLoading from "./AlbumDetailsLoading.jsx";
 import {Album} from "../../../models/Album.js";
 
 function AlbumDetails({url}) {
-  const { loader, setLoader } = useContext(AuthContext)
+  const {loader, setLoader} = useContext(AuthContext)
   const {requester} = useContext(RequestContext)
   const navigate = useNavigate()
   const [modalContent, setModalContent] = useState(false)
@@ -69,26 +69,16 @@ function AlbumDetails({url}) {
 
   const ImageCard = ({index, image}) => {
     return (
-        <div className="galleryItem">
-          <div className="square">
-            <div>
-              <i className="icon-close text-white fa-solid fa-xmark fa-xl"></i>
-            </div>
-            <div className="img-cover">
-              <img className="galleryImg pointer" onClick={() => handleFullImageOpen(index)} src={`data:image/jpeg;base64,${image}`}/>
-            </div>
-          </div>
-          <div className="row row_end row_center">
-            <div className="ml-1" onClick={() => handleFullImageOpen(index)}>
-              <i className="link icon-open fa-solid fa-arrows-maximize"></i>
-            </div>
+        <div className="square">
+          <div className="img-cover">
+            <img className="galleryImg pointer" onClick={() => handleFullImageOpen(index)} src={`data:image/jpeg;base64,${image}`}/>
           </div>
         </div>
     )
   }
 
   if (loader || !albumDetails) {
-    return <AlbumDetailsLoading />
+    return <AlbumDetailsLoading/>
   }
 
   return (
@@ -131,7 +121,8 @@ function AlbumDetails({url}) {
             toast.success('Скопировано', {
               position: toast.POSITION.TOP_RIGHT,
               autoClose: 2000
-            })}}>
+            })
+          }}>
 
             <div id="shareLink" className="bold text-overflow">{albumDetails.getAlbumShowUrlWithAsterics()} <i className="fa-solid fa-clone"></i></div>
           </Clipboard>
@@ -144,7 +135,7 @@ function AlbumDetails({url}) {
 
         <hr/>
 
-        <div className="flex row-1-2@xs row-1-4@s row-1-6@m mt-2 pdd-sm-wrapper">
+        <div className="flex row-1-2@xs row-1-4@s row-1-6@m pdd-sm-wrapper">
           {images && images.map((image, index) => {
             return <ImageCard key={index} index={index} image={image.data}/>
           })}

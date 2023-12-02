@@ -773,43 +773,43 @@ body {
     box-shadow: 0px 3px 20px rgba(62, 67, 78, 0.0588235294);
 }
 
-.cards .galleryItem.show {
-    position: fixed;
-    top: 0px;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    background-color: rgba(34, 34, 34, 0.87);
-    width: 100%;
-    margin: 0 auto;
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
-}
+/*.cards .galleryItem.show {*/
+/*    position: fixed;*/
+/*    top: 0px;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    z-index: 10;*/
+/*    background-color: rgba(34, 34, 34, 0.87);*/
+/*    width: 100%;*/
+/*    margin: 0 auto;*/
+/*    -webkit-backdrop-filter: blur(3px);*/
+/*    backdrop-filter: blur(3px);*/
+/*}*/
 
-.cards .galleryItem.show .card {
-    height: auto;
-    background-color: rgba(0, 0, 0, 0);
-    height: 100% !important;
-    padding: 0px 10px;
-}
+/*.cards .galleryItem.show .card {*/
+/*    height: auto;*/
+/*    background-color: rgba(0, 0, 0, 0);*/
+/*    height: 100% !important;*/
+/*    padding: 0px 10px;*/
+/*}*/
 
-.cards .galleryItem.show img {
-    -o-object-fit: contain;
-    object-fit: contain;
-}
+/*.cards .galleryItem.show img {*/
+/*    -o-object-fit: contain;*/
+/*    object-fit: contain;*/
+/*}*/
 
-.cards .galleryItem.show .icon-close {
-    display: block;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    cursor: pointer;
-}
+/*.cards .galleryItem.show .icon-close {*/
+/*    display: block;*/
+/*    position: absolute;*/
+/*    top: 10px;*/
+/*    right: 20px;*/
+/*    cursor: pointer;*/
+/*}*/
 
-.cards .galleryItem.show .icon-close:hover {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-}
+/*.cards .galleryItem.show .icon-close:hover {*/
+/*    -webkit-transform: scale(1.1);*/
+/*    transform: scale(1.1);*/
+/*}*/
 
 .card .description {
     font-size: 13px;

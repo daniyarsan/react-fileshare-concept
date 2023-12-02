@@ -38,14 +38,13 @@ const Reset = () => {
     setLoader(true)
 
     requester.post(`${RESET_PASSWORD}`, {new_password: data.new_password, old_password: data.password}).then(({data}) => {
-      setLoader(false)
-
       toast.success('Пароль сохранен успешно', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
       })
-
       navigate('/')
+    }).finally(() => {
+      setLoader(false)
     })
 
 

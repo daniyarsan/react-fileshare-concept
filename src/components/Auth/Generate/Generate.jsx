@@ -66,7 +66,7 @@ const Generate = () => {
                           <i className={`eye fa-solid fa-eye${!showPassword ? '-slash' : ''}`}></i>
                         </span>
                     </div>
-                    <ErrorMessage className="text-grey" name="password" component="small"/>
+                    <ErrorMessage className="text-danger" name="password" component="small"/>
                   </div>
 
                   <button type="submit" className={`col-1@xs btn mt-2 ${(isValid && dirty) && 'active'}`}>Сгенерировать код</button>
