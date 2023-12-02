@@ -471,6 +471,7 @@ textarea {
 
 .img-cover {
     overflow: hidden;
+    width: 90%;
 }
 
 .img-meta {
@@ -816,9 +817,9 @@ body {
     color: #6e6e6e;
 }
 
-.square {
-    margin: 10px;
-}
+/*.square {*/
+/*    padding-right: 10px;*/
+/*}*/
 
 .myAlboms .cards .card {
     -webkit-box-shadow: 0px 3px 10px rgba(62, 67, 78, 0.0588235294);

@@ -89,7 +89,7 @@ function AlbumDetails({url}) {
         </div>
 
         <div className="row row-1@xs row_end mt-2">
-          <Link to={albumDetails.getAlbumEditUri()} className="btn col-1@xs col-1-3@m"><i className='fa fa-pencil'></i> Редактировать альбом</Link>
+          <Link to={albumDetails.getAlbumEditUri()} className="btn col-1@xs col-1-4@m"><i className='fa fa-pencil'></i> Редактировать альбом</Link>
         </div>
 
         <div className="row row_center row_sb mt-2">
@@ -135,7 +135,7 @@ function AlbumDetails({url}) {
 
         <hr/>
 
-        <div className="flex row-1-2@xs row-1-4@s row-1-6@m pdd-sm-wrapper">
+        <div className="flex row-1-2@xs row-1-4@s row-1-6@m mt-2">
           {images && images.map((image, index) => {
             return <ImageCard key={index} index={index} image={image.data}/>
           })}
@@ -144,14 +144,14 @@ function AlbumDetails({url}) {
         <hr/>
 
         <div className="row row-1@xs mt-2">
-          <a href={albumDetails.getFileDownloadUrl()} className="btn active col-1@xs col-1-3@m"><i className='fa fa-download'></i> Скачать альбом архивом</a>
+          <a href={albumDetails.getFileDownloadUrl()} className="btn active col-1@xs col-1-4@m"><i className='fa fa-download'></i> Скачать альбом архивом</a>
         </div>
 
         <div className="row row-1@xs mt-2">
           <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {
             handleRemoveAlbum(url)
           }}>
-            <div className="btn danger col-1@xs col-1-3@m"><i className='fa fa-trash'></i> Удалить альбом</div>
+            <div className="btn danger col-1@xs col-1-4@m"><i className='fa fa-trash'></i> Удалить альбом</div>
           </DeleteDialog>
         </div>
 
