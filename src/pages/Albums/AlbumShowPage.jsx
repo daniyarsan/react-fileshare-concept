@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {useNavigate, useParams} from "react-router-dom";
 import AlbumShow from "../../components/Album/AlbumShow/AlbumShow.jsx";
 import store from "../../store/store.js";
+import {toast} from "react-toastify";
 
 
 function AlbumShowPage() {
@@ -15,6 +16,12 @@ function AlbumShowPage() {
     if (password) {
       setKeysChain([...keysChain, {url: url,  password: password}])
       navigate(`/show/${url}`)
+    } else {
+      toast.error('Требуется пароль для входа в альбом', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000
+      })
+      navigate('/')
     }
   }, [])
 

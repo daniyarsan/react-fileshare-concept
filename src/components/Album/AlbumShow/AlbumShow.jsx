@@ -34,12 +34,16 @@ function AlbumShow({url, password}) {
   }, [])
 
   useEffect(() => {
+    console.log('asdfasfs')
+
     setLoader(true)
     requester.get(`${ALBUM_DETAILS_PUBLIC}/${url}/${password}`).then(({data}) => {
       setImages(data.images)
       setAlbumDetails(new Album(data?.album))
       setDescription(data.description)
     }).catch(err => {
+      console.log(err)
+
       navigate('/')
     }).finally(() => {
       setLoader(false)

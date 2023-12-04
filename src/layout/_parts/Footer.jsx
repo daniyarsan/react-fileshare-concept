@@ -19,8 +19,7 @@ function Footer() {
 
               <div className="row row_center">
                 <div className="bold small mr-1">Jabber</div>
-                <span className="link f-400">softbox@jabber.ru</span>
-                <i className="small link text-orange fa-solid fa-clone"></i>
+                <span className="f-400">softbox@jabber.ru</span>
               </div>
             </div>
           </div>
