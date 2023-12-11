@@ -13,9 +13,9 @@ const AlbumListItem = ({album, handleRemoveAlbum}) => {
           <div className="row row_sb">
             <h5 className="text-overflow">{album.name}</h5>
             <div className="row row_center">
-              <Link to={`/album/edit/${album.url}`} className="ml-1">
-                <i className='fa-solid fa-pencil'></i>
-              </Link>
+              {/*<Link to={`/album/edit/${album.url}`} className="ml-1">*/}
+              {/*  <i className='fa-solid fa-pencil'></i>*/}
+              {/*</Link>*/}
               <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {handleRemoveAlbum(album.url)}}>
                 <div className="remove link">
                   <i className="fa-solid fa-trash-xmark"></i>

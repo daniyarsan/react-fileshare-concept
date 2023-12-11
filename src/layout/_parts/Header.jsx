@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
 import {Link, useNavigate} from "react-router-dom";
 import {AuthContext} from "../../contexts/AuthProvider.jsx";
+import store from "../../store/store.js";
 
 function Header() {
   const { currentUser, logoutAction } = useContext(AuthContext);
@@ -34,31 +35,31 @@ function Header() {
                 </Link>
               </div>
 
-              <Link to={currentUser.isAuthorized ? '/albums' : '/login'}>
+              <Link to={currentUser ? '/albums' : '/login'}>
                 <span className="hide-sm ml-2">Мои альбомы</span>
                 <span className="hide-m"><i className="fa-solid fa-book-open"></i></span>
               </Link>
 
-              {!currentUser.isAuthorized && (
+              {!currentUser && (
                   <Link  to='/login'>
                     <span className="hide-m"><i className="fa-solid fa-person"></i></span>
                   </Link>
               )}
 
-              {currentUser.isAuthorized && (
+              {currentUser && (
                   <Link  to='/profile'>
                     <span className="hide-sm ml-2"><i className="fa-solid fa-user"></i> {currentUser?.username}</span>
                     <span className="hide-m"><i className="fa-solid fa-person"></i></span>
                   </Link>
               )}
 
-              {!currentUser.isAuthorized && (
+              {!currentUser && (
                   <>
                     <Link to='/login' className="hide-sm ml-2">Войти</Link>
                     <Link to='/registration' className="hide-sm ml-2">Регистрация</Link>
                   </>
               )}
-              {currentUser.isAuthorized && (
+              {currentUser && (
                   <a className="ml-1 grey hide-sm" onClick={() => {
                     logoutAction()
                     // navigate('/')

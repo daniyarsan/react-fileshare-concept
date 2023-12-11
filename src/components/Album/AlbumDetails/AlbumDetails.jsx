@@ -79,9 +79,9 @@ function AlbumDetails({url}) {
           <Link to='#'>{albumDetails.name}</Link>
         </div>
 
-        <div className="row row-1@xs row_end mt-2">
-          <Link to={albumDetails.getAlbumEditUri()} className="btn col-1@xs col-1-4@m"><i className='fa fa-pencil'></i> Редактировать альбом</Link>
-        </div>
+        {/*<div className="row row-1@xs row_end mt-2">*/}
+        {/*  <Link to={albumDetails.getAlbumEditUri()} className="btn col-1@xs col-1-4@m"><i className='fa fa-pencil'></i> Редактировать альбом</Link>*/}
+        {/*</div>*/}
 
         <div className="row row_center row_sb mt-2">
           <h1 className="bolder">{albumDetails.name}</h1>

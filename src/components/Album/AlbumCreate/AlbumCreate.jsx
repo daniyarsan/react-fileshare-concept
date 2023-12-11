@@ -1,12 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {ErrorMessage, Field, FieldArray, Form, Formik} from "formik";
-import {object, string} from "yup";
+import {object, string, array} from "yup";
 import {_ImageRow} from "../_ImageRow.jsx";
 import {toast} from "react-toastify";
 import PeriodSelectField from "../../UI/PeriodSelectField/PeriodSelectField.jsx";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
-import {ALBUM_CREATE, ALBUM_CREATE_ANON} from "../../../api/const.js";
+import {ALBUM_CREATE, ALBUM_CREATE_ANON, DEFAULT_SHELF_DAYS_LIMIT, VALIDATION_DEFAULT_FILES_UPLOAD_LIMIT} from "../../../api/const.js";
 import {Album} from "../../../models/Album.js";
 import DropZone from "../../UI/DropZone/DropZone.jsx";
 import AlbumSuccess from "./AlbumSuccess.jsx";
@@ -20,6 +20,9 @@ function AlbumCreate() {
   const {requester} = useContext(RequestContext);
   const {currentUser} = useContext(AuthContext);
   const {setLoader} = useContext(AuthContext);
+
+  const filesLimit = currentUser?.tariff?.files || VALIDATION_DEFAULT_FILES_UPLOAD_LIMIT
+
 
   useEffect(() => {
     if (location.state?.fresh == true) {
@@ -40,6 +43,7 @@ function AlbumCreate() {
 
   const validation = object({
     period: string().required('Обязательное поле'),
+    files: array().max(filesLimit,`Вы можете загрузить не более ${filesLimit} файлов`)
   })
   const submitHandler = (data, formikHelpers) => {
     setLoader(true)
@@ -52,7 +56,7 @@ function AlbumCreate() {
       formData.append('files', file)
     })
 
-    requester.postMultipart(`${currentUser.isAuthorized ? ALBUM_CREATE : ALBUM_CREATE_ANON}`, formData).then(({data}) => {
+    requester.postMultipart(`${currentUser ? ALBUM_CREATE : ALBUM_CREATE_ANON}`, formData).then(({data}) => {
       setCreatedAlbum(new Album(data))
       toast.success('Альбом успешно создан', {
         position: toast.POSITION.TOP_RIGHT,
@@ -64,7 +68,7 @@ function AlbumCreate() {
   }
 
   if (createdAlbum) {
-    return  currentUser.isAuthorized
+    return  currentUser
         ?
         <AlbumSuccess createdAlbum={createdAlbum} setCreatedAlbum={setCreatedAlbum} />
         :
@@ -75,6 +79,7 @@ function AlbumCreate() {
       <div className="create-albom">
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={submitHandler}>
           {({errors, isValid, setFieldValue, values, dirty}) => {
+            
 
             return (
                 <Form>
@@ -105,11 +110,11 @@ function AlbumCreate() {
                           <ErrorMessage className="text-danger" name="name" component="small"/>
                         </div>
                         <div className="limit mt-1 relative">
-                          <Field component={PeriodSelectField} name="period" placeholder='Срок хранения' limitDays={currentUser.getTariffShelfDays()}/>
+                          <Field component={PeriodSelectField} name="period" placeholder='Срок хранения' limitDays={currentUser?.getTariffShelfDays() || DEFAULT_SHELF_DAYS_LIMIT}/>
                           <ErrorMessage className="text-danger" name="period" component="small"/>
                         </div>
                         <div className="mt-1">
-                          <Field as='textarea' name="description" type="text" placeholder="Описание к альбому"/>
+                          <Field as='textarea' name="description" type="text" placeholder="Описание к альбому (не обязательно)"/>
                         </div>
                       </div>
                     </div>
@@ -134,6 +139,8 @@ function AlbumCreate() {
                                     return <_ImageRow key={index} index={index} {...fieldArrayProps} file={file}/>
                                   })}
                                 </div>
+
+                                <ErrorMessage className="text-danger" name="files" component="div"/>
                                 <DropZone onDrop={acceptedFiles => {
                                   setFieldValue("files", [...files, ...acceptedFiles]);
                                 }}/>

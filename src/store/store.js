@@ -60,7 +60,7 @@ store.persist({
 })
 // ===================================================
 
-store.setState("user", {}, {persist: true})
+store.setState("user", null, {persist: true})
 store.setState("pendingPayment", true)
 store.setState("keysChainStorage", [], {persist: true})
 

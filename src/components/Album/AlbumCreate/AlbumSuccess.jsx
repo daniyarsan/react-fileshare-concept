@@ -53,7 +53,7 @@ function AlbumSuccess({createdAlbum, setCreatedAlbum}) {
             <div className="storagePeriod mt-1">Срок хранения файлов <span className="days bold">{createdAlbum.getStorageDaysWithNoun()}</span></div>
 
             <div className="mt-2 row row_center row_sb">
-              {currentUser.isAuthorized ? <Link to='/albums' className="col-1-2@xs btn mr-2 active">Мои альбомы</Link> : <Link to='/registration' className="col-1-2@xs btn mr-2 active">Регистрация</Link>}
+              {currentUser ? <Link to='/albums' className="col-1-2@xs btn mr-2 active">Мои альбомы</Link> : <Link to='/registration' className="col-1-2@xs btn mr-2 active">Регистрация</Link>}
               <Clipboard className="col-1-2@xs btn active" component='div' data-clipboard-text={createdAlbum.getAlbumShowUrl()} onSuccess={() => {
                 toast.success('Скопировано', {
                   position: toast.POSITION.TOP_RIGHT,
@@ -72,7 +72,7 @@ function AlbumSuccess({createdAlbum, setCreatedAlbum}) {
           </div>
         </div>
         <div className="mt-2  pdd-md">
-          { !currentUser.isAuthorized && <Promotion /> }
+          { !currentUser && <Promotion /> }
         </div>
       </div>
   )

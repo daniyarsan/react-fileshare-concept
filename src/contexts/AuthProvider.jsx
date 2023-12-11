@@ -19,16 +19,18 @@ export const AuthProvider = ({children}) => {
       updateUser(user => {
         Object.keys(data).forEach(key => user[key] = data[key])
       })
+    }).catch(err => {
+      setUser(null)
     })
   }
 
   const loginAction = (data, formikHelpers) => {
     setLoader(true)
+
     requester.post(`${LOGIN}`, data).then(({data}) => {
       requester.setToken(data.access_token)
       requester.get(`${USER_STAT}`).then((resp) => {
         const userData = resp.data
-        userData.isAuthorized = true
         userData.accessToken = data.access_token
         userData.refreshToken = data.refresh_token
         setUser(userData)
@@ -39,16 +41,17 @@ export const AuthProvider = ({children}) => {
     })
   }
 
-  const logoutAction = () => {setUser({})}
-  
-  if (user.isAuthorized) {
+  const logoutAction = () => {setUser(null)}
+
+
+  if (user) {
     if (pendingPayment) {
       updateAction()
       setPendingPayment(false)
     }
   }
 
-  const currentUser = new User(user)
+  const currentUser = user ? new User(user) : null
 
   return (
       <AuthContext.Provider value={{currentUser, loginAction, logoutAction, loader, setLoader}}>

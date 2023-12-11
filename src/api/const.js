@@ -36,5 +36,7 @@ export const TARIFF_OFFER = '/tariff/offer'
 /* CONSTANTS */
 export const AUTH_TOKEN = 'AUTH_TOKEN'
 export const VALIDATION_MIN_PASSWORD_LENGTH = 5
+export const VALIDATION_DEFAULT_FILES_UPLOAD_LIMIT = 2
+export const DEFAULT_SHELF_DAYS_LIMIT = 30
 
 

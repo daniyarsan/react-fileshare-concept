@@ -5,10 +5,8 @@ import {object, ref, string} from "yup";
 import {RECOVER_PASSWORD_BY_TOKEN, VALIDATION_MIN_PASSWORD_LENGTH} from "../../../api/const.js";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import Success from "./Success.jsx";
-import store from "../../../store/store.js";
 
 const Forgot = () => {
-  const {currentUser} = useContext(AuthContext)
   const { setLoader } = useContext(AuthContext)
 
   const {requester} = useContext(RequestContext);
@@ -36,7 +34,7 @@ const Forgot = () => {
 
   const onSubmit = (data, formikHelpers) => {
     setLoader(true)
-    requester.post(`${RECOVER_PASSWORD_BY_TOKEN}`, {username: currentUser.username, new_password: data.password, code: data.reserveCode}).then((resp) => {
+    requester.post(`${RECOVER_PASSWORD_BY_TOKEN}`, {username: data.username, new_password: data.password, code: data.reserveCode}).then((resp) => {
       setRecoveryCode(resp?.data?.code)
     }).finally(() => {
       setLoader(false)

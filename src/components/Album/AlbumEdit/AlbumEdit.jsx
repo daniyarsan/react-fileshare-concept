@@ -53,12 +53,13 @@ function AlbumEdit({url}) {
     formData.append('url', album.album.url);
 
     requester.postMultipart(`${ALBUM_UPDATE_BY_ID}`, formData).then((resp) => {
-      setLoader(false)
       toast.success('Альбом успешно обновлен', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000
       })
       navigate('/albums')
+    }).finally(() => {
+      setLoader(false)
     })
   }
 

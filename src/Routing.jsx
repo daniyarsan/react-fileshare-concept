@@ -37,7 +37,7 @@ function Routing() {
   //   }
   // }, [])
 
-  if (!currentUser.isAuthorized) {
+  if (!currentUser) {
     return (
         <Routes>
           <Route element={<Default className="row row_col row_sb" />}>
@@ -64,7 +64,7 @@ function Routing() {
             <Route path="/" element={<AlbumCreatePage/>}></Route>
             <Route path="/profile" element={<DashboardPage/>}></Route>
             <Route path="/albums" element={<AlbumsListPage/>}></Route>
-            <Route path="/album/edit/:url" element={<AlbumEditPage/>}></Route>
+            {/*<Route path="/album/edit/:url" element={<AlbumEditPage/>}></Route>*/}
             <Route path="/album/:url" element={<AlbumDetailsPage/>}></Route>
             <Route path="/show/:url/:password" element={<AlbumShowPage/>}></Route>
             <Route path="/show/:url" element={<AlbumShowPage/>}></Route>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {AUTH_TOKEN, BASE_API_URL, REFRESH} from "../api/const.js";
+import {BASE_API_URL, REFRESH} from "../api/const.js";
 import {toast} from "react-toastify";
 
 export class Requester {

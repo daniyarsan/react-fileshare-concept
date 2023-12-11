@@ -1,7 +1,6 @@
 export class User {
   DEFAULT_SHELF_DAYS = 30
 
-  isAuthorized
   files_size
   username
   tariff
