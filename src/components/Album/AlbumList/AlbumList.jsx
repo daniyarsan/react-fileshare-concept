@@ -5,13 +5,10 @@ import AlbumListItem from "./AlbumListItem.jsx";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import {Album} from "../../../models/Album.js";
 import {toast} from "react-toastify";
-import {useLocation, useNavigate} from "react-router-dom";
 
 
 const AlbumList = () => {
   const {requester} = useContext(RequestContext);
-  const {state} = useLocation();
-  const navigate = useNavigate();
   const {setLoader} = useContext(AuthContext);
   const [albumsList, setAlbumsList] = useState()
 

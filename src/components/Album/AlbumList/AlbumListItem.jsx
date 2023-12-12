@@ -1,10 +1,13 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {Link} from "react-router-dom";
 import DeleteDialog from "../../UI/DeleteDialog/DeleteDialog.jsx";
 import Clipboard from "react-clipboard.js";
 import {toast} from "react-toastify";
+import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 
 const AlbumListItem = ({album, handleRemoveAlbum}) => {
+
+  const { currentUser } = useContext(AuthContext);
 
 
   return (
@@ -13,9 +16,13 @@ const AlbumListItem = ({album, handleRemoveAlbum}) => {
           <div className="row row_sb">
             <h5 className="text-overflow">{album.name}</h5>
             <div className="row row_center">
-              {/*<Link to={`/album/edit/${album.url}`} className="ml-1">*/}
-              {/*  <i className='fa-solid fa-pencil'></i>*/}
-              {/*</Link>*/}
+              {currentUser.tariff.option == 'PricingOption.option2' && (
+                  <Link to={`/album/edit/${album.url}`} className="ml-1">
+                    <i className='fa-solid fa-pencil'></i>
+                  </Link>
+              )}
+
+
               <DeleteDialog title='Вы уверены' text='Что хотите удалить альбом?' handleDelete={() => {handleRemoveAlbum(album.url)}}>
                 <div className="remove link">
                   <i className="fa-solid fa-trash-xmark"></i>

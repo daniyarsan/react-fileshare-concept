@@ -3,7 +3,7 @@ import {toast} from "react-toastify";
 import Modal from "../../UI/Modal/Modal.jsx";
 import Clipboard from 'react-clipboard.js';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import {ALBUM_DELETE, ALBUM_DETAILS, ALBUM_FULL_IMAGE, API_URL} from "../../../api/const.js";
+import {ALBUM_DELETE, ALBUM_DETAILS, ALBUM_FULL_IMAGE} from "../../../api/const.js";
 import {Link, useNavigate} from "react-router-dom";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
 import DeleteDialog from "../../UI/DeleteDialog/DeleteDialog.jsx";
@@ -21,7 +21,7 @@ function AlbumDetails({url}) {
   const [albumDetails, setAlbumDetails] = useState()
   const [images, setImages] = useState()
   const [description, setDescription] = useState()
-
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     setLoader(true)
@@ -79,9 +79,11 @@ function AlbumDetails({url}) {
           <Link to='#'>{albumDetails.name}</Link>
         </div>
 
-        {/*<div className="row row-1@xs row_end mt-2">*/}
-        {/*  <Link to={albumDetails.getAlbumEditUri()} className="btn col-1@xs col-1-4@m"><i className='fa fa-pencil'></i> Редактировать альбом</Link>*/}
-        {/*</div>*/}
+        {currentUser.tariff.option == 'PricingOption.option2' && (
+            <div className="row row-1@xs row_end mt-2">
+              <Link to={albumDetails.getAlbumEditUri()} className="btn col-1@xs col-1-4@m"><i className='fa fa-pencil'></i> Редактировать альбом</Link>
+            </div>
+        )}
 
         <div className="row row_center row_sb mt-2">
           <h1 className="bolder">{albumDetails.name}</h1>

@@ -1,11 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {formatBytes} from "../../service/utility.js";
-import {getNoun, hoursToDays} from "../../service/TimeConverter.js";
+import {getNoun} from "../../service/TimeConverter.js";
 import TextToList from "../UI/TextToList/TextToList.jsx";
 import {AuthContext} from "../../contexts/AuthProvider.jsx";
 import {TARIFF_ACTIVATE, TARIFF_PRICING} from "../../api/const.js";
 import {RequestContext} from "../../contexts/RequestProvider.jsx";
-import store from "../../store/store.js";
 import {useNavigate} from "react-router-dom";
 
 export const Pricing = (props) => {

@@ -1,4 +1,4 @@
-import {Route, Routes, Navigate} from "react-router-dom";
+import {Route, Routes, Navigate, Link} from "react-router-dom";
 
 import React, {useContext} from "react";
 
@@ -64,7 +64,7 @@ function Routing() {
             <Route path="/" element={<AlbumCreatePage/>}></Route>
             <Route path="/profile" element={<DashboardPage/>}></Route>
             <Route path="/albums" element={<AlbumsListPage/>}></Route>
-            {/*<Route path="/album/edit/:url" element={<AlbumEditPage/>}></Route>*/}
+            {currentUser.tariff.option == 'PricingOption.option2' && (<Route path="/album/edit/:url" element={<AlbumEditPage/>}></Route>)}
             <Route path="/album/:url" element={<AlbumDetailsPage/>}></Route>
             <Route path="/show/:url/:password" element={<AlbumShowPage/>}></Route>
             <Route path="/show/:url" element={<AlbumShowPage/>}></Route>
