@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import PeriodSelectField from "../../UI/PeriodSelectField/PeriodSelectField.jsx";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
-import {ALBUM_CREATE, ALBUM_CREATE_ANON, DEFAULT_SHELF_DAYS_LIMIT, VALIDATION_DEFAULT_FILES_UPLOAD_LIMIT} from "../../../api/const.js";
+import {ALBUM_CREATE, ALBUM_CREATE_ANON, ALBUM_FORM_TEXTAREA_LIMIT, DEFAULT_SHELF_DAYS_LIMIT, VALIDATION_DEFAULT_FILES_UPLOAD_LIMIT} from "../../../api/const.js";
 import {Album} from "../../../models/Album.js";
 import DropZone from "../../UI/DropZone/DropZone.jsx";
 import AlbumSuccess from "./AlbumSuccess.jsx";
@@ -43,6 +43,7 @@ function AlbumCreate() {
 
   const validation = object({
     period: string().required('Обязательное поле'),
+    description: string().max(ALBUM_FORM_TEXTAREA_LIMIT, `Вы привысили лимит ${ALBUM_FORM_TEXTAREA_LIMIT} символов`),
     files: array().max(filesLimit,`Вы можете загрузить не более ${filesLimit} файлов`)
   })
   const submitHandler = (data, formikHelpers) => {
@@ -79,7 +80,6 @@ function AlbumCreate() {
       <div className="create-albom">
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={submitHandler}>
           {({errors, isValid, setFieldValue, values, dirty}) => {
-            
 
             return (
                 <Form>
@@ -115,6 +115,7 @@ function AlbumCreate() {
                         </div>
                         <div className="mt-1">
                           <Field as='textarea' name="description" type="text" placeholder="Описание к альбому (не обязательно)"/>
+                          <ErrorMessage className="text-danger" name="description" component="small"/>
                         </div>
                       </div>
                     </div>

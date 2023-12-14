@@ -1,7 +1,6 @@
-import {Route, Routes, Navigate, Link} from "react-router-dom";
+import {Route, Routes, Navigate} from "react-router-dom";
 
 import React, {useContext} from "react";
-
 import Default from "./layout/Default.jsx";
 import RegistrationPage from "./pages/Auth/RegistrationPage.jsx";
 import {LoginPage} from "./pages/Auth/LoginPage.jsx";
