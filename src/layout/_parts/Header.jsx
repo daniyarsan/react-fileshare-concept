@@ -4,7 +4,7 @@ import {AuthContext} from "../../contexts/AuthProvider.jsx";
 import store from "../../store/store.js";
 
 function Header() {
-  const { currentUser, logoutAction } = useContext(AuthContext);
+  const {currentUser, logoutAction} = useContext(AuthContext);
 
 
   return (
@@ -12,12 +12,12 @@ function Header() {
         <div className="container">
           <div className="row row_center row_sb h100">
             <div className="logo upp hide-sm">
-              <Link to='/' state={{ fresh: true }}>
+              <Link to='/' state={{fresh: true}}>
                 <span className="bolder">Soft</span><span className="light">Dropbox</span>
               </Link>
             </div>
             <div className="menu row row_center">
-              <Link to='/' state={{ fresh: true }}>
+              <Link to='/' state={{fresh: true}}>
                 <span className="hide-sm ml-2">Главная</span>
                 <span className="hide-m"><i className="fa-solid fa-house"></i></span>
               </Link>
@@ -28,26 +28,33 @@ function Header() {
               </Link>
 
               <div className="addFile">
-                <Link to='/' state={{ fresh: true }}>
+                <Link to='/' state={{fresh: true}}>
                   <div className="button">
                     <i className="fa-solid fa-plus faa-xl"></i>
                   </div>
                 </Link>
               </div>
 
-              <Link to={currentUser ? '/albums' : '/login'}>
-                <span className="hide-sm ml-2">Мои альбомы</span>
-                <span className="hide-m"><i className="fa-solid fa-book-open"></i></span>
+
+              <Link className="hide-m" to='/albums' style={{width: '9%'}}>
+                {currentUser && (
+                    <span><i className="fa-solid fa-book-open"></i></span>
+                )}
               </Link>
 
+              <Link className='hide-sm' to='/albums'>
+                <span className="ml-2">Мои альбомы</span>
+              </Link>
+
+
               {!currentUser && (
-                  <Link  to='/login'>
+                  <Link to='/login'>
                     <span className="hide-m"><i className="fa-solid fa-person"></i></span>
                   </Link>
               )}
 
               {currentUser && (
-                  <Link  to='/profile'>
+                  <Link to='/profile'>
                     <span className="hide-sm ml-2"><i className="fa-solid fa-user"></i> {currentUser?.username}</span>
                     <span className="hide-m"><i className="fa-solid fa-person"></i></span>
                   </Link>
