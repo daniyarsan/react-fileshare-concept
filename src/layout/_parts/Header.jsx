@@ -35,7 +35,6 @@ function Header() {
                 </Link>
               </div>
 
-
               <Link className="hide-m" to='/albums' style={{width: '9%'}}>
                 {currentUser && (
                     <span><i className="fa-solid fa-book-open"></i></span>
@@ -45,7 +44,6 @@ function Header() {
               <Link className='hide-sm' to='/albums'>
                 <span className="ml-2">Мои альбомы</span>
               </Link>
-
 
               {!currentUser && (
                   <Link to='/login'>
