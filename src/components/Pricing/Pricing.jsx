@@ -6,24 +6,35 @@ import PricingCard from "./PricingCard.jsx";
 
 export const Pricing = (props) => {
   const {requester} = useContext(RequestContext);
-  const { setLoader } = useContext(AuthContext);
+  const {setLoader} = useContext(AuthContext);
 
   const [isMonthly, setIsMonthly] = useState(true)
   const [yearlyPlans, setYearlyPlans] = useState([])
   const [monthlyPlans, setMonthlyPlans] = useState([])
 
+
   useEffect(() => {
     setLoader(true)
 
-    requester.get(`${TARIFF_PRICING}`).then(({data}) => {
-      const {month_pricing_options, year_pricing_options} = data
-      setMonthlyPlans([month_pricing_options[0], month_pricing_options[2], month_pricing_options[1]])
-      setYearlyPlans([year_pricing_options[0], year_pricing_options[2], year_pricing_options[1]])
-    }).catch(err => {
-      // console.log(err)
-    }).finally(() => {
-      setLoader(false)
-    })
+    const onPageLoad = () => {
+      requester.get(`${TARIFF_PRICING}`).then(({data}) => {
+        const {month_pricing_options, year_pricing_options} = data
+        setMonthlyPlans([month_pricing_options[0], month_pricing_options[2], month_pricing_options[1]])
+        setYearlyPlans([year_pricing_options[0], year_pricing_options[2], year_pricing_options[1]])
+      }).catch(err => {
+        // console.log(err)
+      }).finally(() => {
+        setLoader(false)
+      })
+    }
+
+    if (document.readyState === 'complete') {
+      onPageLoad();
+    } else {
+      window.addEventListener('load', onPageLoad, false);
+      return () => window.removeEventListener('load', onPageLoad);
+    }
+
 
   }, [])
 

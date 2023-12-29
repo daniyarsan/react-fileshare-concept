@@ -29,6 +29,10 @@ export const secondsToMinutes = (totalSeconds) => {
   return totalMinutes % 60;
 }
 
+export const secondsToSeconds = (timeInSeconds) => {
+  return (timeInSeconds % 60).toString().padStart(2, '0');
+}
+
 export const convertSecondsToDaysHours = (totalSeconds) => {
   return secondsToDays(totalSeconds)
       + ' ' + getNoun(secondsToDays(totalSeconds), 'день', 'дня', 'дней')

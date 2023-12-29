@@ -1,5 +1,5 @@
 import React from 'react'
-import Registration from "../../components/Auth/Registration/Registration.jsx";
+import GoBack from "../../components/UI/GoBack/GoBack.jsx";
 
 function TermsPage(props) {
 
@@ -21,6 +21,7 @@ function TermsPage(props) {
               <li className='mt-2'>Ни при каких обстоятельствах Администрация Веб-сайта не несет ответственности за всевозможные упущенные выгоды или за любые убытки по любым причинам.</li>
             </ul>
           </div>
+          <GoBack />
         </div>
       </div>
   )

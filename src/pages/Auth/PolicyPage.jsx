@@ -1,4 +1,5 @@
 import React from 'react'
+import GoBack from "../../components/UI/GoBack/GoBack.jsx";
 
 function PolicyPage(props) {
 
@@ -19,6 +20,7 @@ function PolicyPage(props) {
             </ul>
           </div>
 
+          <GoBack />
         </div>
       </div>
   )
