@@ -5,6 +5,7 @@ import AlbumListItem from "./AlbumListItem.jsx";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import {Album} from "../../../models/Album.js";
 import {toast} from "react-toastify";
+import {Link} from "react-router-dom";
 
 
 const AlbumList = () => {
@@ -60,11 +61,15 @@ const AlbumList = () => {
         )}
 
         <div className="cards flex row-1@xs row-1-2@s row-1-4@m pdd-sm-wrapper">
-
-
           {albumsList && albumsList.map(album => {
             return <AlbumListItem key={album.url} album={album} handleRemoveAlbum={handleRemoveAlbum}/>
           })}
+        </div>
+
+        <div className="row row-1@xs">
+          <div className="pdd-md">
+            <Link to='/' className="btn col-1@xs col-1-3@m m-auto@m main">Создать альбом</Link>
+          </div>
         </div>
       </div>
 );

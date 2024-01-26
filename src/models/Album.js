@@ -25,7 +25,7 @@ export class Album {
     if (this.shelf_time === -1) {
       return 'Без срока'
     }
-    return this.getStorageDays() + ' ' + getNoun(this.shelf_time, 'день', 'дня', 'дней')
+    return this.getStorageDays() + ' ' + getNoun(this.getStorageDays(), 'день', 'дня', 'дней')
   }
 
   getCreatedDate() {

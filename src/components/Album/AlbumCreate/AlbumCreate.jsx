@@ -78,6 +78,7 @@ function AlbumCreate() {
 
   return (
       <div className="create-albom">
+        {!currentUser && (<p className="small bold text-grey">Для обеспечения максимальной  безопастности хранимых и  пересылаемых данных, мы просим предварительно зарегистрировать аккаунт, чтобы не потерять доступ до фотографий загруженных без создания  учетной записи</p>)}
         <Formik initialValues={initialValues} validationSchema={validation} onSubmit={submitHandler}>
           {({errors, isValid, setFieldValue, values, dirty}) => {
 
