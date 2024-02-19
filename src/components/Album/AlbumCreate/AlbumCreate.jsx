@@ -6,7 +6,14 @@ import {toast} from "react-toastify";
 import PeriodSelectField from "../../UI/PeriodSelectField/PeriodSelectField.jsx";
 import {AuthContext} from "../../../contexts/AuthProvider.jsx";
 import {RequestContext} from "../../../contexts/RequestProvider.jsx";
-import {ALBUM_CREATE, ALBUM_CREATE_ANON, ALBUM_FORM_TEXTAREA_LIMIT, DEFAULT_SHELF_DAYS_LIMIT, VALIDATION_DEFAULT_FILES_UPLOAD_LIMIT} from "../../../api/const.js";
+import {
+  ALBUM_CREATE,
+  ALBUM_CREATE_ANON,
+  ALBUM_FORM_NAME_LIMIT,
+  ALBUM_FORM_TEXTAREA_LIMIT,
+  DEFAULT_SHELF_DAYS_LIMIT,
+  VALIDATION_DEFAULT_FILES_UPLOAD_LIMIT
+} from "../../../api/const.js";
 import {Album} from "../../../models/Album.js";
 import DropZone from "../../UI/DropZone/DropZone.jsx";
 import AlbumSuccess from "./AlbumSuccess.jsx";
@@ -42,6 +49,7 @@ function AlbumCreate() {
   }
 
   const validation = object({
+    name: string().max(ALBUM_FORM_NAME_LIMIT, `Вы привысили лимит ${ALBUM_FORM_NAME_LIMIT} символов`),
     period: string().required('Обязательное поле'),
     description: string().max(ALBUM_FORM_TEXTAREA_LIMIT, `Вы привысили лимит ${ALBUM_FORM_TEXTAREA_LIMIT} символов`),
     files: array().max(filesLimit,`Вы можете загрузить не более ${filesLimit} файлов`)

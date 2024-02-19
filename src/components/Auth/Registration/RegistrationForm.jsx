@@ -3,7 +3,7 @@ import Links from "../../../pages/Auth/_parts/Links.jsx";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {Link} from "react-router-dom";
 import {bool, object, ref, string} from "yup";
-import {VALIDATION_MIN_PASSWORD_LENGTH} from "../../../api/const.js";
+import {REGISTRATION_USERNAME_LIMIT, VALIDATION_MIN_PASSWORD_LENGTH} from "../../../api/const.js";
 
 export const RegistrationForm = ({onSubmit}) => {
   const [showPassword, setShowPassword] = useState(false)
@@ -16,7 +16,7 @@ export const RegistrationForm = ({onSubmit}) => {
   }
 
   const validation = object({
-    username: string().required('Обязательное поле'),
+    username: string().required('Обязательное поле').max(REGISTRATION_USERNAME_LIMIT, `Вы привысили лимит ${REGISTRATION_USERNAME_LIMIT} символов`),
     password: string()
         .required('Обязательное поле').required('Обязательное поле')
         .min(VALIDATION_MIN_PASSWORD_LENGTH, `Не менее ${VALIDATION_MIN_PASSWORD_LENGTH} символов`)
