@@ -12,9 +12,7 @@ function Header() {
         <div className="container">
           <div className="row row_center row_sb h100">
             <div className="logo upp hide-sm">
-              <Link to='/' state={{fresh: true}}>
-                <span className="bolder">Soft</span><span className="light">Dropbox</span>
-              </Link>
+
             </div>
             <div className="menu row row_center">
               <Link to='/' state={{fresh: true}}>
